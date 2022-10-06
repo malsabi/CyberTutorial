@@ -1,0 +1,65 @@
+﻿@model LoginModel
+
+<div class="modal fade" id="LoginModal" tabindex="-1" aria-labelledby="LoginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-white bg-dark">
+            <div class="modal-header">
+                <h5 class="modal-title" id="LoginModalLabel">Log In</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form asp-controller="Home" asp-action="Authentication" class="needs-validation" method="post" id="LoginForm" novalidate>
+                    <div class="mb-3">
+                        <div class="toast login-toast-style w-100" role="alert" id="AuthenticationToast">
+                            <div class="toast-body">
+                                Incorrect username or password.
+                                <button type="button" class="btn-close float-end" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-group">
+                            <label asp-for="EmailAddress" for="email" class="form-label">Email Address</label>
+                            <input asp-for="EmailAddress" type="email" class="form-control bg-dark rounded-3 border-info text-white" id="email" aria-describedby="emailHelp" placeholder="Email Address" required>
+                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                            <span asp-validation-for="EmailAddress" class="text-danger invalid-feedback"></span>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="form-group">
+                            <label asp-for="Password" for="password" class="form-label">Password</label>
+                            <input asp-for="Password" type="password" class="form-control bg-dark rounded-3 border-info text-white" id="password" placeholder="Password" required>
+                            <span asp-validation-for="Password" class="text-danger invalid-feedback"></span>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-5">
+                        <div class="form-group">
+                            <label asp-for="AccountType" for="AccountTypeComboBox" class="form-label">Account Type</label>
+                            <select asp-for="AccountType" asp-items="Html.GetEnumSelectList<AccountType>()" class="form-select custom-selectform-arrow bg-dark text-white rounded-3 border-info" id="AccountTypeComboBox">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-5 d-grid justify-content-end">
+                        <button type="button" class="btn btn-lg btn-info text-dark rounded-3" id="LoginButton">
+                            Sign In
+                        </button>
+                    </div>
+                </form>
+                <div class="mb-1">
+                    <span class="text-secondary">No account? <a href="#RegisterModal" data-bs-toggle="modal" class="link-info">Create one!</a></span>
+                </div>
+                <div class="mb-1">
+                    <a href="" class="link-info">Can't access your account?</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Html.Hidden("RedirectToEmployee", Url.Action("Index", "Employee"));

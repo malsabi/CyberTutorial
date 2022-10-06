@@ -1,3 +1,6 @@
+using CyberTutorial.Application;
+using CyberTutorial.Infrastructure;
+
 namespace CyberTutorial.API
 {
     public class Program
@@ -5,31 +8,22 @@ namespace CyberTutorial.API
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
-            // Add services to the container.
-
-            builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-
-            var app = builder.Build();
-
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
             {
-                app.UseSwagger();
-                app.UseSwaggerUI();
+                builder.Services
+                    .AddPresentation()
+                    .AddApplication()
+                    .AddInfrastructure(builder.Configuration);
             }
 
-            app.UseHttpsRedirection();
-
-            app.UseAuthorization();
-
-
-            app.MapControllers();
-
-            app.Run();
+            var app = builder.Build();
+            {
+                app.UseExceptionHandler("/error");
+                app.UseAuthentication();
+                app.UseAuthorization();
+                app.UseHttpsRedirection();
+                app.MapControllers();
+                app.Run();
+            }
         }
     }
 }

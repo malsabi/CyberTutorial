@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>5f776887-0e52-4fec-a0d9-9d22b6a4b356</UserSecretsId>
     <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
@@ -127,6 +127,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Mapster" Version="7.3.0" />
+    <PackageReference Include="Mapster.DependencyInjection" Version="1.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.15.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CyberTutorial.Contracts\CyberTutorial.Contracts.csproj" />
   </ItemGroup>
 </Project>

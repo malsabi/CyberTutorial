@@ -3,13 +3,26 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CyberTutorial.API", "CyberTutorial.API\CyberTutorial.API.csproj", "{BCFD7533-F95D-4F25-B5E4-6441E97932CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CyberTutorial.API", "CyberTutorial.API\CyberTutorial.API.csproj", "{BCFD7533-F95D-4F25-B5E4-6441E97932CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CyberTutorial.WebApp", "CyberTutorial.WebApp\CyberTutorial.WebApp.csproj", "{A9190726-2DC1-44B8-A3D3-2B35AE9AC65B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CyberTutorial.WebApp", "CyberTutorial.WebApp\CyberTutorial.WebApp.csproj", "{A9190726-2DC1-44B8-A3D3-2B35AE9AC65B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CyberTutorail.CMS", "CyberTutorail.CMS\CyberTutorail.CMS.csproj", "{13DED5F3-9B04-4ADF-A6BE-122E3FC0420F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{B35E0C6F-BB20-46ED-AC56-3594CCED600C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CyberTutorial.Testing", "CyberTutorial.Testing\CyberTutorial.Testing.csproj", "{94A0CBFD-C3F5-4A86-81E7-1F8A2CECE03E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CyberTutorial.Application", "CyberTutorial.Application\CyberTutorial.Application.csproj", "{5836F982-BE65-46CC-ABCD-3A28335341B6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CyberTutorial.Domain", "CyberTutorial.Domain\CyberTutorial.Domain.csproj", "{DE0F5136-8756-4DEF-B6BD-AFD4E050E7CE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CyberTutorial.Infrastructure", "CyberTutorial.Infrastructure\CyberTutorial.Infrastructure.csproj", "{484B24C8-736E-4C75-A226-6AC90AD0E4CC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2DC63F44-0A81-40D5-9AF2-9FBA3D03DB41}"
+	ProjectSection(SolutionItems) = preProject
+		Docs.md = Docs.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{CEE7705D-6795-4BE9-BBA9-B56A5F4BF730}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CyberTutorial.Contracts", "CyberTutorial.Contracts\CyberTutorial.Contracts.csproj", "{AC0672C1-C7B8-4C36-96CA-F36E0942B084}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,17 +38,33 @@ Global
 		{A9190726-2DC1-44B8-A3D3-2B35AE9AC65B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9190726-2DC1-44B8-A3D3-2B35AE9AC65B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9190726-2DC1-44B8-A3D3-2B35AE9AC65B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{13DED5F3-9B04-4ADF-A6BE-122E3FC0420F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{13DED5F3-9B04-4ADF-A6BE-122E3FC0420F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{13DED5F3-9B04-4ADF-A6BE-122E3FC0420F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{13DED5F3-9B04-4ADF-A6BE-122E3FC0420F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{94A0CBFD-C3F5-4A86-81E7-1F8A2CECE03E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{94A0CBFD-C3F5-4A86-81E7-1F8A2CECE03E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{94A0CBFD-C3F5-4A86-81E7-1F8A2CECE03E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{94A0CBFD-C3F5-4A86-81E7-1F8A2CECE03E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5836F982-BE65-46CC-ABCD-3A28335341B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5836F982-BE65-46CC-ABCD-3A28335341B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5836F982-BE65-46CC-ABCD-3A28335341B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5836F982-BE65-46CC-ABCD-3A28335341B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE0F5136-8756-4DEF-B6BD-AFD4E050E7CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE0F5136-8756-4DEF-B6BD-AFD4E050E7CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE0F5136-8756-4DEF-B6BD-AFD4E050E7CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE0F5136-8756-4DEF-B6BD-AFD4E050E7CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{484B24C8-736E-4C75-A226-6AC90AD0E4CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{484B24C8-736E-4C75-A226-6AC90AD0E4CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{484B24C8-736E-4C75-A226-6AC90AD0E4CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{484B24C8-736E-4C75-A226-6AC90AD0E4CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC0672C1-C7B8-4C36-96CA-F36E0942B084}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC0672C1-C7B8-4C36-96CA-F36E0942B084}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC0672C1-C7B8-4C36-96CA-F36E0942B084}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC0672C1-C7B8-4C36-96CA-F36E0942B084}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BCFD7533-F95D-4F25-B5E4-6441E97932CA} = {B35E0C6F-BB20-46ED-AC56-3594CCED600C}
+		{A9190726-2DC1-44B8-A3D3-2B35AE9AC65B} = {B35E0C6F-BB20-46ED-AC56-3594CCED600C}
+		{5836F982-BE65-46CC-ABCD-3A28335341B6} = {CEE7705D-6795-4BE9-BBA9-B56A5F4BF730}
+		{DE0F5136-8756-4DEF-B6BD-AFD4E050E7CE} = {CEE7705D-6795-4BE9-BBA9-B56A5F4BF730}
+		{484B24C8-736E-4C75-A226-6AC90AD0E4CC} = {CEE7705D-6795-4BE9-BBA9-B56A5F4BF730}
+		{AC0672C1-C7B8-4C36-96CA-F36E0942B084} = {CEE7705D-6795-4BE9-BBA9-B56A5F4BF730}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {76D8A317-B73E-46B1-B12B-CDA903BF5C8D}

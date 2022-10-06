@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CyberTutorial.WebApp.Controllers.BaseControllers;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CyberTutorial.WebApp.Controllers
 {
-    public class ContactController : Controller
+    public class ContactController : BaseController<ContactController>
     {
         public IActionResult Index()
         {
