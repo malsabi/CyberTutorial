@@ -1,4 +1,4 @@
-Client (Person) Makes a company registeration request to the (WebApp).
+Client (Person) Makes a company Registration request to the (WebApp).
 
 The (WebApp) sends a request to the (API) to create a new company.
 

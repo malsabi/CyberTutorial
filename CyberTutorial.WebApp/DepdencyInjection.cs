@@ -8,13 +8,16 @@ namespace CyberTutorial.WebApp
     {
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddControllersWithViews()
+                .AddJsonOptions(opts => opts.JsonSerializerOptions.PropertyNamingPolicy = null);
+            services.AddHttpContextAccessor();
+            services.AddMappings();
             services.AddSingleton<IApiConfigService, ApiConfigService>();
             services.AddSingleton<IClientApiService, ClientApiService>();
             services.AddSingleton<ISerializationService, SerializationService>();
             services.AddSingleton<ICookieService, CookieService>();
-            services.AddSingleton<IIdentityService, IdentityService>();
-            services.AddMappings();
+            services.AddSingleton<ICryptographyService, CryptographyService>();
+            services.AddScoped<IIdentityService, IdentityService>();
             return services;
         }
     }

@@ -70,16 +70,12 @@ hr {
     display: flex;
 }
 
-.feature-background {
-    background: linear-gradient(-20deg, #b721ff 0%, #21d4fd 100%);
-}
-
 .card-title-style {
     text-decoration: underline;
     text-underline-offset: 10px;
 }
 
-.login-toast-style {
+.error-toast-style {
     background-color: #FEDCE0 !important;
     color: #841A21 !important;
 }
@@ -87,18 +83,78 @@ hr {
 .custom-selectform-arrow {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='white' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e") !important;
     background-size: 26px 26px !important;
+    background-repeat: no-repeat;
 }
 
-.nav-link {
-    color: gray;
-    background-color: transparent !important;
+/* Start: Employee Styling */
+.em-page {
+    position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
-.nav-link:hover {
-    color: white;
+.em-main {
+    flex: 1;
 }
 
-.nav-link.active {
-    color: #0DCAF0 !important;
-    background-color: transparent !important;
+.em-sidebar {
+    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
 }
+
+.em-top-row {
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #d6d5d5;
+    justify-content: flex-end;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.top-row a, .top-row .btn-link {
+    white-space: nowrap;
+    margin-left: 1.5rem;
+}
+
+.top-row a:first-child {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media (max-width: 640.98px) {
+    .top-row:not(.auth) {
+        display: none;
+    }
+
+    .top-row.auth {
+        justify-content: space-between;
+    }
+
+    .top-row a, .top-row .btn-link {
+        margin-left: 0;
+    }
+}
+
+@media (min-width: 641px) {
+    .page {
+        flex-direction: row;
+    }
+
+    .sidebar {
+        width: 250px;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+    }
+
+    .top-row {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+    .top-row, article {
+        padding-left: 2rem !important;
+        padding-right: 1.5rem !important;
+    }
+}
+/* End: Employee Styling */

@@ -1,4 +1,4 @@
-﻿namespace CyberTutorial.Contracts.Registeration.Request
+﻿namespace CyberTutorial.Contracts.Registration.Request
 {
     public record RegisterCompanyRequest
     {
@@ -13,7 +13,6 @@
         public string Region { get; set; }
         public string StreetAddress { get; set; }
         public string Website { get; set; }
-        public string CompanyDescription { get; set; }
         public string Password { get; set; }
     }
 }

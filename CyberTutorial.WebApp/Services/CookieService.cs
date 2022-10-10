@@ -1,51 +1,80 @@
 ﻿using CyberTutorial.WebApp.Common.Consts;
 using CyberTutorial.WebApp.Common.Interfaces.Services;
-using Microsoft.AspNetCore.Mvc;
 
 namespace CyberTutorial.WebApp.Services
 {
     public class CookieService : ICookieService
     {
+        private readonly IHttpContextAccessor httpContextAccessor;
         private readonly ISerializationService serializationService;
+        private readonly ICryptographyService cryptographyService;
 
-        private Controller controller;
-
-        public CookieService(ISerializationService serializationService)
+        public CookieService(IHttpContextAccessor httpContextAccessor, ISerializationService serializationService, ICryptographyService cryptographyService)
         {
+            this.httpContextAccessor = httpContextAccessor;
             this.serializationService = serializationService;
-        }
-
-        public void SetController(Controller controller)
-        {
-            this.controller = controller;
+            this.cryptographyService = cryptographyService;
         }
 
         public T Get<T>(string key)
         {
-            if (controller != null)
+            if (httpContextAccessor.HttpContext != null)
             {
-                string value = controller.Request.Cookies[key];
+                string value = httpContextAccessor.HttpContext.Request.Cookies[key];
                 if (value != null)
                 {
                     return serializationService.Deserialize<T>(value);
                 }
             }
-            return default; 
+            return default;
+        }
+
+        public T GetDecrypted<T>(string key)
+        {
+            if (httpContextAccessor.HttpContext != null)
+            {
+                string value = httpContextAccessor.HttpContext.Request.Cookies[key];
+                if (value != null)
+                {
+                    string decryptedValue = cryptographyService.Decrypt(value);
+                    if (string.IsNullOrEmpty(decryptedValue))
+                    {
+                        return default;
+                    }
+                    return serializationService.Deserialize<T>(decryptedValue);
+                }
+            }
+            return default;
         }
 
         public void Remove(string key)
         {
-            if (controller != null)
+            if (httpContextAccessor.HttpContext != null)
             {
-                controller.Response.Cookies.Delete(key);
+                httpContextAccessor.HttpContext.Response.Cookies.Delete(key);
             }
         }
 
         public void Set<T>(string key, T value)
         {
-            if (controller != null)
+            if (httpContextAccessor.HttpContext != null)
             {
-                controller.Response.Cookies.Append(key, serializationService.Serialize(value), new CookieOptions()
+                httpContextAccessor.HttpContext.Response.Cookies.Append(key, serializationService.Serialize(value), new CookieOptions()
+                {
+                    Expires = DateTime.Now.AddDays(AppConsts.CookieExpirationDays),
+                    HttpOnly = false,
+                    IsEssential = true
+                });
+            }
+        }
+
+        public void SetEncrypted<T>(string key, T value)
+        {
+            if (httpContextAccessor.HttpContext != null)
+            {
+                string jsonContent = serializationService.Serialize(value);
+                string encryptedValue = cryptographyService.Encrypt(jsonContent);
+                httpContextAccessor.HttpContext.Response.Cookies.Append(key, encryptedValue, new CookieOptions()
                 {
                     Expires = DateTime.Now.AddDays(AppConsts.CookieExpirationDays),
                     HttpOnly = false,

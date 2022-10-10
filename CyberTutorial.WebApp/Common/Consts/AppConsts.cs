@@ -13,5 +13,10 @@
         public const string CompanyCookieId = "COMPANY_COOKIE";
         public const string EmployeeCookieId = "EMPLOYEE_COOKIE";
         #endregion
+
+        #region "SERVICES"
+        public const string AESKey = "AES:Key";
+        public const string AESInitializationVector = "AES:InitializationVector";
+        #endregion
     }
 }

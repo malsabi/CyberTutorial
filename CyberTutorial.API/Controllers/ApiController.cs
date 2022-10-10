@@ -1,7 +1,6 @@
 ﻿using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using CyberTutorial.API.Common.Http;
 
 namespace CyberTutorial.API.Controllers
@@ -16,25 +15,8 @@ namespace CyberTutorial.API.Controllers
             {
                 return Problem();
             }
-
             HttpContext.Items[HttpContextItemKeys.Errors] = errors;
-
-            if (errors.All(error => error.Type == ErrorType.Validation))
-            {
-                return ValidationProblem(errors);
-            }
-
             return Problem(errors[0]);
-        }
-
-        private IActionResult ValidationProblem(List<Error> errors)
-        {
-            ModelStateDictionary modelStateDictionary = new ModelStateDictionary();
-            foreach (Error error in errors)
-            {
-                modelStateDictionary.AddModelError(error.Code, error.Description);
-            }
-            return ValidationProblem(modelStateDictionary);
         }
 
         private IActionResult Problem(Error error)
@@ -56,7 +38,7 @@ namespace CyberTutorial.API.Controllers
                     statusCode = StatusCodes.Status500InternalServerError;
                     break;
             }
-            return Problem(statusCode: statusCode, title: error.Description);
+            return Problem(statusCode: statusCode, title: error.Description, type: error.Type.ToString());
         }
     }
 }

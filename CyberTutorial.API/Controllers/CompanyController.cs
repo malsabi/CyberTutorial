@@ -2,13 +2,15 @@
 using MediatR;
 using MapsterMapper;
 using CyberTutorial.Application.Companies.Common;
-using CyberTutorial.Application.Companies.Commands.DeleteCompany;
+using CyberTutorial.Contracts.Company.Request.Logout;
+using CyberTutorial.Application.Companies.Commands.Logout;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 
 namespace CyberTutorial.API.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize(Roles = "Company")]
     public class CompanyController : ApiController
     {
         private readonly ISender sender;
@@ -20,18 +22,14 @@ namespace CyberTutorial.API.Controllers
             this.mapper = mapper;
         }
 
-        [HttpPost]
-        [Route("Delete")]
-        [AllowAnonymous]
-        public async Task<IActionResult> Delete(string id)
+        [HttpPost("Logout")]
+        public async Task<IActionResult> Logout(LogoutRequest request)
         {
-            DeleteCompanyCommand command = new DeleteCompanyCommand() {  Id = id };
-            ErrorOr<DeleteCompanyResult> result = await sender.Send(command);
-
-            return result.Match
-            (
-                (registerCompanyResult) => Ok(registerCompanyResult),
-                (errors) => Problem(errors)
+            LogoutCompanyCommand command = mapper.Map<LogoutCompanyCommand>(request);
+            ErrorOr<LogoutResult> result = await sender.Send(command);
+            return result.Match(
+                success => Ok(success),
+                error => Problem(error)
             );
         }
     }

@@ -24,8 +24,8 @@ namespace CyberTutorial.API.Controllers
             this.mapper = mapper;
         }
         
-        [HttpPost]
-        public async Task<IActionResult> Index(LoginRequest request)
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login(LoginRequest request)
         {
             if (request.AccountType.Equals(AccountType.Company))
             {
@@ -50,5 +50,7 @@ namespace CyberTutorial.API.Controllers
                 );
             }
         }
+
+       
     }
 }

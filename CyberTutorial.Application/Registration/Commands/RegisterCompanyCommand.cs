@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using ErrorOr;
-using CyberTutorial.Application.Registeration.Common;
+using CyberTutorial.Application.Registration.Common;
 
-namespace CyberTutorial.Application.Registeration.Commands
+namespace CyberTutorial.Application.Registration.Commands
 {
     public class RegisterCompanyCommand : IRequest<ErrorOr<RegisterResult>>
     {

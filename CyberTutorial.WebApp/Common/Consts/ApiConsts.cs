@@ -8,11 +8,17 @@
         #endregion
 
         #region "Authorization & Authentication"
-        public const string Scheme = "Scheme";
+        public const string Scheme = "Bearer";
         #endregion
 
         #region "Api Endpoints"
-        public const string Authentication = "/Auth";
+        //Anonymous
+        public const string Login = "/Auth/Login";
+        public const string RegisterCompany = "api/Register/Company";
+        public const string RegisterEmployee = "/api/Register/Employee";
+        //Authorization
+        public const string LogoutCompany = "/api/Company/Logout";
+        public const string LogoutEmployee = "/api/Employee/Logout";
         #endregion
     }
 }

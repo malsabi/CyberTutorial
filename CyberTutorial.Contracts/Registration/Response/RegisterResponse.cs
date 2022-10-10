@@ -1,4 +1,4 @@
-﻿namespace CyberTutorial.Contracts.Registeration.Response
+﻿namespace CyberTutorial.Contracts.Registration.Response
 {
     public class RegisterResponse
     {

@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CyberTutorial.API.Controllers
 {
-    public class ErrorsController : ControllerBase
+    [AllowAnonymous]
+    public class ErrorsController : ApiController
     {
-        [Route("/error")]
+        [HttpGet("/error")]
         public IActionResult Error()
         {
             return Problem();

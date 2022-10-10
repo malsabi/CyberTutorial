@@ -15,6 +15,16 @@ namespace CyberTutorial.Domain.Common.Errors
                 code: "Employee.NotFound",
                 description: "Employee with given id does not exist."
             );
+
+            public static Error SessionNotFound => Error.NotFound(
+              code: "Employee.SessionNotFound",
+              description: "Employee session with given session Id does not exist."
+          );
+
+            public static Error InvalidSessionToken => Error.Validation(
+                code: "Employee.InvalidSessionToken",
+                description: "Employee token is invalid."
+            );
         }
     }
 }

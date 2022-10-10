@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace CyberTutorial.Application.Registeration.Commands
+namespace CyberTutorial.Application.Registration.Commands
 {
     public class RegisterCompanyCommandValidator : AbstractValidator<RegisterCompanyCommand>
     {
@@ -9,7 +9,7 @@ namespace CyberTutorial.Application.Registeration.Commands
             RuleFor(command => command.CompanyName)
                 .NotEmpty()
                 .MinimumLength(3)
-                .MaximumLength(50);
+                .MaximumLength(200);
 
             RuleFor(command => command.OwnerFirstName)
                 .NotEmpty()
@@ -49,15 +49,11 @@ namespace CyberTutorial.Application.Registeration.Commands
             RuleFor(command => command.StreetAddress)
                 .NotEmpty()
                 .MinimumLength(3)
-                .MaximumLength(50);
+                .MaximumLength(200);
 
             RuleFor(command => command.Website)
                 .NotEmpty()
                 .Must(uri => Uri.TryCreate(uri, UriKind.Absolute, out _));
-
-            RuleFor(command => command.CompanyDescription)
-                .NotEmpty()
-                .MaximumLength(500);
 
             RuleFor(command => command.Password)
                 .NotEmpty()

@@ -27,6 +27,7 @@ namespace CyberTutorial.Infrastructure.Authentication
                 new Claim(ClaimTypes.Sid, employee.Id),
                 new Claim(ClaimTypes.Surname, employee.FirstName),
                 new Claim(ClaimTypes.GivenName, employee.LastName),
+                new Claim(ClaimTypes.Thumbprint, employee.CompanyId),
                 new Claim(ClaimTypes.Role, "Employee")
             };
             return GenerateToken(claims);

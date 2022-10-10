@@ -3,11 +3,11 @@ using MediatR;
 using MapsterMapper;
 using CyberTutorial.Domain.Entities;
 using CyberTutorial.Domain.Common.Errors;
+using CyberTutorial.Application.Registration.Common;
 using CyberTutorial.Application.Common.Interfaces.Services;
 using CyberTutorial.Application.Common.Interfaces.Persistence.Repositories;
-using CyberTutorial.Application.Registeration.Common;
 
-namespace CyberTutorial.Application.Registeration.Commands
+namespace CyberTutorial.Application.Registration.Commands
 {
     public class RegisterEmployeeCommandHandler : IRequestHandler<RegisterEmployeeCommand, ErrorOr<RegisterResult>>
     {
@@ -48,7 +48,7 @@ namespace CyberTutorial.Application.Registeration.Commands
 
             return new RegisterResult
             {
-                Id = string.Format("{0}-{1}", employeeToRegister.Id, employeeToRegister.CompanyId)
+                Id = string.Format("{0}.{1}", employeeToRegister.Id, employeeToRegister.CompanyId)
             };
         }
     }

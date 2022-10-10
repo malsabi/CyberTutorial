@@ -8,9 +8,9 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form asp-controller="Home" asp-action="Authentication" class="needs-validation" method="post" id="LoginForm" novalidate>
+                <form asp-controller="Home" asp-action="Authentication" method="post" id="LoginForm" novalidate>
                     <div class="mb-3">
-                        <div class="toast login-toast-style w-100" role="alert" id="AuthenticationToast">
+                        <div class="toast error-toast-style w-100" role="alert" id="AuthenticationToast">
                             <div class="toast-body">
                                 Incorrect username or password.
                                 <button type="button" class="btn-close float-end" data-bs-dismiss="toast" aria-label="Close"></button>
@@ -20,9 +20,9 @@
                     <div class="mb-3">
                         <div class="form-group">
                             <label asp-for="EmailAddress" for="email" class="form-label">Email Address</label>
-                            <input asp-for="EmailAddress" type="email" class="form-control bg-dark rounded-3 border-info text-white" id="email" aria-describedby="emailHelp" placeholder="Email Address" required>
+                            <input asp-for="EmailAddress" type="email" class="form-control bg-dark rounded-3 border-info text-white" id="email" aria-describedby="emailHelp" placeholder="Email Address">
                             <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-                            <span asp-validation-for="EmailAddress" class="text-danger invalid-feedback"></span>
+                            <span asp-validation-for="EmailAddress" class="text-danger"></span>
                             <div class="valid-feedback">
                                 Looks good!
                             </div>
@@ -32,8 +32,8 @@
                     <div class="mb-3">
                         <div class="form-group">
                             <label asp-for="Password" for="password" class="form-label">Password</label>
-                            <input asp-for="Password" type="password" class="form-control bg-dark rounded-3 border-info text-white" id="password" placeholder="Password" required>
-                            <span asp-validation-for="Password" class="text-danger invalid-feedback"></span>
+                            <input asp-for="Password" type="password" class="form-control bg-dark rounded-3 border-info text-white" id="password" placeholder="Password">
+                            <span asp-validation-for="Password" class="text-danger"></span>
                             <div class="valid-feedback">
                                 Looks good!
                             </div>
@@ -46,7 +46,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="mb-5 d-grid justify-content-end">
+                    <div class="mb-5 d-grid justify-content-start">
                         <button type="button" class="btn btn-lg btn-info text-dark rounded-3" id="LoginButton">
                             Sign In
                         </button>
@@ -62,4 +62,6 @@
         </div>
     </div>
 </div>
+
 @Html.Hidden("RedirectToEmployee", Url.Action("Index", "Employee"));
+@Html.Hidden("RedirectToCompany", Url.Action("Index", "Company"));

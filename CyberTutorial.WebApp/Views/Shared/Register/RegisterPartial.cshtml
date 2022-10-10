@@ -1,28 +1,32 @@
 ﻿@model RegisterModel
-
 <div class="modal fade" id="RegisterModal" tabindex="-1" aria-labelledby="RegisterModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content text-white bg-dark">
             <div class="modal-header">
-                <h5 class="modal-title" id="RegisterModalLabel">Registeration</h5>
+                <h5 class="modal-title" id="RegisterModalLabel">Create Account</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Company</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Employee</button>
-                    </li>
-                </ul>
-                <div class="tab-content" id="pills-tabContent">
-                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                        <partial name="~/Views/Shared/Register/RegisterCompanyPartial.cshtml" model="Model.RegisterCompanyModel" />
+                <div class="mb-5">
+                    <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="pills-company-tab" data-bs-toggle="pill" data-bs-target="#pills-company" type="button" role="tab" aria-controls="pills-company" aria-selected="true">Company</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-employee-tab" data-bs-toggle="pill" data-bs-target="#pills-employee" type="button" role="tab" aria-controls="pills-employee" aria-selected="false">Employee</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="pills-company" role="tabpanel" aria-labelledby="pills-company-tab">
+                            <partial name="~/Views/Shared/Register/RegisterCompanyPartial.cshtml" model="Model" />
+                        </div>
+                        <div class="tab-pane fade" id="pills-employee" role="tabpanel" aria-labelledby="pills-employee-tab">
+                            <partial name="~/Views/Shared/Register/RegisterEmployeePartial.cshtml" model="Model" />
+                        </div>
                     </div>
-                    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                        <partial name="~/Views/Shared/Register/RegisterEmployeePartial.cshtml" model="Model.RegisterEmployeeModel" />
-                    </div>
+                </div>
+                <div class="mb-1">
+                    <span class="text-secondary">Back to <a href="#LoginModal" data-bs-toggle="modal" class="link-info">Sign In</a></span>
                 </div>
             </div>
         </div>

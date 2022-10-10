@@ -1,5 +1,7 @@
 using CyberTutorial.Application;
 using CyberTutorial.Infrastructure;
+using CyberTutorial.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace CyberTutorial.API
 {
@@ -17,6 +19,18 @@ namespace CyberTutorial.API
 
             var app = builder.Build();
             {
+                if (app.Environment.IsDevelopment())
+                {
+                    app.UseSwagger();
+                    app.UseSwaggerUI();
+                }
+                
+                using (IServiceScope scope = app.Services.CreateScope())
+                {
+                    ApplicationDbContext context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                    context.Database.Migrate();
+                }
+
                 app.UseExceptionHandler("/error");
                 app.UseAuthentication();
                 app.UseAuthorization();

@@ -15,6 +15,16 @@ namespace CyberTutorial.Domain.Common.Errors
                 code: "Company.NotFound",
                 description: "Company with given id does not exist."
             );
+
+            public static Error SessionNotFound => Error.NotFound(
+                code: "Company.SessionNotFound",
+                description: "Company session with given session Id does not exist."
+            );
+
+            public static Error InvalidSessionToken => Error.Validation(
+                code: "Company.InvalidSessionToken",
+                description: "Company token is invalid."
+            );
         }
     }
 }

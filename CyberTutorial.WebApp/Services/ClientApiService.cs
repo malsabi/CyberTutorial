@@ -1,40 +1,45 @@
-﻿using System.Net.Http.Headers;
+﻿using ErrorOr;
+using System.Text.Json;
+using System.Net.Http.Headers;
+using CyberTutorial.Contracts.Errors;
 using CyberTutorial.WebApp.Common.Consts;
 using CyberTutorial.WebApp.Common.Interfaces.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CyberTutorial.WebApp.Services
 {
     public class ClientApiService : IClientApiService
     {
-        public IApiConfigService ApiConfigService { get; }
-        
+        private readonly IApiConfigService apiConfigService;
+
         public ClientApiService(IApiConfigService apiConfigService)
         {
-            ApiConfigService = apiConfigService;
+            this.apiConfigService = apiConfigService;
         }
        
-        public Task<TResponse> GetAsync<TResponse>(string endpoint, string token = "")
+        public async Task<ErrorOr<TResponse>> GetAsync<TResponse>(string endpoint, string token = "")
         {
             try
             {
                 using (HttpClient client = new HttpClient())
                 {
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     if (!string.IsNullOrEmpty(token))
                     {
                         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(ApiConsts.Scheme, token);
                     }
-                    
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    client.BaseAddress = new Uri(ApiConfigService.GetApiEndPoint());
+                    client.BaseAddress = new Uri(apiConfigService.GetApiEndPoint());
 
                     HttpResponseMessage response = client.GetAsync(endpoint).Result;
                     if (response.IsSuccessStatusCode)
                     {
-                        return response.Content.ReadFromJsonAsync<TResponse>();
+                        return await response.Content.ReadFromJsonAsync<TResponse>();
                     }
                     else
                     {
-                        throw new Exception(response.ReasonPhrase);
+                        ProblemDetails problemDetails = await response.Content.ReadFromJsonAsync<ProblemDetails>();
+                        return GetErrors(problemDetails);
                     }
                 }
             }
@@ -44,36 +49,43 @@ namespace CyberTutorial.WebApp.Services
             }
         }
 
-        public async Task<TResponse> PostAsync<TRequest, TResponse>(TRequest data, string endpoint, string token = "")
+        public async Task<ErrorOr<TResponse>> PostAsync<TRequest, TResponse>(TRequest data, string endpoint, string token = "")
         {
             try
             {
                 using (HttpClient client = new HttpClient())
                 {
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     if (!string.IsNullOrEmpty(token))
                     {
                         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(ApiConsts.Scheme, token);
                     }
+                    client.BaseAddress = new Uri(apiConfigService.GetApiEndPoint());
 
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    client.BaseAddress = new Uri(ApiConfigService.GetApiEndPoint());
+                    HttpResponseMessage response = await client.PostAsJsonAsync(endpoint, data);
 
-                    HttpResponseMessage responseMessage = await client.PostAsJsonAsync(endpoint, data);
-
-                    if (responseMessage.IsSuccessStatusCode)
+                    if (response.IsSuccessStatusCode)
                     {
-                        return await responseMessage.Content.ReadFromJsonAsync<TResponse>();
+                        return await response.Content.ReadFromJsonAsync<TResponse>();
                     }
                     else
                     {
-                        return default;
+                        ProblemDetails problemDetails = await response.Content.ReadFromJsonAsync<ProblemDetails>();
+                        return GetErrors(problemDetails);
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                return default;
+                return Error.Failure();
             }
+        }
+
+        private List<Error> GetErrors(ProblemDetails problemDetails)
+        {
+            List<ErrorWrapper> errorWrappers = ((JsonElement)problemDetails.Extensions["errors"]).Deserialize<List<ErrorWrapper>>();
+            return ErrorWrapper.Convert(errorWrappers);
         }
     }
 }

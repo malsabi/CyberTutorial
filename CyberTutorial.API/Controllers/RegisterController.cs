@@ -1,9 +1,9 @@
 ﻿using ErrorOr;
 using MediatR;
 using MapsterMapper;
-using CyberTutorial.Contracts.Registeration.Request;
-using CyberTutorial.Application.Registeration.Common;
-using CyberTutorial.Application.Registeration.Commands;
+using CyberTutorial.Contracts.Registration.Request;
+using CyberTutorial.Application.Registration.Common;
+using CyberTutorial.Application.Registration.Commands;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 

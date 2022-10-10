@@ -1,4 +1,7 @@
-﻿namespace CyberTutorial.WebApp.Models
+﻿using CyberTutorial.WebApp.Models;
+using System.ComponentModel.DataAnnotations;
+
+namespace CyberTutorial.WebApp.ViewModels
 {
     public class RegisterModel
     {

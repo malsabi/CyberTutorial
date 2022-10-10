@@ -1,14 +1,11 @@
 ﻿using FluentValidation;
 
-namespace CyberTutorial.Application.Registeration.Commands
+namespace CyberTutorial.Application.Registration.Commands
 {
     public class RegisterEmployeeCommandValidator : AbstractValidator<RegisterEmployeeCommand>
     {
         public RegisterEmployeeCommandValidator()
         {
-            RuleFor(command => command.Id)
-                .NotEmpty();
-
             RuleFor(command => command.CompanyId)
                .NotEmpty();
 
@@ -23,6 +20,9 @@ namespace CyberTutorial.Application.Registeration.Commands
                 .MaximumLength(50);
 
             RuleFor(command => command.Gender)
+                .NotEmpty();
+
+            RuleFor(command => command.DateOfBirth)
                 .NotEmpty();
 
             RuleFor(command => command.PhoneNumber)

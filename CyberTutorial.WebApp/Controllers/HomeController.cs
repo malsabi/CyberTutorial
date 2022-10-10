@@ -1,10 +1,7 @@
 ﻿using System.Diagnostics;
+using System.ComponentModel.DataAnnotations;
 using CyberTutorial.WebApp.Models;
-using CyberTutorial.Contracts.Enums;
 using CyberTutorial.WebApp.ViewModels;
-using CyberTutorial.WebApp.Common.Consts;
-using CyberTutorial.Contracts.Authentication.Request;
-using CyberTutorial.Contracts.Authentication.Response;
 using CyberTutorial.WebApp.Controllers.BaseControllers;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,12 +11,17 @@ namespace CyberTutorial.WebApp.Controllers
     {
         public IActionResult Index()
         {
-            HomeViewModel viewModel = new HomeViewModel();
-            if (IdentityService.IsEmployeeLoggedIn())
-            {
-                return RedirectToAction("Index", "Employee");
-            }
-            return View(viewModel);
+            //HomeViewModel viewModel = new HomeViewModel();
+            //if (IdentityService.IsCompanyLoggedIn())
+            //{
+            //    return RedirectToAction("Index", "Company");
+            //}
+            //else if (IdentityService.IsEmployeeLoggedIn())
+            //{
+            //    return RedirectToAction("Index", "Employee");
+            //}
+            //return View(viewModel);
+            return RedirectToAction("Index", "Employee");
         }
 
         public async Task<ActionResult> Authentication(LoginModel loginModel)
@@ -28,26 +30,28 @@ namespace CyberTutorial.WebApp.Controllers
             {
                 return Json(new { Validation = "Login form is invalid." });
             }
-            
-            LoginRequest request = Mapper.Map<LoginRequest>(loginModel);
+            return Json(await IdentityService.AuthenticateAsync(loginModel));
+        }
 
-            LoginResponse response = await ClientApiService.PostAsync<LoginRequest, LoginResponse>(request, ApiConsts.Authentication);
+        public async Task<ActionResult> Register(RegisterModel registerModel)
+        {
+            ValidationContext companyValidationContext = new ValidationContext(registerModel.RegisterCompanyModel);
+            bool isCompanyValid = Validator.TryValidateObject(registerModel.RegisterCompanyModel, companyValidationContext, null, true);
 
-            if (response == null)
+            if (isCompanyValid)
             {
-                return Json(new { Error = "Invalid Credentials." });
+                return Json(await IdentityService.RegisterCompanyAsync(registerModel.RegisterCompanyModel));
             }
 
-            if (loginModel.AccountType.Equals(AccountType.Company))
+            ValidationContext employeeValidationContext = new ValidationContext(registerModel.RegisterEmployeeModel);
+            bool isEmployeeValid = Validator.TryValidateObject(registerModel.RegisterEmployeeModel, employeeValidationContext, null, true);
+
+            if (isEmployeeValid)
             {
-                CookieService.Set(AppConsts.CompanyCookieId, response);
-            }
-            else
-            {
-                CookieService.Set(AppConsts.EmployeeCookieId, response);
+                return Json(await IdentityService.RegisterEmployeeAsync(registerModel.RegisterEmployeeModel));
             }
 
-            return Json(new { Success = "Login Successful." });
+            return Json(new { Validation = "Register form is invalid." });
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

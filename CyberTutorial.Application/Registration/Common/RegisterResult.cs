@@ -1,4 +1,4 @@
-﻿namespace CyberTutorial.Application.Registeration.Common
+﻿namespace CyberTutorial.Application.Registration.Common
 {
     public class RegisterResult
     {

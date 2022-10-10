@@ -3,12 +3,12 @@ using MediatR;
 using MapsterMapper;
 using CyberTutorial.Domain.Entities;
 using CyberTutorial.Domain.Common.Errors;
+using CyberTutorial.Application.Registration.Common;
 using CyberTutorial.Application.Common.Interfaces.Services;
 using CyberTutorial.Application.Common.Interfaces.Authentication;
 using CyberTutorial.Application.Common.Interfaces.Persistence.Repositories;
-using CyberTutorial.Application.Registeration.Common;
 
-namespace CyberTutorial.Application.Registeration.Commands
+namespace CyberTutorial.Application.Registration.Commands
 {
     public class RegisterCompanyCommandHandler : IRequestHandler<RegisterCompanyCommand, ErrorOr<RegisterResult>>
     {

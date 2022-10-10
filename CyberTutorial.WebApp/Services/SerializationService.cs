@@ -21,7 +21,7 @@ namespace CyberTutorial.WebApp.Services
         {
             try
             {
-                return JsonSerializer.Deserialize<T>(json);
+                return JsonSerializer.Deserialize<T>(json, new JsonSerializerOptions() {});
             }
             catch
             {
