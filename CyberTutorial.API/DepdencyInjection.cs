@@ -12,16 +12,33 @@ namespace CyberTutorial.API
         {
             services.AddControllers().AddJsonOptions(opts => opts.JsonSerializerOptions.PropertyNamingPolicy = null);
             services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen(opts =>
+            services.AddSwaggerGen(config =>
             {
-                opts.AddSecurityDefinition("Outh2", new OpenApiSecurityScheme
+                ////Name the security scheme
+                config.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
-                    Description = "Standard Authorization header using the Bearer scheme. Example: \"bearer {token}\"",
-                    In = ParameterLocation.Header,
+                    Description = "JWT Authorization",
                     Name = "Authorization",
-                    Type = SecuritySchemeType.ApiKey
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "bearer",
+                    BearerFormat = "JWT"
                 });
-                opts.OperationFilter<SecurityRequirementsOperationFilter>();
+                config.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                    {
+                        {
+                            new OpenApiSecurityScheme
+                            {
+                                Reference = new OpenApiReference
+                                {
+                                    Type = ReferenceType.SecurityScheme,
+                                    Id = "Bearer"
+                                }
+
+                            },
+                            new List<string>()
+                        }
+                    });
             });
             services.AddSingleton<ProblemDetailsFactory, CustomProblemDetailsFactory>();
             services.AddMappings();

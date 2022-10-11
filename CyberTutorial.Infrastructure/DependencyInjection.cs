@@ -22,7 +22,7 @@ namespace CyberTutorial.Infrastructure
             services.AddAuth(configuration);
             
             services.AddDbContext<ApplicationDbContext>(
-                o => o.UseSqlServer(configuration.GetConnectionString("LocalConnection"), 
+                o => o.UseSqlServer(configuration.GetConnectionString("DB_CONNECTION_STRING"), 
                 builder => builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());

@@ -19,12 +19,9 @@ namespace CyberTutorial.API
 
             var app = builder.Build();
             {
-                if (app.Environment.IsDevelopment())
-                {
-                    app.UseSwagger();
-                    app.UseSwaggerUI();
-                }
-                
+                app.UseSwagger();
+                app.UseSwaggerUI();
+
                 using (IServiceScope scope = app.Services.CreateScope())
                 {
                     ApplicationDbContext context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
