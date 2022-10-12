@@ -324,7 +324,14 @@ function HandleEmployeeLogout()
 $(document).ready(function ()
 {
     $(".data-table").each(function (_, table) {
-        $(table).DataTable();
+        $(table).dataTable({
+            "searching": false,
+            "columns.searchable": false,
+            "paging": true,
+            "ordering": false,
+            "info": false,
+            "dom": 'frtip'
+        });
     });
     HandleModalEventHandlers();
     AnimateCounters();
@@ -335,43 +342,70 @@ $(document).ready(function ()
     HandleEmployeeLogout();
 });
 
+
+Chart.register(ChartDataLabels);
+Chart.defaults.color = "#FFFFFF";
+Chart.defaults.borderColor = '#FFFFFF';
+
 const charts = document.querySelectorAll(".chart");
 charts.forEach(function (chart) {
     var ctx = chart.getContext("2d");
     new Chart(ctx, {
         type: "bar",
         data: {
-            labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+            labels: ["Quiz1", "Quiz2", "Quiz3", "Quiz4", "Quiz5", "Quiz6"],
             datasets: [
                 {
-                    label: "# of Votes",
+                    label: "Quiz Marks",
                     data: [12, 19, 3, 5, 2, 3],
                     backgroundColor: [
-                        "rgba(255, 99, 132, 0.2)",
-                        "rgba(54, 162, 235, 0.2)",
-                        "rgba(255, 206, 86, 0.2)",
-                        "rgba(75, 192, 192, 0.2)",
-                        "rgba(153, 102, 255, 0.2)",
-                        "rgba(255, 159, 64, 0.2)",
+                        "rgb(255, 99, 132)",
+                        "rgb(54, 162, 235)",
+                        "rgb(255, 206, 86)",
+                        "rgb(75, 192, 192)",
+                        "rgb(153, 102, 255)",
+                        "rgb(255, 159, 64)",
                     ],
-                    borderColor: [
-                        "rgba(255, 99, 132, 1)",
-                        "rgba(54, 162, 235, 1)",
-                        "rgba(255, 206, 86, 1)",
-                        "rgba(75, 192, 192, 1)",
-                        "rgba(153, 102, 255, 1)",
-                        "rgba(255, 159, 64, 1)",
-                    ],
-                    borderWidth: 1,
+                    borderWidth: 0,
                 },
             ],
         },
         options: {
-            scales: {
-                y: {
-                    beginAtZero: true,
-                },
-            },
+            maintainAspectRatio: false,
+        }
+    });
+});
+
+const pieCharts = document.querySelectorAll(".pieChart");
+pieCharts.forEach(function (chart) {
+    var ctx = chart.getContext("2d");
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: [
+                'Quiz 1',
+                'Quiz 2',
+                'Quiz 3',
+                'Quiz 4',
+                'Quiz 5'
+            ],
+            datasets: [{
+                label: 'Quiz Result Dataset',
+                data: [2, 5, 8, 10, 7],
+                backgroundColor: [
+                    "rgb(255, 99, 132)",
+                    "rgb(54, 162, 235)",
+                    "rgb(255, 206, 86)",
+                    "rgb(75, 192, 192)",
+                    "rgb(153, 102, 255)",
+                    "rgb(255, 159, 64)",
+                ],
+                borderWidth: 0,
+                hoverOffset: 4
+            }]
         },
+        options: {
+            maintainAspectRatio: false,
+        }
     });
 });
