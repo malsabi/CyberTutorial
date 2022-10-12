@@ -342,7 +342,6 @@ $(document).ready(function ()
     HandleEmployeeLogout();
 });
 
-
 Chart.register(ChartDataLabels);
 Chart.defaults.color = "#FFFFFF";
 Chart.defaults.borderColor = '#FFFFFF';
