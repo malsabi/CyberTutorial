@@ -8,7 +8,11 @@ namespace CyberTutorial.WebApp.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            if (IdentityService.IsCompanyLoggedIn())
+            {
+                return View();
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]

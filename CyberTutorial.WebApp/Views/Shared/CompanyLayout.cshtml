@@ -5,92 +5,233 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Cyber Tutorial</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/CyberTutorial.WebApp.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="~/css/company.css" asp-append-version="true" />
 </head>
 
-<body class="d-flex flex-column h-100">
+<body class="d-flex flex-column min-vh-100">
     <header>
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Cyber Tutorial</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-                        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <!-- top navigation bar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <div class="container-fluid">
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="offcanvas"
+                        data-bs-target="#sidebar"
+                        aria-controls="offcanvasExample">
+                    <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
+                </button>
+                <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" asp-area="" asp-controller="Employee" asp-action="Index">Cyber Tutorial</a>
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#topNavBar"
+                        aria-controls="topNavBar"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between" id="navbarCollapse">
+                <div class="collapse navbar-collapse" id="topNavBar">
+                    <form class="d-flex ms-auto my-3 my-lg-0">
+                        <div class="input-group">
+                            <input class="form-control"
+                                   type="search"
+                                   placeholder="Search"
+                                   aria-label="Search" />
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </form>
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Dashboard</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Employees</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle ms-2"
+                               href="#"
+                               role="button"
+                               data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                <i class="fa-solid fa-user"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark mt-1">
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Employee" asp-action="Profile">Profile</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Employee" asp-action="Settings">Settings</a></li>
+                                <li><a class="dropdown-item" id="LogoutEmployeeButton">Logout</a></li>
+                            </ul>
                         </li>
                     </ul>
-                    <button class="btn btn-lg btn-outline-light" id="LogoutCompanyButton" type="button">Logout</button>
                 </div>
             </div>
         </nav>
+        <!-- top navigation bar -->
+        <!-- offcanvas -->
+        <div class="offcanvas offcanvas-start sidebar-nav bg-dark" tabindex="-1" id="sidebar">
+            <div class="offcanvas-body p-0">
+                <div class="container mb-3 mt-3 px-3">
+                    <div class="text-muted small fw-bold text-uppercase">
+                        <i class="fa-solid fa-user fa-fade"></i>
+                        Employee Name
+                    </div>
+                    <div class="text-white small pb-2">
+                        Mohammed Ahmed
+                    </div>
+                </div>
+                <div class="my-4"><hr class="dropdown-divider bg-light" /></div>
+                <nav class="navbar-dark">
+                    <ul class="navbar-nav">
+                        <li>
+                            <div class="text-muted small fw-bold text-uppercase px-3 mb-1">
+                                GENERAL
+                            </div>
+                        </li>
+                        <li>
+                            <a asp-area="" asp-controller="Employee" asp-action="Index" class="nav-link px-3 sidebar-link active mb-2">
+                                <span class="me-3"><i class="fa-solid fa-fw fa-dashboard"></i></span>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li>
+                            <div class="text-muted small fw-bold text-uppercase px-3 mt-3 mb-1">
+                                Education
+                            </div>
+                        </li>
+                        <li>
+                            <a class="nav-link px-3 sidebar-link mb-1" data-bs-toggle="collapse" href="#courses">
+                                <span class="me-3"><i class="fa fa-fw fa-book"></i></span>
+                                <span>Courses</span>
+                                <span class="ms-auto">
+                                    <span class="right-icon">
+                                        <i class="fa fa-chevron-down"></i>
+                                    </span>
+                                </span>
+                            </a>
+                            <div class="collapse" id="courses">
+                                <ul class="navbar-nav">
+                                    <li>
+                                        <a asp-area="" asp-controller="Employee" asp-action="AllCourses" class="nav-link px-3 sidebar-link">
+                                            <span class="me-3"><i class="fa fa-fw"></i></span>
+                                            <span>All Courses</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-area="" asp-controller="Employee" asp-action="TakenCourses" class="nav-link px-3 sidebar-link">
+                                            <span class="me-3"><i class="fa fa-fw"></i></span>
+                                            <span>Taken Courses</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <a class="nav-link px-3 sidebar-link mb-2" data-bs-toggle="collapse" href="#quizzes">
+                                <span class="me-3"><i class="fa-solid fa-fw fa-file-circle-check"></i></span>
+                                <span>Quizzes</span>
+                                <span class="ms-auto">
+                                    <span class="right-icon">
+                                        <i class="fa fa-chevron-down"></i>
+                                    </span>
+                                </span>
+                            </a>
+                            <div class="collapse" id="quizzes">
+                                <ul class="navbar-nav">
+                                    <li>
+                                        <a asp-area="" asp-controller="Employee" asp-action="AllQuizzes" class="nav-link px-3 sidebar-link">
+                                            <span class="me-3"><i class="fa fa-fw"></i></span>
+                                            <span>All Quizzes</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-area="" asp-controller="Employee" asp-action="AttemptedQuizzes" class="nav-link px-3 sidebar-link">
+                                            <span class="me-3"><i class="fa fa-fw"></i></span>
+                                            <span>Attempted Quizzes</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="text-muted small fw-bold text-uppercase px-3 mt-3 mb-1">
+                                Tools
+                            </div>
+                        </li>
+                        <li>
+                            <a asp-area="" asp-controller="Employee" asp-action="Library" class="nav-link px-3 sidebar-link mb-1">
+                                <span class="me-3"><i class="fa-solid fa-fw fa-school"></i></span>
+                                <span>Library</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-link px-3 sidebar-link mb-2" data-bs-toggle="collapse" href="#account">
+                                <span class="me-3"><i class="fa-solid fa-fw fa-gear"></i></span>
+                                <span>Account</span>
+                                <span class="ms-auto">
+                                    <span class="right-icon">
+                                        <i class="fa fa-chevron-down"></i>
+                                    </span>
+                                </span>
+                            </a>
+                            <div class="collapse" id="account">
+                                <ul class="navbar-nav">
+                                    <li>
+                                        <a asp-area="" asp-controller="Employee" asp-action="Profile" class="nav-link px-3 sidebar-link">
+                                            <span class="me-3"><i class="fa fa-fw"></i></span>
+                                            <span>Profile</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-area="" asp-controller="Employee" asp-action="Settings" class="nav-link px-3 sidebar-link">
+                                            <span class="me-3"><i class="fa fa-fw"></i></span>
+                                            <span>Settings</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- offcanvas -->
     </header>
 
-    <main class="flex-shrink-0">
+    <main class="mt-5 pt-3">
         <div class="container-fluid">
             @RenderBody()
         </div>
     </main>
 
-    <footer class="footer mt-auto bg-dark p-lg-4">
-        <div class="container">
-            <div class="row g-lg-0 text-white text-center justify-content-center">
-                <div class="row g-lg-3 justify-content-center">
-                    <div class="col-lg-auto">
-                        <a class="text-white" href="https://www.google.com">
-                            <i class="fa-brands fa-2x fa-twitter"></i>
-                        </a>
-                    </div>
-                    <div class="col-lg-auto">
-                        <a class="text-white" href="https://www.google.com">
-                            <i class="fa-brands fa-2x fa-instagram"></i>
-                        </a>
-                    </div>
-                    <div class="col-lg-auto">
-                        <a class="text-white" href="https://www.google.com">
-                            <i class="fa-brands fa-2x fa-linkedin"></i>
-                        </a>
-                    </div>
-                </div>
-                <nav class="navbar navbar-expand-md navbar-dark justify-content-center">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Pricing" asp-action="Index">Pricing</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="FAQ" asp-action="Index">FAG</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="AboutUs" asp-action="Index">About Us</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Contact" asp-action="Index">Contact</a>
-                        </li>
-                    </ul>
-                </nav>
-                <div class="row text-center">
-                    <p class="text-white fw-lighter">©2022 Cyber Tutorial</p>
-                </div>
-            </div>
+    <footer class="mt-auto p-3 bg-dark">
+        <div class="container text-center text-muted pb-1">
+            <small>Copyright &copy; CyberTutorials</small>
         </div>
     </footer>
+
+    <div class="toast-container position-absolute p-3 top-0 end-0 mt-5">
+        <div class="toast" id="LogoutErrorToast">
+            <div class="toast-header">
+                <svg class="bd-placeholder-img rounded me-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#007aff"></rect></svg>
+                <strong class="me-auto">Log out failed</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                You can try reloading the page. If the error persists, please try again in a few minutes.
+            </div>
+        </div>
+    </div>
+
+    @Html.Hidden("RedirectToHome", Url.Action("Index", "Home"))
+
     <script src="~/lib/Chart.js/chart.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/lib/Chart.js/chart.js"></script>
+    <script src="~/lib/Chartjs-plugin-datalabels/chartjs-plugin-datalabels.min.js"></script>
+    <script src="~/js/utils.js" asp-append-version="true"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/company/auth/logout-cmp.js" asp-append-version="true"></script>
+    <script src="~/js/company/dashboard/load-stats-cmp.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

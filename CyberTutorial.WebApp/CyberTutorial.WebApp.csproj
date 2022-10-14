@@ -123,7 +123,7 @@
 		<None Include="wwwroot\lib\jquery\dist\jquery.min.js" />
 		<None Include="wwwroot\lib\jquery\dist\jquery.min.map" />
 		<None Include="wwwroot\lib\jquery\LICENSE.txt" />
-		<None Include="wwwroot\videos\hero-img.svg" />
+		<None Include="wwwroot\Images\hero-img.svg" />
 	</ItemGroup>
 
 	<ItemGroup>

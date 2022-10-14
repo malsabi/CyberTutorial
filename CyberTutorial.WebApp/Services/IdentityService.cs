@@ -62,6 +62,12 @@ namespace CyberTutorial.WebApp.Services
         public async Task<object> LogoutCompanyAsync()
         {
             LoginResponse loginData = cookieService.GetDecrypted<LoginResponse>(AppConsts.CompanyCookieId);
+
+            if (loginData == null)
+            {
+                return new { IsError = true, Errors = new List<Error> { Error.Failure("401", "UnAuthorized") } };
+            }
+
             LogoutRequest request = mapper.Map<LogoutRequest>(loginData);
             ErrorOr<LogoutResponse> result = await clientApiService.PostAsync<LogoutRequest, LogoutResponse>(request, ApiConsts.LogoutCompany, request.Token);
             if (result.IsError)
@@ -75,6 +81,12 @@ namespace CyberTutorial.WebApp.Services
         public async Task<object> LogoutEmployeeAsync()
         {
             LoginResponse loginData = cookieService.GetDecrypted<LoginResponse>(AppConsts.EmployeeCookieId);
+
+            if (loginData == null)
+            {
+                return new { IsError = true, Errors = new List<Error> { Error.Failure("401", "UnAuthorized") } };
+            }
+
             LogoutRequest request = mapper.Map<LogoutRequest>(loginData);
             ErrorOr<LogoutResponse> result = await clientApiService.PostAsync<LogoutRequest, LogoutResponse>(request, ApiConsts.LogoutEmployee, request.Token);
             if (result.IsError)

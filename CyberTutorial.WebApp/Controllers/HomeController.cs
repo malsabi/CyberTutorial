@@ -11,17 +11,16 @@ namespace CyberTutorial.WebApp.Controllers
     {
         public IActionResult Index()
         {
-            //HomeViewModel viewModel = new HomeViewModel();
-            //if (IdentityService.IsCompanyLoggedIn())
-            //{
-            //    return RedirectToAction("Index", "Company");
-            //}
-            //else if (IdentityService.IsEmployeeLoggedIn())
-            //{
-            //    return RedirectToAction("Index", "Employee");
-            //}
-            //return View(viewModel);
-            return RedirectToAction("Index", "Employee");
+            HomeViewModel viewModel = new HomeViewModel();
+            if (IdentityService.IsCompanyLoggedIn())
+            {
+                return RedirectToAction("Index", "Company");
+            }
+            else if (IdentityService.IsEmployeeLoggedIn())
+            {
+                return RedirectToAction("Index", "Employee");
+            }
+            return View(viewModel);
         }
 
         public async Task<ActionResult> Authentication(LoginModel loginModel)

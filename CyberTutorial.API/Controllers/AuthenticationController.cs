@@ -50,7 +50,5 @@ namespace CyberTutorial.API.Controllers
                 );
             }
         }
-
-       
     }
 }

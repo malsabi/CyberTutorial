@@ -23,7 +23,7 @@
                         aria-controls="offcanvasExample">
                     <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
                 </button>
-                <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="#">Cyber Tutorial</a>
+                <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" asp-area="" asp-controller="Employee" asp-action="Index">Cyber Tutorial</a>
                 <button class="navbar-toggler"
                         type="button"
                         data-bs-toggle="collapse"
@@ -55,9 +55,9 @@
                                 <i class="fa-solid fa-user"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark mt-1">
-                                <li><a class="dropdown-item" href="#">Account</a></li>
-                                <li><a class="dropdown-item" href="#">Edit Account</a></li>
-                                <li><a class="dropdown-item" href="#">Logout</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Employee" asp-action="Profile">Profile</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Employee" asp-action="Settings">Settings</a></li>
+                                <li><a class="dropdown-item" id="LogoutEmployeeButton">Logout</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -86,7 +86,7 @@
                             </div>
                         </li>
                         <li>
-                            <a href="#" class="nav-link px-3 sidebar-link active mb-2">
+                            <a asp-area="" asp-controller="Employee" asp-action="Index" class="nav-link px-3 sidebar-link active mb-2">
                                 <span class="me-3"><i class="fa-solid fa-fw fa-dashboard"></i></span>
                                 <span>Dashboard</span>
                             </a>
@@ -109,15 +109,15 @@
                             <div class="collapse" id="courses">
                                 <ul class="navbar-nav">
                                     <li>
-                                        <a href="#" class="nav-link px-3 sidebar-link">
+                                        <a asp-area="" asp-controller="Employee" asp-action="AllCourses" class="nav-link px-3 sidebar-link">
                                             <span class="me-3"><i class="fa fa-fw"></i></span>
-                                            <span>Available Courses</span>
+                                            <span>All Courses</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#" class="nav-link px-3 sidebar-link">
+                                        <a asp-area="" asp-controller="Employee" asp-action="TakenCourses" class="nav-link px-3 sidebar-link">
                                             <span class="me-3"><i class="fa fa-fw"></i></span>
-                                            <span>Attempted Courses</span>
+                                            <span>Taken Courses</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -136,27 +136,15 @@
                             <div class="collapse" id="quizzes">
                                 <ul class="navbar-nav">
                                     <li>
-                                        <a href="#" class="nav-link px-3 sidebar-link">
+                                        <a asp-area="" asp-controller="Employee" asp-action="AllQuizzes" class="nav-link px-3 sidebar-link">
                                             <span class="me-3"><i class="fa fa-fw"></i></span>
-                                            <span>Available Quizzes</span>
+                                            <span>All Quizzes</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#" class="nav-link px-3 sidebar-link">
+                                        <a asp-area="" asp-controller="Employee" asp-action="AttemptedQuizzes" class="nav-link px-3 sidebar-link">
                                             <span class="me-3"><i class="fa fa-fw"></i></span>
-                                            <span>Attempted Quizzess</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="nav-link px-3 sidebar-link">
-                                            <span class="me-3"><i class="fa fa-fw"></i></span>
-                                            <span>Passed Quizzess</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="nav-link px-3 sidebar-link">
-                                            <span class="me-3"><i class="fa fa-fw"></i></span>
-                                            <span>Failed Quizzess</span>
+                                            <span>Attempted Quizzes</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -168,7 +156,7 @@
                             </div>
                         </li>
                         <li>
-                            <a href="#" class="nav-link px-3 sidebar-link mb-1">
+                            <a asp-area="" asp-controller="Employee" asp-action="Library" class="nav-link px-3 sidebar-link mb-1">
                                 <span class="me-3"><i class="fa-solid fa-fw fa-school"></i></span>
                                 <span>Library</span>
                             </a>
@@ -186,15 +174,15 @@
                             <div class="collapse" id="account">
                                 <ul class="navbar-nav">
                                     <li>
-                                        <a href="#" class="nav-link px-3 sidebar-link">
+                                        <a asp-area="" asp-controller="Employee" asp-action="Profile" class="nav-link px-3 sidebar-link">
                                             <span class="me-3"><i class="fa fa-fw"></i></span>
-                                            <span>View Account</span>
+                                            <span>Profile</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#" class="nav-link px-3 sidebar-link">
+                                        <a asp-area="" asp-controller="Employee" asp-action="Settings" class="nav-link px-3 sidebar-link">
                                             <span class="me-3"><i class="fa fa-fw"></i></span>
-                                            <span>Edit Account</span>
+                                            <span>Settings</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -206,6 +194,7 @@
         </div>
         <!-- offcanvas -->
     </header>
+
     <main class="mt-5 pt-3">
         <div class="container-fluid">
             @RenderBody()
@@ -218,6 +207,21 @@
         </div>
     </footer>
 
+    <div class="toast-container position-absolute p-3 top-0 end-0 mt-5">
+        <div class="toast" id="LogoutErrorToast">
+            <div class="toast-header">
+                <svg class="bd-placeholder-img rounded me-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#007aff"></rect></svg>
+                <strong class="me-auto">Log out failed</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                You can try reloading the page. If the error persists, please try again in a few minutes.
+            </div>
+        </div>
+    </div>
+
+    @Html.Hidden("RedirectToHome", Url.Action("Index", "Home"))
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
@@ -225,8 +229,10 @@
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
     <script src="~/lib/Chart.js/chart.js"></script>
     <script src="~/lib/Chartjs-plugin-datalabels/chartjs-plugin-datalabels.min.js"></script>
-    <script src="~/lib/Chartjs-plugin-colorschemes/chartjs-plugin-colorschemes.min.js"></script>
+    <script src="~/js/utils.js" asp-append-version="true"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/employee/auth/logout-emp.js" asp-append-version="true"></script>
+    <script src="~/js/employee/dashboard/load-stats-emp.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

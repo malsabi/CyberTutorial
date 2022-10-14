@@ -1,4 +1,4 @@
-﻿namespace CyberTutorial.WebApp.Models
+﻿namespace CyberTutorial.WebApp.Models.Employee
 {
     public class EmployeeModel
     {

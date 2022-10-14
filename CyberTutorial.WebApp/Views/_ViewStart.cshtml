@@ -1,3 +1,12 @@
 ﻿@{
-    Layout = "_Layout";
+    string currentLayout = "_Layout";
+    if (ViewContext.RouteData.Values["controller"].ToString() == "Employee")
+    {
+        currentLayout = "EmployeeLayout";
+    }
+    else if (ViewContext.RouteData.Values["Controller"].ToString() == "Company")
+    {
+        currentLayout = "CompanyLayout";
+    }
+    Layout = currentLayout;
 }
