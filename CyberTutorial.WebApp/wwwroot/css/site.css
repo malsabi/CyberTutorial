@@ -26,14 +26,14 @@ body {
 
 .navbar a {
     color: #E6E6E6;
-    font-size: 1.4vh;
-    margin-top: 5px;
+    font-size: 1.42vh;
+    margin-top: 0px;
 }
 
 .navbar .nav-item .nav-link {
     position: relative;
     margin-right: 10px;
-    font-size: 1.2vh;
+    font-size: 1.42vh;
 }
 
 .navbar .nav-item .nav-link::before {
