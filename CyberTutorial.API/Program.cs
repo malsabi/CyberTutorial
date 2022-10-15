@@ -16,7 +16,7 @@ namespace CyberTutorial.API
                     .AddApplication()
                     .AddInfrastructure(builder.Configuration);
             }
-
+            
             var app = builder.Build();
             {
                 app.UseSwagger();

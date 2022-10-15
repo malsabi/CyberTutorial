@@ -34,7 +34,6 @@
         margin-left: var(--offcanvas-width);
     }
     
-    /* this is to remove the backdrop */
     .offcanvas-backdrop::before {
         display: none;
     }
@@ -47,14 +46,6 @@
         top: var(--topNavbarHeight);
     }
 }
-
-/*.card {
-    margin: 10px 0;
-}
-
-.card {
-    border-radius: 0px !important;
-}*/
 
 .card {
     display: inline-block;

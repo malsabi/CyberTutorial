@@ -97,3 +97,7 @@ hr {
     background-size: 26px 26px !important;
     background-repeat: no-repeat;
 }
+
+input {
+    color-scheme: dark;
+}

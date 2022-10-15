@@ -48,6 +48,37 @@ namespace CyberTutorial.Infrastructure.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Courses",
+                columns: table => new
+                {
+                    CourseId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CourseImage = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CourseName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CourseDiscription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CourseLevel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CourseDuration = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CourseUrl = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Courses", x => x.CourseId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EmployeeCourses",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    EmployeeId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CourseId = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmployeeCourses", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Employees",
                 columns: table => new
                 {
@@ -90,6 +121,12 @@ namespace CyberTutorial.Infrastructure.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "CompanySessions");
+
+            migrationBuilder.DropTable(
+                name: "Courses");
+
+            migrationBuilder.DropTable(
+                name: "EmployeeCourses");
 
             migrationBuilder.DropTable(
                 name: "Employees");

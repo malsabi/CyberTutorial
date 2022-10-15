@@ -11,5 +11,6 @@
         public string PhoneNumber { get; set; }
         public string EmailAddress { get; set; }
         public string Password { get; set; }
+        public List<EmployeeCourse> Courses { get; set; }
     }
 }

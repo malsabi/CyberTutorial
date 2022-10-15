@@ -4,7 +4,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content text-white bg-dark">
             <div class="modal-header">
-                <h5 class="modal-title" id="LoginModalLabel">Log In</h5>
+                <p class="modal-title" id="LoginModalLabel">Log In</p>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -20,8 +20,7 @@
                     <div class="mb-3">
                         <div class="form-group">
                             <label asp-for="EmailAddress" for="email" class="form-label">Email Address</label>
-                            <input asp-for="EmailAddress" type="email" class="form-control bg-dark rounded-3 border-info text-white" id="email" aria-describedby="emailHelp" placeholder="Email Address">
-                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                            <input asp-for="EmailAddress" type="email" class="form-control bg-dark rounded-3 border-info text-white" id="email" placeholder="Email Address">
                             <span asp-validation-for="EmailAddress" class="text-danger"></span>
                             <div class="valid-feedback">
                                 Looks good!

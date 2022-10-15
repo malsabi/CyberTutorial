@@ -6,6 +6,6 @@ namespace CyberTutorial.Application.Common.Interfaces.Authentication
     {
         string GenerateToken(Employee employee);
         string GenerateToken(Company company);
-        string GenerateToken(Owner owner);
+        string GenerateToken(Administrator owner);
     }
 }

@@ -46,9 +46,16 @@ namespace CyberTutorial.Infrastructure.Authentication
             return GenerateToken(claims);
         }
 
-        public string GenerateToken(Owner owner)
+        public string GenerateToken(Administrator administrator)
         {
-            throw new NotImplementedException();
+            Claim[] claims = new[]
+            {
+                new Claim(ClaimTypes.Sid, administrator.Id),
+                new Claim(ClaimTypes.Surname, administrator.Name),
+                new Claim(ClaimTypes.Email, administrator.Email),
+                new Claim(ClaimTypes.Role, "Admin")
+            };
+            return GenerateToken(claims);
         }
 
         private string GenerateToken(Claim[] claims)

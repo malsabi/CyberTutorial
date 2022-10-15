@@ -16,7 +16,7 @@ namespace CyberTutorial.Infrastructure.Persistence.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.9")
+                .HasAnnotation("ProductVersion", "6.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -92,6 +92,37 @@ namespace CyberTutorial.Infrastructure.Persistence.Migrations
                     b.ToTable("CompanySessions");
                 });
 
+            modelBuilder.Entity("CyberTutorial.Domain.Entities.Course", b =>
+                {
+                    b.Property<int>("CourseId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CourseId"), 1L, 1);
+
+                    b.Property<string>("CourseDiscription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CourseDuration")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CourseImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CourseLevel")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CourseName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CourseUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CourseId");
+
+                    b.ToTable("Courses");
+                });
+
             modelBuilder.Entity("CyberTutorial.Domain.Entities.Employee", b =>
                 {
                     b.Property<string>("Id")
@@ -124,6 +155,22 @@ namespace CyberTutorial.Infrastructure.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Employees");
+                });
+
+            modelBuilder.Entity("CyberTutorial.Domain.Entities.EmployeeCourse", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CourseId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EmployeeId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EmployeeCourses");
                 });
 
             modelBuilder.Entity("CyberTutorial.Domain.Entities.EmployeeSession", b =>
