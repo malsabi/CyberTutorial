@@ -5,13 +5,25 @@ namespace CyberTutorial.Application.Common.Interfaces.Persistence
 {
     public interface IApplicationDbContext
     {
-        DbSet<Company> Companies { get; }
+        public DbSet<Administrator> Administrators { get; }
 
-        DbSet<Employee> Employees { get; }
+        public DbSet<Company> Companies { get; }
 
-        DbSet<CompanySession> CompanySessions { get; }
+        public DbSet<Employee> Employees { get; }
 
-        DbSet<EmployeeSession> EmployeeSessions { get; }
+        public DbSet<CompanySession> CompanySessions { get; }
+
+        public DbSet<EmployeeSession> EmployeeSessions { get; }
+
+        public DbSet<Course> Courses { get; }
+
+        public DbSet<EmployeeCourse> EmployeeCourses { get; }
+
+        public DbSet<Quiz> Quizzes { get; }
+
+        public DbSet<Question> Questions { get; }
+
+        public DbSet<EmployeeQuiz> EmployeeQuizzes { get; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
