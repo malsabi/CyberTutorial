@@ -12,13 +12,18 @@
         #endregion
 
         #region "Api Endpoints"
-        //Anonymous
-        public const string Login = "/Auth/Login";
-        public const string RegisterCompany = "api/Register/Company";
-        public const string RegisterEmployee = "/api/Register/Employee";
-        //Authorization
+        #region "Anonymous Endpoints"
+        public const string Login = "/api/Authentication/Login";
+        public const string RegisterCompany = "/api/Authentication/Register/Company";
+        public const string RegisterEmployee = "/api/Authentication/Register/Employee";
+        #endregion
+
+        #region "Authorized Endpoints"
         public const string LogoutCompany = "/api/Company/Logout";
         public const string LogoutEmployee = "/api/Employee/Logout";
+        public const string IsSessionValidCompany = "/api/Company/IsSessionValid";
+        public const string IsSessionValidEmployee = "/api/Employee/IsSessionValid";
+        #endregion
         #endregion
     }
 }

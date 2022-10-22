@@ -24,10 +24,9 @@ namespace CyberTutorial.Infrastructure.Authentication
         {
             Claim[] claims = new[]
             {
-                new Claim(ClaimTypes.Sid, employee.Id),
+                new Claim(ClaimTypes.Sid, employee.EmployeeId),
                 new Claim(ClaimTypes.Surname, employee.FirstName),
                 new Claim(ClaimTypes.GivenName, employee.LastName),
-                new Claim(ClaimTypes.Thumbprint, employee.CompanyId),
                 new Claim(ClaimTypes.Role, "Employee")
             };
             return GenerateToken(claims);
@@ -37,10 +36,9 @@ namespace CyberTutorial.Infrastructure.Authentication
         {
             Claim[] claims = new[]
             {
-                new Claim(ClaimTypes.Sid, company.Id),
+                new Claim(ClaimTypes.Sid, company.CompanyId),
                 new Claim(ClaimTypes.Surname, company.OwnerFirstName),
                 new Claim(ClaimTypes.GivenName, company.OwnerLastName),
-                new Claim(ClaimTypes.Thumbprint, company.OwnerEmiratesId),
                 new Claim(ClaimTypes.Role, "Company")
             };
             return GenerateToken(claims);
@@ -52,7 +50,6 @@ namespace CyberTutorial.Infrastructure.Authentication
             {
                 new Claim(ClaimTypes.Sid, administrator.Id),
                 new Claim(ClaimTypes.Surname, administrator.Name),
-                new Claim(ClaimTypes.Email, administrator.Email),
                 new Claim(ClaimTypes.Role, "Admin")
             };
             return GenerateToken(claims);

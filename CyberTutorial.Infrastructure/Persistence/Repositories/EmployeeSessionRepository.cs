@@ -1,4 +1,5 @@
 ﻿using CyberTutorial.Domain.Entities;
+using CyberTutorial.Infrastructure.Persistence.Extensions;
 using CyberTutorial.Application.Common.Interfaces.Persistence;
 using CyberTutorial.Application.Common.Interfaces.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -14,39 +15,54 @@ namespace CyberTutorial.Infrastructure.Persistence.Repositories
             this.applicationDbContext = applicationDbContext;
         }
 
-        public async Task CreateEmployeeSessionAsync(EmployeeSession employeeSession)
+        public async Task AddEmployeeSessionAsync(EmployeeSession session)
         {
-            await applicationDbContext.EmployeeSessions.AddAsync(employeeSession);
+            await applicationDbContext.EmployeeSessions.AddAsync(session);
             await applicationDbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteEmployeeSessionAsync(EmployeeSession employeeSession)
+        public async Task<ICollection<EmployeeSession>> GetEmployeeSessionsAsync()
         {
-            applicationDbContext.EmployeeSessions.Remove(employeeSession);
-            await applicationDbContext.SaveChangesAsync();
+            return await applicationDbContext.EmployeeSessions
+                .Include(emplyoeeSession => emplyoeeSession.Employee)
+                .ToListAsync();
         }
-
-        public async Task<EmployeeSession> GetEmployeeSessionByEmployeeIdAsync(string employeeId)
+        
+        public async Task<EmployeeSession> GetEmployeeSessionByIdAsync(string employeeId)
         {
-            EmployeeSession employeeSession = await applicationDbContext.EmployeeSessions.FirstOrDefaultAsync(session => session.EmployeeId == employeeId);
-            return employeeSession;
-        }
-
-        public async Task<EmployeeSession> GetEmployeeSessionBySessionIdAsync(string sessionId)
-        {
-            EmployeeSession employeeSession = await applicationDbContext.EmployeeSessions.FirstOrDefaultAsync(session => session.Id == sessionId);
-            return employeeSession;
+            return await applicationDbContext.EmployeeSessions
+                .Include(emplyoeeSession => emplyoeeSession.Employee)
+                .FirstOrDefaultAsync(employeeSession => employeeSession.EmployeeSessionId == employeeId);
         }
 
         public async Task<EmployeeSession> GetEmployeeSessionByTokenAsync(string token)
         {
-            EmployeeSession employeeSession = await applicationDbContext.EmployeeSessions.FirstOrDefaultAsync(session => session.Token == token);
-            return employeeSession;
+            return await applicationDbContext.EmployeeSessions
+                .Include(emplyoeeSession => emplyoeeSession.Employee)
+                .FirstOrDefaultAsync(employeeSession => employeeSession.Token == token);
         }
 
-        public async Task UpdateEmployeeSessionAsync(EmployeeSession employeeSession)
+        public async Task UpdateEmployeeSessionAsync(EmployeeSession session)
         {
-            applicationDbContext.EmployeeSessions.Update(employeeSession);
+            applicationDbContext.EmployeeSessions.Update(session);
+            await applicationDbContext.SaveChangesAsync();
+        }
+
+        public async Task DeleteEmployeeSessionAsync(string employeeId)
+        {
+            EmployeeSession employeeSessionToDelete = await GetEmployeeSessionByIdAsync(employeeId);
+            await DeleteEmployeeSessionAsync(employeeSessionToDelete);
+        }
+
+        public async Task DeleteEmployeeSessionAsync(EmployeeSession session)
+        {
+            applicationDbContext.EmployeeSessions.Remove(session);
+            await applicationDbContext.SaveChangesAsync();
+        }
+
+        public async Task DeleteAllAsync()
+        {
+            applicationDbContext.EmployeeSessions.Clear();
             await applicationDbContext.SaveChangesAsync();
         }
     }

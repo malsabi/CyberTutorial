@@ -2,7 +2,7 @@
 {
     public class Company
     {
-        public string Id { get; set; }
+        public string CompanyId { get; set; }
         public string CompanyName { get; set; }
         public string OwnerFirstName { get; set; }
         public string OwnerLastName { get; set; }
@@ -15,5 +15,7 @@
         public string Website { get; set; }
         public string CompanyDescription { get; set; }
         public string Password { get; set; }
+        public virtual CompanySession Session { get; set; }
+        public virtual ICollection<Employee> Employees { get; set; }
     }
 }

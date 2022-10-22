@@ -2,13 +2,14 @@
 
 namespace CyberTutorial.Application.Common.Interfaces.Persistence.Repositories
 {
-    public interface IEmployeeRepository
+    public interface IEmployeeRepository : IRepository
     {
         Task AddEmployeeAsync(Employee employee);
-        Task<Employee> GetEmployeeByIdAsync(string id);
+        Task<ICollection<Employee>> GetEmployeesAsync();
+        Task<Employee> GetEmployeeByIdAsync(string employeeId);
         Task<Employee> GetEmployeeByEmailAsync(string emailAddress);
-        Task<List<Employee>> GetEmployeesAsync();
         Task UpdateEmployeeAsync(Employee employee);
-        Task DeleteEmployeeAsync(string id);
+        Task DeleteEmployeeAsync(string employeeId);
+        Task DeleteEmployeeAsync(Employee employee);
     }
 }

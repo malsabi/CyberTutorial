@@ -2,7 +2,6 @@
 using CyberTutorial.API.Common.Mapping;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Swashbuckle.AspNetCore.Filters;
 
 namespace CyberTutorial.API
 {

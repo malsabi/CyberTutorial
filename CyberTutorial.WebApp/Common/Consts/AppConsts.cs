@@ -1,4 +1,6 @@
-﻿namespace CyberTutorial.WebApp.Common.Consts
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace CyberTutorial.WebApp.Common.Consts
 {
     public class AppConsts
     {

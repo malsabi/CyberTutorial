@@ -1,4 +1,5 @@
 ﻿using CyberTutorial.Domain.Entities;
+using CyberTutorial.Infrastructure.Persistence.Extensions;
 using CyberTutorial.Application.Common.Interfaces.Persistence;
 using CyberTutorial.Application.Common.Interfaces.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -20,33 +21,60 @@ namespace CyberTutorial.Infrastructure.Persistence.Repositories
             await applicationDbContext.SaveChangesAsync();
         }
 
+        public async Task<ICollection<Employee>> GetEmployeesAsync()
+        {
+            return await applicationDbContext.Employees
+                .Include(employee => employee.Session)
+                .Include(employee => employee.Company)
+                .Include(employee => employee.Quizzes)
+                .Include(employee => employee.Courses)
+                .Include(employee => employee.EmployeeDashboard)
+                .ToListAsync();
+        }
+        
+        public async Task<Employee> GetEmployeeByIdAsync(string employeeId)
+        {
+            return await applicationDbContext.Employees
+                .Include(employee => employee.Session)
+                .Include(employee => employee.Company)
+                .Include(employee => employee.Quizzes)
+                .Include(employee => employee.Courses)
+                .Include(employee => employee.EmployeeDashboard)
+                .FirstOrDefaultAsync(employee => employee.EmployeeId == employeeId);
+        }
+        
         public async Task<Employee> GetEmployeeByEmailAsync(string emailAddress)
         {
-            Employee employee = await applicationDbContext.Employees.FirstOrDefaultAsync(employee => employee.EmailAddress == emailAddress);
-            return employee;
+            return await applicationDbContext.Employees
+                .Include(employee => employee.Session)
+                .Include(employee => employee.Company)
+                .Include(employee => employee.Quizzes)
+                .Include(employee => employee.Courses)
+                .Include(employee => employee.EmployeeDashboard)
+                .FirstOrDefaultAsync(employee => employee.EmailAddress == emailAddress);
         }
-
-        public async Task<Employee> GetEmployeeByIdAsync(string id)
-        {
-            Employee employee = await applicationDbContext.Employees.FirstOrDefaultAsync(employee => employee.Id == id);
-            return employee;
-        }
-
-        public async Task<List<Employee>> GetEmployeesAsync()
-        {
-            return await applicationDbContext.Employees.ToListAsync();
-        }
-
+     
         public async Task UpdateEmployeeAsync(Employee employee)
         {
             applicationDbContext.Employees.Update(employee);
             await applicationDbContext.SaveChangesAsync();
         }
-        
-        public async Task DeleteEmployeeAsync(string id)
+
+        public async Task DeleteEmployeeAsync(string employeeId)
         {
-            Employee employeeToDelete = await applicationDbContext.Employees.FirstOrDefaultAsync(employee => employee.Id == id);
-            applicationDbContext.Employees.Remove(employeeToDelete);
+            Employee employeeToDelete = await GetEmployeeByIdAsync(employeeId);
+            await DeleteEmployeeAsync(employeeToDelete);
+        }
+        
+        public async Task DeleteEmployeeAsync(Employee employee)
+        {
+            applicationDbContext.Employees.Remove(employee);
+            await applicationDbContext.SaveChangesAsync();
+        }
+        
+        public async Task DeleteAllAsync()
+        {
+            applicationDbContext.Employees.Clear();
             await applicationDbContext.SaveChangesAsync();
         }
     }

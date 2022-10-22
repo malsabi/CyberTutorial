@@ -21,11 +21,13 @@ namespace CyberTutorial.API
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
-
+                
                 using (IServiceScope scope = app.Services.CreateScope())
                 {
                     ApplicationDbContext context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                    //context.Database.EnsureDeleted();
                     context.Database.Migrate();
+                    //context.Database.EnsureCreated();
                 }
 
                 app.UseExceptionHandler("/error");

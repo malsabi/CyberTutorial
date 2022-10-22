@@ -1,5 +1,6 @@
 ﻿using CyberTutorial.WebApp.Common.Consts;
 using CyberTutorial.WebApp.Controllers.BaseControllers;
+using CyberTutorial.WebApp.Models.Employee.Dashboard;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CyberTutorial.WebApp.Controllers
@@ -10,11 +11,7 @@ namespace CyberTutorial.WebApp.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            if (IdentityService.IsEmployeeLoggedIn())
-            {
-                return View();
-            }
-            return RedirectToAction("Index", "Home");
+            return View(new EmployeeDashboardModel());
         }
         #endregion
 

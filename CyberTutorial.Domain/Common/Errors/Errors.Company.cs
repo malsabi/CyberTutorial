@@ -25,6 +25,16 @@ namespace CyberTutorial.Domain.Common.Errors
                 code: "Company.InvalidSessionToken",
                 description: "Company token is invalid."
             );
+
+            public static Error OperationFailed => Error.Failure(
+                code: "Company.Failure",
+                description: "Company operation failed."
+            );
+
+            public static Error SessionExpired => Error.Failure(
+                code: "Company.SessionExpired",
+                description: "Company session has expired."
+            );
         }
     }
 }

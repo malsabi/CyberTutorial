@@ -1,15 +1,21 @@
 ﻿using ErrorOr;
 using MapsterMapper;
-using CyberTutorial.WebApp.Models;
-using CyberTutorial.Contracts.Enums;
 using CyberTutorial.WebApp.Common.Consts;
-using CyberTutorial.Contracts.Registration.Request;
-using CyberTutorial.Contracts.Registration.Response;
-using CyberTutorial.Contracts.Authentication.Request;
-using CyberTutorial.Contracts.Authentication.Response;
 using CyberTutorial.WebApp.Common.Interfaces.Services;
-using CyberTutorial.Contracts.Company.Request.Logout;
-using CyberTutorial.Contracts.Company.Response.Logout;
+using CyberTutorial.Contracts.Enums;
+using CyberTutorial.Contracts.Company.Request.Session;
+using CyberTutorial.Contracts.Company.Response.Session;
+using CyberTutorial.Contracts.Employee.Response.Session;
+using CyberTutorial.Contracts.Employee.Request.Session;
+using CyberTutorial.Contracts.Common.Request.Logout;
+using CyberTutorial.Contracts.Common.Response.Logout;
+using CyberTutorial.WebApp.Models.Common;
+using CyberTutorial.WebApp.Models.Employee.Register;
+using CyberTutorial.WebApp.Models.Company.Register;
+using CyberTutorial.Contracts.Authentication.Response.Login;
+using CyberTutorial.Contracts.Authentication.Request.Login;
+using CyberTutorial.Contracts.Authentication.Request.Registration;
+using CyberTutorial.Contracts.Authentication.Response.Registration;
 
 namespace CyberTutorial.WebApp.Services
 {
@@ -26,14 +32,64 @@ namespace CyberTutorial.WebApp.Services
             this.clientApiService = clientApiService;
         }
 
-        public bool IsCompanyLoggedIn()
+        public async Task<bool> IsCompanyLoggedIn()
         {
-            return cookieService.GetDecrypted<LoginResponse>(AppConsts.CompanyCookieId) != null;
+            LoginResponse loginResponse = cookieService.GetDecrypted<LoginResponse>(AppConsts.CompanyCookieId);
+            
+            if (loginResponse == null)
+            {
+                return false;
+            }
+
+            IsCompanySessionValidRequest request = new IsCompanySessionValidRequest()
+            {
+                SessionId = loginResponse.SessionId,
+                Token = loginResponse.Token
+            };
+
+            ErrorOr<IsCompanySessionValidResponse> result = await clientApiService.PostAsync<IsCompanySessionValidRequest, IsCompanySessionValidResponse>(request, ApiConsts.IsSessionValidCompany, request.Token);
+
+            if (result.IsError || !result.Value.IsValid)
+            {
+                cookieService.Remove(AppConsts.CompanyCookieId);
+                return false;
+            }
+            if (!string.IsNullOrEmpty(result.Value.NewToken))
+            {
+                loginResponse.Token = result.Value.NewToken;
+                cookieService.SetEncrypted(AppConsts.CompanyCookieId, loginResponse);
+            }
+            return true;
         }
 
-        public bool IsEmployeeLoggedIn()
+        public async Task<bool> IsEmployeeLoggedIn()
         {
-            return cookieService.GetDecrypted<LoginResponse>(AppConsts.EmployeeCookieId) != null;
+            LoginResponse loginResponse = cookieService.GetDecrypted<LoginResponse>(AppConsts.EmployeeCookieId);
+
+            if (loginResponse == null)
+            {
+                return false;
+            }
+
+            IsEmployeeSessionValidRequest request = new IsEmployeeSessionValidRequest()
+            {
+                SessionId = loginResponse.SessionId,
+                Token = loginResponse.Token
+            };
+
+            ErrorOr<IsEmployeeSessionValidResponse> result = await clientApiService.PostAsync<IsEmployeeSessionValidRequest, IsEmployeeSessionValidResponse>(request, ApiConsts.IsSessionValidEmployee, request.Token);
+            
+            if (result.IsError || !result.Value.IsValid)
+            {
+                cookieService.Remove(AppConsts.EmployeeCookieId);
+                return false;
+            }
+            if (!string.IsNullOrEmpty(result.Value.NewToken))
+            {
+                loginResponse.Token = result.Value.NewToken;
+                cookieService.SetEncrypted(AppConsts.EmployeeCookieId, loginResponse);
+            }
+            return true;
         }
 
         public async Task<object> AuthenticateAsync(LoginModel loginModel)
@@ -101,7 +157,6 @@ namespace CyberTutorial.WebApp.Services
         {
             RegisterCompanyRequest request = mapper.Map<RegisterCompanyRequest>(registerCompanyModel);
             ErrorOr<RegisterResponse> result = await clientApiService.PostAsync<RegisterCompanyRequest, RegisterResponse>(request, ApiConsts.RegisterCompany);
-
             if (result.IsError)
             {
                 return new { result.IsError, result.Errors };
@@ -112,7 +167,7 @@ namespace CyberTutorial.WebApp.Services
         public async Task<object> RegisterEmployeeAsync(RegisterEmployeeModel registerEmployeeModel)
         {
             RegisterEmployeeRequest request = mapper.Map<RegisterEmployeeRequest>(registerEmployeeModel);
-            request.Id = Guid.NewGuid().ToString();
+            request.EmployeeId = Guid.NewGuid().ToString();
             ErrorOr<RegisterResponse> result = await clientApiService.PostAsync<RegisterEmployeeRequest, RegisterResponse>(request, ApiConsts.RegisterEmployee);
 
             if (result.IsError)

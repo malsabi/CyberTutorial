@@ -1,4 +1,4 @@
-﻿using CyberTutorial.WebApp.Models;
+﻿using CyberTutorial.WebApp.Models.Home;
 
 namespace CyberTutorial.WebApp.ViewModels
 {

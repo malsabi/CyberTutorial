@@ -7,14 +7,6 @@ namespace CyberTutorial.WebApp.Controllers
     {
         public IActionResult Index()
         {
-            if (IdentityService.IsCompanyLoggedIn())
-            {
-                return RedirectToAction("Index", "Company");
-            }
-            else if (IdentityService.IsEmployeeLoggedIn())
-            {
-                return RedirectToAction("Index", "Employee");
-            }
             return View();
         }
     }

@@ -6,13 +6,9 @@ namespace CyberTutorial.WebApp.Controllers
     public class CompanyController : BaseController<CompanyController>
     {
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            if (IdentityService.IsCompanyLoggedIn())
-            {
-                return View();
-            }
-            return RedirectToAction("Index", "Home");
+            return View();
         }
 
         [HttpGet]

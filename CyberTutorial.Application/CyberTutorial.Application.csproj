@@ -21,8 +21,4 @@
     <ProjectReference Include="..\CyberTutorial.Domain\CyberTutorial.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Companies\Queries\" />
-  </ItemGroup>
-
 </Project>

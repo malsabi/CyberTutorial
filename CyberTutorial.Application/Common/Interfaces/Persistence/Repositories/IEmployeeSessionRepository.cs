@@ -2,13 +2,14 @@
 
 namespace CyberTutorial.Application.Common.Interfaces.Persistence.Repositories
 {
-    public interface IEmployeeSessionRepository
+    public interface IEmployeeSessionRepository : IRepository
     {
-        Task CreateEmployeeSessionAsync(EmployeeSession employeeSession);
+        Task AddEmployeeSessionAsync(EmployeeSession session);
+        Task<ICollection<EmployeeSession>> GetEmployeeSessionsAsync();
+        Task<EmployeeSession> GetEmployeeSessionByIdAsync(string employeeId);
         Task<EmployeeSession> GetEmployeeSessionByTokenAsync(string token);
-        Task<EmployeeSession> GetEmployeeSessionBySessionIdAsync(string sessionId);
-        Task<EmployeeSession> GetEmployeeSessionByEmployeeIdAsync(string employeeId);
-        Task UpdateEmployeeSessionAsync(EmployeeSession employeeSession);
-        Task DeleteEmployeeSessionAsync(EmployeeSession employeeSession);
+        Task UpdateEmployeeSessionAsync(EmployeeSession session);
+        Task DeleteEmployeeSessionAsync(string employeeId);
+        Task DeleteEmployeeSessionAsync(EmployeeSession session);
     }
 }

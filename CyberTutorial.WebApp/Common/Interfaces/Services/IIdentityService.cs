@@ -1,12 +1,14 @@
-﻿using CyberTutorial.WebApp.Models;
+﻿using CyberTutorial.WebApp.Models.Common;
+using CyberTutorial.WebApp.Models.Company.Register;
+using CyberTutorial.WebApp.Models.Employee.Register;
 
 namespace CyberTutorial.WebApp.Common.Interfaces.Services
 {
     public interface IIdentityService
     {
-        bool IsEmployeeLoggedIn();
+        Task<bool> IsEmployeeLoggedIn();
 
-        bool IsCompanyLoggedIn();
+        Task<bool> IsCompanyLoggedIn();
 
         Task<object> AuthenticateAsync(LoginModel loginModel);
 

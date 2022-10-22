@@ -20,21 +20,13 @@ namespace CyberTutorial.Infrastructure
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, ConfigurationManager configuration)
         {
             services.AddAuth(configuration);
-            
             services.AddDbContext<ApplicationDbContext>(
                 o => o.UseSqlServer(configuration.GetConnectionString("DB_CONNECTION_STRING"), 
                 builder => builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
-
-            services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
-
+            services.AddRepositories();
             services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
             services.AddSingleton<IHashProvider, HashProvider>();
-
-            services.AddScoped<ICompanyRepository, CompanyRepository>();
-            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-            services.AddScoped<ICompanySessionRepository, CompanySessionRepository>();
-            services.AddScoped<IEmployeeSessionRepository, EmployeeSessionRepository>();
-
+            services.AddSingleton<IVerificationProvider, VerificationProvider>();
             return services;
         }
 
@@ -43,7 +35,11 @@ namespace CyberTutorial.Infrastructure
             JwtSettings jwtSettings = new JwtSettings();
             configuration.Bind(JwtSettings.SectionName, jwtSettings);
 
+            VerificationSettings verificationSettings = new VerificationSettings();
+            configuration.Bind(VerificationSettings.SectionName, verificationSettings);
+
             services.AddSingleton(Options.Create(jwtSettings));
+            services.AddSingleton(Options.Create(verificationSettings));
             services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddSingleton<ICodeGenerator, CodeGenerator>();
 
@@ -59,6 +55,21 @@ namespace CyberTutorial.Infrastructure
                     IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(jwtSettings.Secret))
                 });
 
+            return services;
+        }
+        
+        public static IServiceCollection AddRepositories(this IServiceCollection services)
+        {
+            services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
+            services.AddScoped<ICompanyRepository, CompanyRepository>();
+            services.AddScoped<ICompanySessionRepository, CompanySessionRepository>();
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<IEmployeeSessionRepository, EmployeeSessionRepository>();
+            services.AddScoped<IEmployeeDashboardRepository, EmployeeDashboardRepository>();
+            services.AddScoped<ICourseRepository, CourseRepository>();
+            services.AddScoped<IQuizRepository, QuizRepository>();
+            services.AddScoped<IQuestionRepository, QuestionRepository>();
+            services.AddScoped<IAnswerRepository, AnswerRepository>();
             return services;
         }
     }

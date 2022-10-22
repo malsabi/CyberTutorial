@@ -19,11 +19,21 @@ namespace CyberTutorial.Domain.Common.Errors
             public static Error SessionNotFound => Error.NotFound(
               code: "Employee.SessionNotFound",
               description: "Employee session with given session Id does not exist."
-          );
+            );
 
             public static Error InvalidSessionToken => Error.Validation(
                 code: "Employee.InvalidSessionToken",
                 description: "Employee token is invalid."
+            );
+
+            public static Error OperationFailed => Error.Failure(
+                code: "Employee.Failure",
+                description: "Employee operation failed."
+            );
+
+            public static Error SessionExpired => Error.Failure(
+                code: "Employee.SessionExpired",
+                description: "Employee session has expired."
             );
         }
     }

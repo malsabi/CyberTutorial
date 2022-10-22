@@ -1,42 +1,54 @@
-Client (Person) Makes a company Registration request to the (WebApp).
+TODO LIST:
+1. Improve UI login by removing Checkbox, and add a label for if the user forgot his password. (done)
+2. Upgrade login feature by adding user sessions in the database. (done)
+3. Change the JWT Token to be valid for 30 days only same as the cookies. (done)
+4. Implement logout feature. (done)
+5. After the company owner or employee logins, there current page should be shown and a log out button also. (done)
+6. Improve login response by removing unnecessary properties from the response class and add only token and session id. (done)
+7. API Optimization (for register controller: api/Register only)
 
-The (WebApp) sends a request to the (API) to create a new company.
+TODO LIST:
 
-The (API) creates a new company and returns the company ID to the (WebApp).
+1. Design register page for company owner and employee. (done)
+2. Improve WebApp Services (CookieService) (done)
+4. Handle home page and other pages to not be visible when the employee or company owner is logged in. (done)
+5. Create custom layout for employee and company owner. (done)
+6. add methods for validating the session, etc. (done)
 
-The packets in this procedure are the following:
 
--RegisterCompanyRequest [Contains the company fields]
+TODO LIST:
+1(a). Add Data Annotations for company and employee models. (done)
+1(b). Remove unneccassry validations for company and employee request messages in app layer. (done)
 
--RegisterCompanyCommand [Contains the company fields + the company ID]
+2. Improve Responses from API to WebApp. (done)
+3(a). Handle the sign up button for company and employee in the JS side. (done)
+3(b). Based on the response we will show a toast that will contain the response message. (done)
+3(c). If the response message is successful, we will show a success modal that will contain an image and a message and after the user closes the success modal
+it will pop up the login modal, if the user goes back to sign up modal, all of the data will be cleared. (done)
 
--RegisterCompanyCommandHandler [Handles the RegisterCompanyCommand]
+EXTRA TIPS:
+1. Improve login response, that will contain an indication of success and which page to be navigated to, eg: CompanyProfile, EmployeeProfile. and based on these
+dataa the JS will do the right procedure. (done)
 
--RegisterCompanyResult [Contains the company ID]
+2. Refactor HomeController add all of the logic inside the actions into IdentityService and based on that service we can call the methods, so our controller 
+can be clean. (done)
 
--RegisterCompanyResponse [Contains the company ID]
+3. Encrypt the token before storing it in the cookies. (done)
 
-Two different ways to implement this procedure:
 
-1. We store the http packets in separate project called "CyberTutorial.Contracts" and use them in the (WebApp) and (API) projects, the packets 
-are related for "Request" and "Response". These packets should be declared without any dependencies to the other projects.
+TODO LIST:
 
-2. We store commands, commands handlers and results in the (API) project. The incoming "Request" will be mapped directly to the command
-and the command handler will process the command and return the result which will be mapped to the "Response" packet.
+1. Add a general response from webapp to client, instead of depending on object type.
 
-This is happening because we have two separate projects for the (WebApp) and (API) and we want to use the same packets in both projects.
 
-In Authentication (Login) the possible erros are:
-1. Invalid Password.
-2. Email Does not exists.
-3. Validation Errors (Email is required, Password is required, etc).
+TODO LIST:
+1. Finish Employee Page design => Courses, Quizzes, Library, Profile, Settings.
+2. Implement the features and add the important entities to the database. (done)
+3. (HOT FIX) If the cookie is still exists in the client side, make sure also to validate that the session Id and Token still exists in the database. (done)
+4. Move Registeration to Authentication Controller. (done)
+5. Add Depdency injection for the remaining repositories. (done)
+6. Add the neccassary services for employee.
 
-In Registration (Company) the possible erros are:
-1. Email already exists.
-2. Company with given Id does not exists.
-3. Validation Errors (Email is required, Password is required, etc).
 
-In Registration (Employee) the possible erros are:
-1. Email already exists.
-2. Employee with given Id does not exists.
-3. Validation Errors (Email is required, Password is required, etc).
+
+

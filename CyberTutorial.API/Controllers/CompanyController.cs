@@ -2,10 +2,14 @@
 using MediatR;
 using MapsterMapper;
 using CyberTutorial.Application.Companies.Common;
-using CyberTutorial.Contracts.Company.Request.Logout;
 using CyberTutorial.Application.Companies.Commands.Logout;
+using CyberTutorial.Contracts.Common.Request.Logout;
+using CyberTutorial.Contracts.Common.Response.Logout;
+using CyberTutorial.Contracts.Company.Request.Session;
+using CyberTutorial.Contracts.Company.Response.Session;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using CyberTutorial.Application.Companies.Queries.Session;
 
 namespace CyberTutorial.API.Controllers
 {
@@ -26,9 +30,21 @@ namespace CyberTutorial.API.Controllers
         public async Task<IActionResult> Logout(LogoutRequest request)
         {
             LogoutCompanyCommand command = mapper.Map<LogoutCompanyCommand>(request);
-            ErrorOr<LogoutResult> result = await sender.Send(command);
+            ErrorOr<LogoutCompanyResult> result = await sender.Send(command);
             return result.Match(
-                success => Ok(success),
+                success => Ok(mapper.Map<LogoutResponse>(success)),
+                error => Problem(error)
+            );
+        }
+
+        [HttpPost("IsSessionValid")]
+        public async Task<IActionResult> IsSessionValid(IsCompanySessionValidRequest request)
+        {
+            CompanySessionValidationQuery command = mapper.Map<CompanySessionValidationQuery>(request);
+            ErrorOr<CompanySessionValidationResult> result = await sender.Send(command);
+
+            return result.Match(
+                success => Ok(mapper.Map<IsCompanySessionValidResponse>(success)),
                 error => Problem(error)
             );
         }

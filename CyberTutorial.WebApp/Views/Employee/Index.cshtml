@@ -1,11 +1,11 @@
-﻿@model EmployeeModel
+﻿@model EmployeeDashboardModel
 @{
     ViewData["Title"] = "Employee";
 }
 
 <!--title-->
-<div class="row mb-2">
-    <div class="col-md-12">
+<div class="row">
+    <div class="col-md-12 mb-2">
         <h4 class="text-white">Dashboard</h4>
     </div>
 </div>
@@ -21,7 +21,7 @@
             </div>
             <div class="card-content">
                 <p class="category"><strong>Total Courses</strong></p>
-                <h3 class="card-title icon icon-warning">6</h3>
+                <h3 class="card-title icon icon-warning">@Model.TotalCourses</h3>
             </div>
             <div class="card-footer">
                 <div class="stats icon-info">
@@ -29,51 +29,7 @@
                         <i class="bi bi-bell-fill"></i>
                     </div>
                     <span class="text-muted small pt-2 ps-1">Last Modified</span>
-                    <span class="text-white small pt-1 fw-bold">10/12/2022 9:09 AM</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6 col-sm-6 mb-3">
-        <div class="card card-stats bg-dark">
-            <div class="card-header">
-                <div class="icon icon-rose">
-                    <span><i class="fa bi bi-file-text fa-beat-fade"></i></span>
-                </div>
-            </div>
-            <div class="card-content">
-                <p class="category"><strong>Total Quizzes</strong></p>
-                <h3 class="card-title icon icon-rose">2</h3>
-            </div>
-            <div class="card-footer">
-                <div class="stats icon-info">
-                    <div class="icon text-secondary">
-                        <i class="bi bi-bell-fill"></i>
-                    </div>
-                    <span class="text-muted small pt-2 ps-1">Last Modified</span>
-                    <span class="text-white small pt-1 fw-bold">10/12/2022 9:09 AM</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6 col-sm-6 mb-3">
-        <div class="card card-stats bg-dark">
-            <div class="card-header">
-                <div class="icon icon-success">
-                    <span><i class="fa bi bi-box-seam fa-beat-fade"></i></span>
-                </div>
-            </div>
-            <div class="card-content">
-                <p class="category"><strong>Library Updates</strong></p>
-                <h3 class="card-title icon icon-success">3+</h3>
-            </div>
-            <div class="card-footer">
-                <div class="stats icon-info">
-                    <div class="icon text-secondary">
-                        <i class="bi bi-bell-fill"></i>
-                    </div>
-                    <span class="text-muted small pt-2 ps-1">Last Modified</span>
-                    <span class="text-white small pt-1 fw-bold">10/12/2022 9:09 AM</span>
+                    <span class="text-white small pt-1 fw-bold">@Model.TotalCoursesLastModified</span>
                 </div>
             </div>
         </div>
@@ -82,12 +38,12 @@
         <div class="card card-stats bg-dark">
             <div class="card-header">
                 <div class="icon icon-info">
-                    <span><i class="fa bi bi-speedometer fa-beat-fade"></i></span>
+                    <span><i class="fa bi bi-file-text fa-beat-fade"></i></span>
                 </div>
             </div>
             <div class="card-content">
-                <p class="category"><strong>Performance</strong></p>
-                <h3 class="card-title icon icon-info">20%</h3>
+                <p class="category"><strong>Total Quizzes</strong></p>
+                <h3 class="card-title icon icon-info">@Model.TotalQuizzes</h3>
             </div>
             <div class="card-footer">
                 <div class="stats icon-info">
@@ -95,13 +51,56 @@
                         <i class="bi bi-bell-fill"></i>
                     </div>
                     <span class="text-muted small pt-2 ps-1">Last Modified</span>
-                    <span class="text-white small pt-1 fw-bold">10/12/2022 9:09 AM</span>
+                    <span class="text-white small pt-1 fw-bold">@Model.TotalQuizzesLastModified</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6 mb-3">
+        <div class="card card-stats bg-dark">
+            <div class="card-header">
+                <div class="icon icon-success">
+                    <span><i class="fa-solid fa-circle-check fa-beat-fade"></i></span>
+                </div>
+            </div>
+            <div class="card-content">
+                <p class="category"><strong>Passed Quizzes</strong></p>
+                <h3 class="card-title icon icon-success">@Model.PassedQuizzes</h3>
+            </div>
+            <div class="card-footer">
+                <div class="stats icon-info">
+                    <div class="icon text-secondary">
+                        <i class="bi bi-bell-fill"></i>
+                    </div>
+                    <span class="text-muted small pt-2 ps-1">Last Modified</span>
+                    <span class="text-white small pt-1 fw-bold">@Model.PassedQuizzesLastModified</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6 mb-3">
+        <div class="card card-stats bg-dark">
+            <div class="card-header">
+                <div class="icon icon-rose">
+                    <span><i class="fa-sharp fa-solid fa-thumbs-down fa-beat-fade"></i></span>
+                </div>
+            </div>
+            <div class="card-content">
+                <p class="category"><strong>Failed Quizzes</strong></p>
+                <h3 class="card-title icon icon-rose">@Model.FailedQuizzes</h3>
+            </div>
+            <div class="card-footer">
+                <div class="stats icon-info">
+                    <div class="icon text-secondary">
+                        <i class="bi bi-bell-fill"></i>
+                    </div>
+                    <span class="text-muted small pt-2 ps-1">Last Modified</span>
+                    <span class="text-white small pt-1 fw-bold">@Model.FailedQuizzesLastModified</span>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 <!--cards-->
 <!--charts & notifications-->
 <div class="row">
@@ -109,10 +108,10 @@
         <div class="card bg-dark text-white">
             <div class="card-header">
                 <span class="me-2"><i class="bi bi-bar-chart-fill"></i></span>
-                Employee Performance
+                <p class="modal-title d-inline p-0">Employee Performance</p>
             </div>
             <div class="card-body">
-                <canvas class="chart" style="height: 35vh;"></canvas>
+                <canvas id="EmployeePerformanceChart" style="height: 35vh;"></canvas>
             </div>
         </div>
     </div>
@@ -120,10 +119,10 @@
         <div class="card bg-dark text-white">
             <div class="card-header">
                 <span class="me-2"><i class="bi bi-pie-chart"></i></span>
-                Employee Result
+                <p class="modal-title d-inline p-0">Employee Final Result</p>
             </div>
             <div class="card-body">
-                <canvas class="pieChart" style="height: 35vh;"></canvas>
+                <canvas id="EmployeeFinalResultChart" style="height: 35vh;"></canvas>
             </div>
         </div>
     </div>
@@ -134,58 +133,32 @@
     <div class="col-md-12">
         <div class="card bg-dark text-white">
             <div class="card-header">
-                <span><i class="fa-solid fa-fw fa-table me-2"></i></span> Top Employees
+                <span><i class="fa-solid fa-fw fa-table me-2"></i></span>
+                <p class="modal-title d-inline p-0">Top Employees</p>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table id="example"
-                           class="table table-striped data- table-light"
+                           class="table table-striped data-table table-light"
                            style="width: 100%">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Position</th>
-                                <th>Office</th>
-                                <th>Score</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Total Quizzes</th>
+                                <th>Average Score</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Hermione Butler</td>
-                                <td>Regional Director</td>
-                                <td>London</td>
-                                <td>47</td>
-                            </tr>
-                            <tr>
-                                <td>Lael Greer</td>
-                                <td>Systems Administrator</td>
-                                <td>London</td>
-                                <td>21</td>
-                            </tr>
-                            <tr>
-                                <td>Jonas Alexander</td>
-                                <td>Developer</td>
-                                <td>San Francisco</td>
-                                <td>30</td>
-                            </tr>
-                            <tr>
-                                <td>Shad Decker</td>
-                                <td>Regional Director</td>
-                                <td>Edinburgh</td>
-                                <td>51</td>
-                            </tr>
-                            <tr>
-                                <td>Michael Bruce</td>
-                                <td>Javascript Developer</td>
-                                <td>Singapore</td>
-                                <td>29</td>
-                            </tr>
-                            <tr>
-                                <td>Donna Snider</td>
-                                <td>Customer Support</td>
-                                <td>New York</td>
-                                <td>27</td>
-                            </tr>
+                            @foreach (TopEmployeeModel topEmployee in Model.TopEmployees)
+                            {
+                                <tr>
+                                    <td>@topEmployee.FirstName</td>
+                                    <td>@topEmployee.LastName</td>
+                                    <td>@topEmployee.TotalQuizzes</td>
+                                    <td>@topEmployee.AverageScore%</td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -193,4 +166,14 @@
         </div>
     </div>
 </div>
-<!-- tables-->
+<!--tables-->
+
+<!--injected data for charts-->
+@Html.Hidden("EmployeePerformanceLabels", @Html.Raw(Json.Serialize(@Model.EmployeePerformance.Labels)))
+@Html.Hidden("EmployeePerformanceDatasets", @Html.Raw(Json.Serialize(@Model.EmployeePerformance.Datasets)))
+@Html.Hidden("EmployeePerformanceMaximumQuizzes", @Model.EmployeePerformance.MaximumQuizzes)
+@Html.Hidden("EmployeePerformanceMaximumScore", @Model.EmployeePerformance.MaximumScore)
+
+@Html.Hidden("EmployeeFinalResultLabels", @Html.Raw(Json.Serialize(@Model.EmployeeFinalResultModel.Labels)))
+@Html.Hidden("EmployeeFinalResultDatasets", @Html.Raw(Json.Serialize(@Model.EmployeeFinalResultModel.Datasets)))
+<!--injected data for charts-->

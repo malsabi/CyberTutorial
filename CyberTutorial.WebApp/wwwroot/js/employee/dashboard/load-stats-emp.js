@@ -38,65 +38,42 @@ function HandleDataTableStyle() {
     });
 }
 
-const charts = document.querySelectorAll(".chart");
-charts.forEach(function (chart) {
-    var ctx = chart.getContext("2d");
-    new Chart(ctx, {
-        type: "bar",
-        data: {
-            labels: ["Quiz1", "Quiz2", "Quiz3", "Quiz4", "Quiz5", "Quiz6"],
-            datasets: [
-                {
-                    label: "Quiz Marks",
-                    data: [12, 19, 3, 5, 2, 3],
-                    backgroundColor: [
-                        "rgb(255, 99, 132)",
-                        "rgb(54, 162, 235)",
-                        "rgb(255, 206, 86)",
-                        "rgb(75, 192, 192)",
-                        "rgb(153, 102, 255)",
-                        "rgb(255, 159, 64)",
-                    ],
-                    borderWidth: 0,
-                },
-            ],
-        },
-        options: {
-            maintainAspectRatio: false,
+var employeePerformanceLabels = JSON.parse($('#EmployeePerformanceLabels').val());
+var employeePerformanceDataSets = toCamel(JSON.parse($('#EmployeePerformanceDatasets').val()));
+var employeePerformanceTotalQuizzes = $('#EmployeePerformanceTotalQuizzes').val();
+var employeePerformanceMaximumScore = $('#EmployeePerformanceMaximumScore').val();
+
+console.log("Labels: " + employeePerformanceLabels);
+console.log("Datasets: " + employeePerformanceDataSets);
+
+new Chart(document.getElementById('EmployeePerformanceChart'), {
+    type: "bar",
+    data: {
+        labels: employeePerformanceLabels,
+        datasets: employeePerformanceDataSets,
+    },
+    options: {
+        maintainAspectRatio: false,
+        scales: {
+            y: {
+                max: parseInt(employeePerformanceMaximumScore)
+            },
+            x: {
+                max: parseInt(employeePerformanceTotalQuizzes)
+            }
         }
-    });
+    }
 });
 
-const pieCharts = document.querySelectorAll(".pieChart");
-pieCharts.forEach(function (chart) {
-    var ctx = chart.getContext("2d");
-    new Chart(ctx, {
-        type: 'pie',
-        data: {
-            labels: [
-                'Quiz 1',
-                'Quiz 2',
-                'Quiz 3',
-                'Quiz 4',
-                'Quiz 5'
-            ],
-            datasets: [{
-                label: 'Quiz Result Dataset',
-                data: [2, 5, 8, 10, 7],
-                backgroundColor: [
-                    "rgb(255, 99, 132)",
-                    "rgb(54, 162, 235)",
-                    "rgb(255, 206, 86)",
-                    "rgb(75, 192, 192)",
-                    "rgb(153, 102, 255)",
-                    "rgb(255, 159, 64)",
-                ],
-                borderWidth: 0,
-                hoverOffset: 4
-            }]
-        },
-        options: {
-            maintainAspectRatio: false,
-        }
-    });
+var employeeFinalResultLabels = JSON.parse($('#EmployeeFinalResultLabels').val());
+var employeeFinalResultDataSets = toCamel(JSON.parse($('#EmployeeFinalResultDatasets').val()));
+new Chart(document.getElementById('EmployeeFinalResultChart'), {
+    type: 'pie',
+    data: {
+        labels: employeeFinalResultLabels,
+        datasets: employeeFinalResultDataSets
+    },
+    options: {
+        maintainAspectRatio: false,
+    }
 });

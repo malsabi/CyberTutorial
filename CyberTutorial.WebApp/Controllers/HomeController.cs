@@ -1,9 +1,9 @@
 ﻿using System.Diagnostics;
 using System.ComponentModel.DataAnnotations;
-using CyberTutorial.WebApp.Models;
 using CyberTutorial.WebApp.ViewModels;
 using CyberTutorial.WebApp.Controllers.BaseControllers;
 using Microsoft.AspNetCore.Mvc;
+using CyberTutorial.WebApp.Models.Common;
 
 namespace CyberTutorial.WebApp.Controllers
 {
@@ -12,14 +12,6 @@ namespace CyberTutorial.WebApp.Controllers
         public IActionResult Index()
         {
             HomeViewModel viewModel = new HomeViewModel();
-            if (IdentityService.IsCompanyLoggedIn())
-            {
-                return RedirectToAction("Index", "Company");
-            }
-            else if (IdentityService.IsEmployeeLoggedIn())
-            {
-                return RedirectToAction("Index", "Employee");
-            }
             return View(viewModel);
         }
 

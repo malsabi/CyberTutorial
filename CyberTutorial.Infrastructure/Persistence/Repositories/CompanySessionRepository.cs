@@ -1,4 +1,5 @@
 ﻿using CyberTutorial.Domain.Entities;
+using CyberTutorial.Infrastructure.Persistence.Extensions;
 using CyberTutorial.Application.Common.Interfaces.Persistence;
 using CyberTutorial.Application.Common.Interfaces.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -14,39 +15,53 @@ namespace CyberTutorial.Infrastructure.Persistence.Repositories
             this.applicationDbContext = applicationDbContext;
         }
 
-        public async Task CreateCompanySessionAsync(CompanySession companySession)
+        public async Task AddCompanySessionAsync(CompanySession session)
         {
-            await applicationDbContext.CompanySessions.AddAsync(companySession);
+            await applicationDbContext.CompanySessions.AddAsync(session);
             await applicationDbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteCompanySessionAsync(CompanySession companySession)
+        public async Task<ICollection<CompanySession>> GetCompanySessionsAsync()
         {
-            applicationDbContext.CompanySessions.Remove(companySession);
-            await applicationDbContext.SaveChangesAsync();
+            return await applicationDbContext.CompanySessions
+                .Include(session => session.Company)
+                .ToListAsync();
         }
 
-        public async Task<CompanySession> GetCompanySessionByCompanyIdAsync(string companyId)
+        public async Task<CompanySession> GetCompanySessionByIdAsync(string companyId)
         {
-            CompanySession companySession = await applicationDbContext.CompanySessions.FirstOrDefaultAsync(session => session.CompanyId == companyId);
-            return companySession;
-        }
-
-        public async Task<CompanySession> GetCompanySessionBySessionIdAsync(string sessionId)
-        {
-            CompanySession companySession = await applicationDbContext.CompanySessions.FirstOrDefaultAsync(session => session.Id == sessionId);
-            return companySession;
+            return await applicationDbContext.CompanySessions
+                .Include(session => session.Company)
+                .FirstOrDefaultAsync(session => session.CompanySessionId == companyId);
         }
 
         public async Task<CompanySession> GetCompanySessionByTokenAsync(string token)
         {
-            CompanySession companySession = await applicationDbContext.CompanySessions.FirstOrDefaultAsync(session => session.Token == token);
-            return companySession;
+            return await applicationDbContext.CompanySessions
+                .Include(session => session.Company)
+                .FirstOrDefaultAsync(session => session.Token == token);
         }
 
-        public async Task UpdateCompanySessionAsync(CompanySession companySession)
+        public async Task UpdateCompanySessionAsync(CompanySession session)
         {
-            applicationDbContext.CompanySessions.Update(companySession);
+            applicationDbContext.CompanySessions.Update(session);
+            await applicationDbContext.SaveChangesAsync();
+        }
+
+        public async Task DeleteCompanySessionAsync(string companyId)
+        {
+            CompanySession sessionToDelete = await GetCompanySessionByIdAsync(companyId);
+            await DeleteCompanySessionAsync(sessionToDelete);
+        }
+
+        public async Task DeleteCompanySessionAsync(CompanySession session)
+        {
+            applicationDbContext.CompanySessions.Remove(session);
+            await applicationDbContext.SaveChangesAsync();
+        }
+        public async Task DeleteAllAsync()
+        {
+            applicationDbContext.CompanySessions.Clear();
             await applicationDbContext.SaveChangesAsync();
         }
     }

@@ -20,34 +20,46 @@ namespace CyberTutorial.Infrastructure.Persistence.Repositories
             await applicationDbContext.Companies.AddAsync(company);
             await applicationDbContext.SaveChangesAsync();
         }
-
-        public async Task DeleteCompanyAsync(string id)
+        
+        public async Task<ICollection<Company>> GetCompaniesAsync()
         {
-            Company companyToDelete = await applicationDbContext.Companies.FirstOrDefaultAsync(company => company.Id == id);
-            applicationDbContext.Companies.Remove(companyToDelete);
-            await applicationDbContext.SaveChangesAsync();
+            return await applicationDbContext.Companies
+                .Include(company => company.Session)
+                .Include(company => company.Employees)
+                .ToListAsync();
+        }
+        
+        public async Task<Company> GetCompanyByIdAsync(string companyId)
+        {
+            return await applicationDbContext.Companies
+                .Include(company => company.Session)
+                .Include(company => company.Employees)
+                .FirstOrDefaultAsync(company => company.CompanyId == companyId);
         }
 
         public async Task<Company> GetCompanyByEmailAsync(string emailAddress)
         {
-            Company company = await applicationDbContext.Companies.FirstOrDefaultAsync(company => company.EmailAddress == emailAddress);
-            return company;
-        }
-
-        public async Task<Company> GetCompanyByIdAsync(string id)
-        {
-            Company company = await applicationDbContext.Companies.FirstOrDefaultAsync(company => company.Id == id);
-            return company;
-        }
-
-        public async Task<List<Company>> GetCompaniesAsync()
-        {
-            return await applicationDbContext.Companies.ToListAsync();
+            return await applicationDbContext.Companies
+                .Include(company => company.Session)
+                .Include(company => company.Employees)
+                .FirstOrDefaultAsync(company => company.EmailAddress == emailAddress);
         }
 
         public async Task UpdateCompanyAsync(Company company)
         {
             applicationDbContext.Companies.Update(company);
+            await applicationDbContext.SaveChangesAsync();
+        }
+        
+        public async Task DeleteCompanyAsync(string companyId)
+        {
+            Company companyToDelete = await GetCompanyByIdAsync(companyId);
+            await DeleteCompanyAsync(companyToDelete);
+        }
+        
+        public async Task DeleteCompanyAsync(Company company)
+        {
+            applicationDbContext.Companies.Remove(company);
             await applicationDbContext.SaveChangesAsync();
         }
 
