@@ -6,6 +6,6 @@ namespace CyberTutorial.Application.Companies.Commands.DeleteCompany
 {
     public class DeleteCompanyCommand : IRequest<ErrorOr<DeleteCompanyResult>>
     {
-        public string Id { get; set; }
+        public string CompanyId { get; set; }
     }
 }

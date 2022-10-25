@@ -5,7 +5,7 @@ namespace CyberTutorial.Application.Companies.Commands.DeleteCompany
     {
         public DeleteCompanyCommandValidator()
         {
-            RuleFor(x => x.Id).NotEmpty();
+            RuleFor(x => x.CompanyId).NotEmpty();
         }
     }
 }

@@ -15,6 +15,11 @@ namespace CyberTutorial.Domain.Common.Errors
                 code: "Authentication.InvalidCredentials",
                 description: "Invalid password"
             );
+
+            public static Error OperationFailed => Error.NotFound(
+                code: "Authentication.OperationFailed",
+                description: "Authentication operation failed"
+            );
         }
     }
 }

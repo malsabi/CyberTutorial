@@ -4,9 +4,9 @@ using MapsterMapper;
 using CyberTutorial.Domain.Entities;
 using CyberTutorial.Domain.Common.Consts;
 using CyberTutorial.Domain.Common.Errors;
+using CyberTutorial.Application.Authentication.Common;
 using CyberTutorial.Application.Common.Interfaces.Services;
 using CyberTutorial.Application.Common.Interfaces.Persistence.Repositories;
-using CyberTutorial.Application.Authentication.Common;
 
 namespace CyberTutorial.Application.Authentication.Commands
 {
@@ -46,6 +46,24 @@ namespace CyberTutorial.Application.Authentication.Commands
 
             employeeToRegister.Company = company;
             employeeToRegister.Password = hashProvider.ApplyHash(employeeToRegister.Password);
+
+            employeeToRegister.Session = new EmployeeSession()
+            {
+                TimeCreated = DateTime.Now.ToString(),
+                IsActive = false
+            };
+
+            employeeToRegister.EmployeeDashboard = new EmployeeDashboard()
+            {
+                TotalCourses = 0,
+                TotalCoursesLastModified = DateTime.Now.ToString(),
+                TotalQuizzes = 0,
+                TotalQuizzesLastModified = DateTime.Now.ToString(),
+                TotalPassed = 0,
+                TotalPassedLastModified = DateTime.Now.ToString(),
+                TotalFailed = 0,
+                TotalFailedLastModified = DateTime.Now.ToString()
+            };
 
             string subject = Consts.Employee.VerificationSubject;
             string message = string.Format(Consts.Employee.VerificationCodeMessage, request.CompanyId);

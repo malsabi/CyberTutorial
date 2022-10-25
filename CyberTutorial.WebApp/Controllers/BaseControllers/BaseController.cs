@@ -12,9 +12,15 @@ namespace CyberTutorial.WebApp.Controllers.BaseControllers
         protected IIdentityService IdentityService =>
             HttpContext.RequestServices.GetRequiredService<IIdentityService>();
 
+        protected ICompanyService CompanyService =>
+            HttpContext.RequestServices.GetRequiredService<ICompanyService>();
+
+        protected IEmployeeService EmployeeService =>
+            HttpContext.RequestServices.GetRequiredService<IEmployeeService>();
+
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            if (IdentityService.IsEmployeeLoggedIn().Result)
+            if (EmployeeService.IsEmployeeLoggedInAsync().Result)
             {
                 if (IsControllerNotValid(context, true, false))
                 {
@@ -22,7 +28,7 @@ namespace CyberTutorial.WebApp.Controllers.BaseControllers
                     return;
                 }
             }
-            else if (IdentityService.IsCompanyLoggedIn().Result)
+            else if (CompanyService.IsCompanyLoggedInAsync().Result)
             {
                 if (IsControllerNotValid(context, false, true))
                 {

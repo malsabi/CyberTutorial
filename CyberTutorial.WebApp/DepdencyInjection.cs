@@ -17,6 +17,9 @@ namespace CyberTutorial.WebApp
             services.AddSingleton<ISerializationService, SerializationService>();
             services.AddSingleton<ICookieService, CookieService>();
             services.AddSingleton<ICryptographyService, CryptographyService>();
+            
+            services.AddScoped<ICompanyService, CompanyService>();
+            services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<IIdentityService, IdentityService>();
             return services;
         }

@@ -16,11 +16,12 @@ namespace CyberTutorial.Infrastructure.Persistence
         public DbSet<Employee> Employees => Set<Employee>();
         public DbSet<EmployeeSession> EmployeeSessions => Set<EmployeeSession>();
         public DbSet<EmployeeDashboard> EmployeeDashboards => Set<EmployeeDashboard>();
+        public DbSet<TopEmployee> TopEmployees => Set<TopEmployee>();
         public DbSet<Course> Courses => Set<Course>();
         public DbSet<Quiz> Quizzes => Set<Quiz>();
         public DbSet<Question> Questions => Set<Question>();
         public DbSet<Answer> Answers => Set<Answer>();
- 
+
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             return await base.SaveChangesAsync(cancellationToken);

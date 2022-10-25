@@ -36,20 +36,12 @@ namespace CyberTutorial.Application.Authentication.Queries.Login
 
             if (employee.Session == null)
             {
-                employee.Session = new EmployeeSession()
-                {
-                    TimeCreated = DateTime.Now.ToString(),
-                    ExpiryDate = DateTime.Now.AddDays(30).ToString(),
-                    Token = jwtTokenGenerator.GenerateToken(employee),
-                    IsActive = true
-                };
+                return Errors.Authentication.OperationFailed;
             }
-            else
-            {
-                employee.Session.ExpiryDate = DateTime.Now.AddDays(30).ToString();
-                employee.Session.Token = jwtTokenGenerator.GenerateToken(employee);
-                employee.Session.IsActive = true;
-            }
+            
+            employee.Session.ExpiryDate = DateTime.Now.AddDays(30).ToString();
+            employee.Session.Token = jwtTokenGenerator.GenerateToken(employee);
+            employee.Session.IsActive = true;
 
             await employeeRepository.UpdateEmployeeAsync(employee);
 

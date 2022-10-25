@@ -16,8 +16,8 @@ namespace CyberTutorial.WebApp.Services
         {
             this.apiConfigService = apiConfigService;
         }
-       
-        public async Task<ErrorOr<TResponse>> GetAsync<TResponse>(string endpoint, string token = "")
+
+        public async Task<ErrorOr<TResponse>> GetAsync<TResponse>(string endpoint, string token = "", params string[] args)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace CyberTutorial.WebApp.Services
                     }
                     client.BaseAddress = new Uri(apiConfigService.GetApiEndPoint());
 
-                    HttpResponseMessage response = client.GetAsync(endpoint).Result;
+                    HttpResponseMessage response = await client.GetAsync(string.Format(endpoint, args));
                     if (response.IsSuccessStatusCode)
                     {
                         return await response.Content.ReadFromJsonAsync<TResponse>();
@@ -43,9 +43,9 @@ namespace CyberTutorial.WebApp.Services
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                return default;
+                return Error.Failure();
             }
         }
 
@@ -65,6 +65,70 @@ namespace CyberTutorial.WebApp.Services
 
                     HttpResponseMessage response = await client.PostAsJsonAsync(endpoint, data);
 
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return await response.Content.ReadFromJsonAsync<TResponse>();
+                    }
+                    else
+                    {
+                        ProblemDetails problemDetails = await response.Content.ReadFromJsonAsync<ProblemDetails>();
+                        return GetErrors(problemDetails);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return Error.Failure();
+            }
+        }
+
+        public async Task<ErrorOr<TResponse>> PutAsync<TRequest, TResponse>(TRequest data, string endpoint, string token = "", params string[] args)
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    if (!string.IsNullOrEmpty(token))
+                    {
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(ApiConsts.Scheme, token);
+                    }
+                    client.BaseAddress = new Uri(apiConfigService.GetApiEndPoint());
+
+                    HttpResponseMessage response = await client.PutAsJsonAsync(string.Format(endpoint, args), data);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return await response.Content.ReadFromJsonAsync<TResponse>();
+                    }
+                    else
+                    {
+                        ProblemDetails problemDetails = await response.Content.ReadFromJsonAsync<ProblemDetails>();
+                        return GetErrors(problemDetails);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return Error.Failure();
+            }
+        }
+
+        public async Task<ErrorOr<TResponse>> DeleteAsync<TResponse>(string endpoint, string token = "", params string[] args)
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    if (!string.IsNullOrEmpty(token))
+                    {
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(ApiConsts.Scheme, token);
+                    }
+                    client.BaseAddress = new Uri(apiConfigService.GetApiEndPoint());
+
+                    HttpResponseMessage response = await client.DeleteAsync(string.Format(endpoint, args));
                     if (response.IsSuccessStatusCode)
                     {
                         return await response.Content.ReadFromJsonAsync<TResponse>();

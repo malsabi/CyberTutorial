@@ -4,10 +4,10 @@ using MapsterMapper;
 using CyberTutorial.Domain.Entities;
 using CyberTutorial.Domain.Common.Consts;
 using CyberTutorial.Domain.Common.Errors;
+using CyberTutorial.Application.Authentication.Common;
 using CyberTutorial.Application.Common.Interfaces.Services;
 using CyberTutorial.Application.Common.Interfaces.Authentication;
 using CyberTutorial.Application.Common.Interfaces.Persistence.Repositories;
-using CyberTutorial.Application.Authentication.Common;
 
 namespace CyberTutorial.Application.Authentication.Commands
 {
@@ -41,6 +41,12 @@ namespace CyberTutorial.Application.Authentication.Commands
 
             companyToRegister.CompanyId = codeGenerator.GenerateCode(4);
             companyToRegister.Password = hashProvider.ApplyHash(companyToRegister.Password);
+
+            companyToRegister.Session = new CompanySession()
+            {
+                TimeCreated = DateTime.Now.ToString(),
+                IsActive = false
+            };
 
             string subject = Consts.Company.VerificationSubject;
             string message = string.Format(Consts.Company.VerificationCodeMessage, companyToRegister.CompanyId);

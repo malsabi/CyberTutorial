@@ -1,5 +1,7 @@
-﻿using MapsterMapper;
+﻿using Mapster;
+using MapsterMapper;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace CyberTutorial.Application.Common.Mapping
 {
@@ -7,6 +9,9 @@ namespace CyberTutorial.Application.Common.Mapping
     {
         public static IServiceCollection AddMappings(this IServiceCollection services)
         {
+            TypeAdapterConfig config = TypeAdapterConfig.GlobalSettings;
+            config.Scan(Assembly.GetExecutingAssembly());
+            services.AddSingleton(config);
             services.AddScoped<IMapper, ServiceMapper>();
             return services;
         }

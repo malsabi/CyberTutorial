@@ -2,6 +2,6 @@
 {
     public class DeleteCompanyResult
     {
-        public string Id { get; set; }
+        public string CompanyId { get; set; }
     }
 }

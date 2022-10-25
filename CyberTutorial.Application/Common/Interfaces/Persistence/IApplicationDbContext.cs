@@ -11,6 +11,7 @@ namespace CyberTutorial.Application.Common.Interfaces.Persistence
         public DbSet<Employee> Employees { get; }
         public DbSet<EmployeeSession> EmployeeSessions { get; }
         public DbSet<EmployeeDashboard> EmployeeDashboards { get; }
+        public DbSet<TopEmployee> TopEmployees { get; }
         public DbSet<Course> Courses { get; }
         public DbSet<Quiz> Quizzes { get; }
         public DbSet<Question> Questions { get; }

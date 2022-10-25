@@ -1,28 +1,53 @@
-﻿namespace CyberTutorial.WebApp.Models.Employee.Dashboard
+﻿using CyberTutorial.Contracts.Models;
+using CyberTutorial.Contracts.Employee.Response.Dashboard;
+
+namespace CyberTutorial.WebApp.Models.Employee.Dashboard
 {
     public class EmployeeDashboardModel
     {
         public int TotalCourses { get; set; }
-        public DateTime TotalCoursesLastModified { get; set; }
+        public string TotalCoursesLastModified { get; set; }
         public int TotalQuizzes { get; set; }
-        public DateTime TotalQuizzesLastModified { get; set; }
+        public string TotalQuizzesLastModified { get; set; }
         public int PassedQuizzes { get; set; }
-        public DateTime PassedQuizzesLastModified { get; set; }
+        public string PassedQuizzesLastModified { get; set; }
         public int FailedQuizzes { get; set; }
-        public DateTime FailedQuizzesLastModified { get; set; }
+        public string FailedQuizzesLastModified { get; set; }
         public EmployeePerformanceModel EmployeePerformance { get; set; }
         public EmployeeFinalResultModel EmployeeFinalResultModel { get; set; }
         public List<TopEmployeeModel> TopEmployees { get; set; }
 
         public EmployeeDashboardModel()
         {
-#if DEBUG
-            AddRandomData();
-#else
             EmployeePerformance = new EmployeePerformanceModel();
             EmployeeFinalResultModel = new EmployeeFinalResultModel();
             TopEmployees = new List<TopEmployeeModel>();
-#endif
+        }
+
+        public void FillStatisticsValues(GetEmployeeDashboardResponse response)
+        {
+            TotalCourses = response.TotalCourses;
+            TotalCoursesLastModified = response.TotalCoursesLastModified;
+            TotalQuizzes = response.TotalQuizzes;
+            TotalQuizzesLastModified = response.TotalQuizzesLastModified;
+            PassedQuizzes = response.PassedQuizzes;
+            PassedQuizzesLastModified = response.PassedQuizzesLastModified;
+            FailedQuizzes = response.FailedQuizzes;
+            FailedQuizzesLastModified = response.FailedQuizzesLastModified;
+        }
+
+        public void FillChartsValues(GetEmployeeDashboardResponse response)
+        {
+            EmployeePerformance.FillValues(response);
+            EmployeeFinalResultModel.FillValues(response);
+        }
+
+        public void FillTablesValues(GetEmployeeDashboardResponse response)
+        {
+            foreach (TopEmployeeModel topEmployee in response.TopEmployees)
+            {
+                TopEmployees.Add(topEmployee);
+            }
         }
 
         private void AddRandomData()

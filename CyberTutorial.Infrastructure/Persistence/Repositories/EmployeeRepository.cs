@@ -28,7 +28,6 @@ namespace CyberTutorial.Infrastructure.Persistence.Repositories
                 .Include(employee => employee.Company)
                 .Include(employee => employee.Quizzes)
                 .Include(employee => employee.Courses)
-                .Include(employee => employee.EmployeeDashboard)
                 .ToListAsync();
         }
         
@@ -39,7 +38,6 @@ namespace CyberTutorial.Infrastructure.Persistence.Repositories
                 .Include(employee => employee.Company)
                 .Include(employee => employee.Quizzes)
                 .Include(employee => employee.Courses)
-                .Include(employee => employee.EmployeeDashboard)
                 .FirstOrDefaultAsync(employee => employee.EmployeeId == employeeId);
         }
         
@@ -50,7 +48,6 @@ namespace CyberTutorial.Infrastructure.Persistence.Repositories
                 .Include(employee => employee.Company)
                 .Include(employee => employee.Quizzes)
                 .Include(employee => employee.Courses)
-                .Include(employee => employee.EmployeeDashboard)
                 .FirstOrDefaultAsync(employee => employee.EmailAddress == emailAddress);
         }
      

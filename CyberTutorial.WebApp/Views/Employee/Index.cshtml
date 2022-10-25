@@ -1,6 +1,7 @@
 ﻿@model EmployeeDashboardModel
 @{
     ViewData["Title"] = "Employee";
+    ViewData["EmployeeName"] = "Johnny";
 }
 
 <!--title-->
@@ -173,7 +174,6 @@
 @Html.Hidden("EmployeePerformanceDatasets", @Html.Raw(Json.Serialize(@Model.EmployeePerformance.Datasets)))
 @Html.Hidden("EmployeePerformanceMaximumQuizzes", @Model.EmployeePerformance.MaximumQuizzes)
 @Html.Hidden("EmployeePerformanceMaximumScore", @Model.EmployeePerformance.MaximumScore)
-
 @Html.Hidden("EmployeeFinalResultLabels", @Html.Raw(Json.Serialize(@Model.EmployeeFinalResultModel.Labels)))
 @Html.Hidden("EmployeeFinalResultDatasets", @Html.Raw(Json.Serialize(@Model.EmployeeFinalResultModel.Datasets)))
 <!--injected data for charts-->

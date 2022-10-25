@@ -7,10 +7,13 @@ namespace CyberTutorial.Domain.Entities
         [ForeignKey("Employee")]
         public string EmployeeDashboardId { get; set; }
         public int TotalCourses { get; set; }
+        public string TotalCoursesLastModified { get; set; }
         public int TotalQuizzes { get; set; }
+        public string TotalQuizzesLastModified { get; set; }
         public int TotalPassed { get; set; }
+        public string TotalPassedLastModified { get; set; }
         public int TotalFailed { get; set; }
-        public virtual ICollection<TopEmployee> TopEmployees { get; set; }
+        public string TotalFailedLastModified { get; set; }
         public virtual Employee Employee { get; set; }
     }
 }

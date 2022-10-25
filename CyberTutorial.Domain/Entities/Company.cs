@@ -15,7 +15,7 @@
         public string Website { get; set; }
         public string CompanyDescription { get; set; }
         public string Password { get; set; }
-        public virtual CompanySession Session { get; set; }
-        public virtual ICollection<Employee> Employees { get; set; }
+        public CompanySession Session { get; set; }
+        public ICollection<Employee> Employees { get; set; }
     }
 }

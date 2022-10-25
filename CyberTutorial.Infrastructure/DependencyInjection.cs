@@ -65,7 +65,6 @@ namespace CyberTutorial.Infrastructure
             services.AddScoped<ICompanySessionRepository, CompanySessionRepository>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<IEmployeeSessionRepository, EmployeeSessionRepository>();
-            services.AddScoped<IEmployeeDashboardRepository, EmployeeDashboardRepository>();
             services.AddScoped<ICourseRepository, CourseRepository>();
             services.AddScoped<IQuizRepository, QuizRepository>();
             services.AddScoped<IQuestionRepository, QuestionRepository>();

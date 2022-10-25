@@ -6,7 +6,7 @@ namespace CyberTutorial.WebApp.Controllers
     public class CompanyController : BaseController<CompanyController>
     {
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             return View();
         }
@@ -14,7 +14,7 @@ namespace CyberTutorial.WebApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Logout()
         {
-            return Json(await IdentityService.LogoutCompanyAsync());
+            return Json(await CompanyService.LogoutCompanyAsync());
         }
     }
 }

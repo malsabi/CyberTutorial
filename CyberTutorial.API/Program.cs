@@ -26,7 +26,7 @@ namespace CyberTutorial.API
                 {
                     ApplicationDbContext context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                     //context.Database.EnsureDeleted();
-                    context.Database.Migrate();
+                    //context.Database.Migrate();
                     //context.Database.EnsureCreated();
                 }
 

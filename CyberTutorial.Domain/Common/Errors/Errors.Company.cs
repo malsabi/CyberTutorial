@@ -35,6 +35,11 @@ namespace CyberTutorial.Domain.Common.Errors
                 code: "Company.SessionExpired",
                 description: "Company session has expired."
             );
+
+            public static Error NoEmployeesFound => Error.NotFound(
+                code: "Employee.NoEmployeesFound",
+                description: "No employees found in company."
+            );
         }
     }
 }

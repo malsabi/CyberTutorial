@@ -1,6 +1,5 @@
 ﻿using CyberTutorial.WebApp.Common.Consts;
 using CyberTutorial.WebApp.Controllers.BaseControllers;
-using CyberTutorial.WebApp.Models.Employee.Dashboard;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CyberTutorial.WebApp.Controllers
@@ -9,9 +8,9 @@ namespace CyberTutorial.WebApp.Controllers
     {
         #region "Dashboard"
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View(new EmployeeDashboardModel());
+            return View(await EmployeeService.GetEmployeeDashboardAsync());
         }
         #endregion
 
@@ -59,7 +58,7 @@ namespace CyberTutorial.WebApp.Controllers
 
         public async Task<IActionResult> Logout()
         {
-            return Json(await IdentityService.LogoutEmployeeAsync());
+            return Json(await EmployeeService.LogoutEmployeeAsync());
         }
         #endregion
     }
