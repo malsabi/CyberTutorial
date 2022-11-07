@@ -1,3 +1,25 @@
-﻿@{
-    ViewData["Title"] = "Attempted Courses";
+﻿@model List<CourseModel>
+@{
+    ViewData["Title"] = "Taken Courses";
 }
+
+@section Scripts
+{
+    <script src="~/js/employee/courses-emp.js" asp-append-version="true"></script>
+}
+
+<div class="row ps-3 pt-3 pe-3 gx-4 gy-4">
+    @foreach (CourseModel course in Model)
+    {
+        <div class="col-lg-3 col-auto">
+            <div class="card d-flex flex-column h-100">
+                <img src="@course.CourseImage" class="card-img-top" style="height: 300px" alt="Course Image">
+                <div class="card-body">
+                    <h5 class="card-title">@course.CourseName</h5>
+                    <p class="card-text">@course.CourseDescription</p>
+                </div>
+                <a class="btn btn-lg btn-primary mt-auto mb-3 ms-3 me-3" href="@course.CourseUrl" download="@course.CourseName">Download Course</a>
+            </div>
+        </div>
+    }
+</div>

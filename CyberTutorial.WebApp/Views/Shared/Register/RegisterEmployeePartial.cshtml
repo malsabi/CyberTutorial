@@ -1,32 +1,17 @@
-﻿@model RegisterModel
+﻿@model RegisterEmployeeModel
 
-<form asp-controller="Home" asp-action="Register" method="post" id="RegisterEmployeeForm" novalidate>
+<form asp-controller="Home" asp-action="RegisterEmployee" method="post" id="RegisterEmployeeForm" novalidate>
     <div class="mb-3">
-        <div class="toast error-toast-style w-100" role="alert" id="EmployeeErrorToast">
-            <div class="toast-body">
-                Something went wrong. Please try again.
-                <button type="button" class="btn-close float-end" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-        </div>
-        <div class="toast error-toast-style w-100" role="alert" id="CompanyNotFoundToast">
-            <div class="toast-body">
-                Company with given id does not exist.
-                <button type="button" class="btn-close float-end" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-        </div>
-        <div class="toast error-toast-style w-100" role="alert" id="EmployeeFoundToast">
-            <div class="toast-body">
-                Employee with this email already exists.
-                <button type="button" class="btn-close float-end" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
+        <div id="RegisterEmployeeAlert" class="alert alert-danger d-flex align-items-center alert-dismissible fade show d-none" role="alert">
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     </div>
     <label class="form-label mb-1">Full Name</label>
     <div class="row mb-3">
         <div class="col-6">
             <div class="form-group">
-                <input asp-for="RegisterEmployeeModel.FirstName" type="text" class="form-control bg-dark rounded-3 border-info text-white" id="FirstName" placeholder="First">
-                <span asp-validation-for="RegisterEmployeeModel.FirstName" class="text-danger"></span>
+                <input asp-for="FirstName" type="text" class="form-control bg-dark rounded-3 border-info text-white" id="FirstName" placeholder="First">
+                <span asp-validation-for="FirstName" class="text-danger"></span>
                 <div class="valid-feedback">
                     Looks good!
                 </div>
@@ -34,8 +19,8 @@
         </div>
         <div class="col-6">
             <div class="form-group">
-                <input asp-for="RegisterEmployeeModel.LastName" type="text" class="form-control bg-dark rounded-3 border-info text-white" id="LastName" placeholder="Last">
-                <span asp-validation-for="RegisterEmployeeModel.LastName" class="text-danger"></span>
+                <input asp-for="LastName" type="text" class="form-control bg-dark rounded-3 border-info text-white" id="LastName" placeholder="Last">
+                <span asp-validation-for="LastName" class="text-danger"></span>
                 <div class="valid-feedback">
                     Looks good!
                 </div>
@@ -44,9 +29,9 @@
     </div>
     <div class="mb-3">
         <div class="form-group">
-            <label asp-for="RegisterEmployeeModel.CompanyId" for="CompanyName" class="form-label">Company Id</label>
-            <input asp-for="RegisterEmployeeModel.CompanyId" type="text" class="form-control bg-dark rounded-3 border-info text-white" id="CompanyId" placeholder="xxxxxxxxxxxx">
-            <span asp-validation-for="RegisterEmployeeModel.CompanyId" class="text-danger"></span>
+            <label asp-for="CompanyId" for="CompanyName" class="form-label">Company Id</label>
+            <input asp-for="CompanyId" type="text" class="form-control bg-dark rounded-3 border-info text-white" id="CompanyId" placeholder="xxxxxxxxxxxx">
+            <span asp-validation-for="CompanyId" class="text-danger"></span>
             <div class="valid-feedback">
                 Looks good!
             </div>
@@ -54,25 +39,25 @@
     </div>
     <div class="row mb-3">
         <div class="col-6">
-            <label asp-for="RegisterEmployeeModel.Gender" for="GenderComboBox" class="form-label">Gender</label>
-            <select asp-for="RegisterEmployeeModel.Gender" class="form-select custom-selectform-arrow bg-dark text-white rounded-3 border-info" id="GenderComboBox">
+            <label asp-for="Gender" for="GenderComboBox" class="form-label">Gender</label>
+            <select asp-for="Gender" class="form-select custom-selectform-arrow bg-dark text-white rounded-3 border-info" id="GenderComboBox">
                 <option selected>Male</option>
                 <option>Female</option>
             </select>
-            <span asp-validation-for="RegisterEmployeeModel.Gender" class="text-danger"></span>
+            <span asp-validation-for="Gender" class="text-danger"></span>
         </div>
         <div class="col-6">
-            <label asp-for="RegisterEmployeeModel.DateOfBirth" for="DateOfBirth" class="form-label">Date Of Birth</label>
-            <input asp-for="RegisterEmployeeModel.DateOfBirth" type="date" class="form-control bg-dark text-white rounded-3 border-info" id="DateOfBirth" value="@DateTime.Today.ToString("yyyy-MM-dd")">
-            <span asp-validation-for="RegisterEmployeeModel.DateOfBirth" class="text-danger"></span>
+            <label asp-for="DateOfBirth" for="DateOfBirth" class="form-label">Date Of Birth</label>
+            <input asp-for="DateOfBirth" type="date" class="form-control bg-dark text-white rounded-3 border-info" id="DateOfBirth" value="@DateTime.Today.ToString("yyyy-MM-dd")">
+            <span asp-validation-for="DateOfBirth" class="text-danger"></span>
         </div>
     </div>
     <div class="row mb-3">
         <div class="col-6">
             <div class="form-group">
-                <label asp-for="RegisterEmployeeModel.PhoneNumber" for="PhoneNumber" class="form-label">Phone Number</label>
-                <input asp-for="RegisterEmployeeModel.PhoneNumber" type="text" class="form-control bg-dark rounded-3 border-info text-white" id="PhoneNumber" placeholder="xx xxx xxxx">
-                <span asp-validation-for="RegisterEmployeeModel.PhoneNumber" class="text-danger"></span>
+                <label asp-for="PhoneNumber" for="PhoneNumber" class="form-label">Phone Number</label>
+                <input asp-for="PhoneNumber" type="text" class="form-control bg-dark rounded-3 border-info text-white" id="PhoneNumber" placeholder="xx xxx xxxx">
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                 <div class="valid-feedback">
                     Looks good!
                 </div>
@@ -80,9 +65,9 @@
         </div>
         <div class="col-6">
             <div class="form-group">
-                <label asp-for="RegisterEmployeeModel.EmailAddress" for="EmailAddress" class="form-label">Email Address</label>
-                <input asp-for="RegisterEmployeeModel.EmailAddress" type="email" class="form-control bg-dark rounded-3 border-info text-white" id="EmailAddress" placeholder="Email Address">
-                <span asp-validation-for="RegisterEmployeeModel.EmailAddress" class="text-danger"></span>
+                <label asp-for="EmailAddress" for="EmailAddress" class="form-label">Email Address</label>
+                <input asp-for="EmailAddress" type="email" class="form-control bg-dark rounded-3 border-info text-white" id="EmailAddress" placeholder="Email Address">
+                <span asp-validation-for="EmailAddress" class="text-danger"></span>
                 <div class="valid-feedback">
                     Looks good!
                 </div>
@@ -92,9 +77,9 @@
     <div class="row mb-5">
         <div class="col-6">
             <div class="form-group">
-                <label asp-for="RegisterEmployeeModel.Password" for="Password" class="form-label">Password</label>
-                <input asp-for="RegisterEmployeeModel.Password" type="password" class="form-control bg-dark rounded-3 border-info text-white" id="Password" placeholder="Password">
-                <span asp-validation-for="RegisterEmployeeModel.Password" class="text-danger"></span>
+                <label asp-for="Password" for="Password" class="form-label">Password</label>
+                <input asp-for="Password" type="password" class="form-control bg-dark rounded-3 border-info text-white" id="Password" placeholder="Password">
+                <span asp-validation-for="Password" class="text-danger"></span>
                 <div class="valid-feedback">
                     Looks good!
                 </div>
@@ -102,9 +87,9 @@
         </div>
         <div class="col-6">
             <div class="form-group">
-                <label asp-for="RegisterEmployeeModel.ConfirmPassword" for="ConfirmPassword" class="form-label">Confirm Password</label>
-                <input asp-for="RegisterEmployeeModel.ConfirmPassword" type="password" class="form-control bg-dark rounded-3 border-info text-white" id="ConfirmPassword" placeholder="Confirm Password">
-                <span asp-validation-for="RegisterEmployeeModel.ConfirmPassword" class="text-danger"></span>
+                <label asp-for="ConfirmPassword" for="ConfirmPassword" class="form-label">Confirm Password</label>
+                <input asp-for="ConfirmPassword" type="password" class="form-control bg-dark rounded-3 border-info text-white" id="ConfirmPassword" placeholder="Confirm Password">
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                 <div class="valid-feedback">
                     Looks good!
                 </div>

@@ -22,11 +22,4 @@
     <ProjectReference Include="..\CyberTutorial.Domain\CyberTutorial.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="EmployeeDashboards\" />
-    <Folder Include="CompanyDashboards\" />
-    <Folder Include="Quizzes\" />
-    <Folder Include="Sessions\" />
-  </ItemGroup>
-
 </Project>

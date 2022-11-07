@@ -9,6 +9,7 @@ namespace CyberTutorial.Application.Common.Interfaces.Persistence
         public DbSet<Company> Companies { get; }
         public DbSet<CompanySession> CompanySessions { get; }
         public DbSet<Employee> Employees { get; }
+        public DbSet<Attempt> Attempts { get; }
         public DbSet<EmployeeSession> EmployeeSessions { get; }
         public DbSet<EmployeeDashboard> EmployeeDashboards { get; }
         public DbSet<TopEmployee> TopEmployees { get; }
@@ -16,6 +17,7 @@ namespace CyberTutorial.Application.Common.Interfaces.Persistence
         public DbSet<Quiz> Quizzes { get; }
         public DbSet<Question> Questions { get; }
         public DbSet<Answer> Answers { get; }
+        public DbSet<Document> Documents { get; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }

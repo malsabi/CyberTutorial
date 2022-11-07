@@ -37,6 +37,14 @@ namespace CyberTutorial.Infrastructure.Persistence.Repositories
                 .FirstOrDefaultAsync(course => course.CourseId == courseId);
         }
 
+        public async Task<Course> GetCourseByNameAsync(string courseName)
+        {
+            return await applicationDbContext.Courses
+                .Include(course => course.Employees)
+                .Include(course => course.Quizzes)
+                .FirstOrDefaultAsync(course => course.CourseName == courseName);
+        }
+
         public async Task UpdateCourseAsync(Course course)
         {
             applicationDbContext.Courses.Update(course);

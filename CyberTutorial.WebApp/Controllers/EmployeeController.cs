@@ -1,28 +1,71 @@
-﻿using CyberTutorial.WebApp.Common.Consts;
-using CyberTutorial.WebApp.Controllers.BaseControllers;
+﻿using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
+using CyberTutorial.WebApp.ViewModels;
+using CyberTutorial.WebApp.Common.Consts;
+using CyberTutorial.WebApp.Models.Common;
+using CyberTutorial.WebApp.Controllers.BaseControllers;
+using CyberTutorial.WebApp.Common.Interfaces.Services.ApiServices;
+using CyberTutorial.WebApp.Services.ApiServices;
 
 namespace CyberTutorial.WebApp.Controllers
 {
     public class EmployeeController : BaseController<EmployeeController>
     {
+        private readonly EmployeeViewModel employeeViewModel;
+        private readonly CourseViewModel courseViewModel;
+        private readonly IDocumentService documentService;
+
+        public EmployeeController(EmployeeViewModel employeeViewModel, CourseViewModel courseViewModel, IDocumentService documentService)
+        {
+            this.employeeViewModel = employeeViewModel;
+            this.courseViewModel = courseViewModel;
+            this.documentService = documentService;
+        }
+
         #region "Dashboard"
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            return View(await EmployeeService.GetEmployeeDashboardAsync());
+            ControllerResultModel result = await employeeViewModel.GetEmployeeAsync();
+            if (result.IsSuccess)
+            {
+                return View(result.Data);
+            }
+            return Unauthorized();
         }
         #endregion
 
         #region "Courses"
-        public IActionResult AllCourses()
+        public async Task<IActionResult> AllCourses()
         {
-            return View(AppConsts.AllCoursesView);
+            ControllerResultModel result = await courseViewModel.GetCoursesAsync();
+            if (result.IsSuccess)
+            {
+                return View(AppConsts.AllCoursesView, result.Data);
+            }
+            return Unauthorized();
         }
 
-        public IActionResult TakenCourses()
+        public async Task<IActionResult> TakenCourses()
         {
-            return View(AppConsts.TakenCoursesView);
+            ControllerResultModel result = await courseViewModel.GetTakenCoursesAsync();
+            if (result.IsSuccess)
+            {
+                return View(AppConsts.TakenCoursesView, result.Data);
+            }
+            return Unauthorized();
+        }
+
+        public async Task<IActionResult> ApplyCourse(string courseId)
+        {
+            //ErrorOr<string> response = await documentService.DownloadDocumentAsync("95c7fc5f-df8a-44f8-a941-faf338d2b15f");
+
+            ControllerResultModel result = await courseViewModel.ApplyCourseAsync(courseId);
+            if (result.IsSuccess)
+            {
+                return Json(result);
+            }
+            return Unauthorized();
         }
         #endregion
 
@@ -54,11 +97,6 @@ namespace CyberTutorial.WebApp.Controllers
         public IActionResult Settings()
         {
             return View(AppConsts.SettingsView);
-        }
-
-        public async Task<IActionResult> Logout()
-        {
-            return Json(await EmployeeService.LogoutEmployeeAsync());
         }
         #endregion
     }

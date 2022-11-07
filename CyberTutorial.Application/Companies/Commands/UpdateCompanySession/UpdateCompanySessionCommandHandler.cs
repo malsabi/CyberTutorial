@@ -10,10 +10,12 @@ namespace CyberTutorial.Application.Companies.Commands.UpdateCompanySession
 {
     public class UpdateCompanySessionCommandHandler : IRequestHandler<UpdateCompanySessionCommand, ErrorOr<UpdateCompanySessionResult>>
     {
+        private readonly IMapper mapper;
         private readonly ICompanyRepository companyRepository;
 
-        public UpdateCompanySessionCommandHandler(ICompanyRepository companyRepository)
+        public UpdateCompanySessionCommandHandler(IMapper mapper, ICompanyRepository companyRepository)
         {
+            this.mapper = mapper;
             this.companyRepository = companyRepository;
         }
 
@@ -41,10 +43,7 @@ namespace CyberTutorial.Application.Companies.Commands.UpdateCompanySession
 
             await companyRepository.UpdateCompanyAsync(company);
 
-            return new UpdateCompanySessionResult()
-            {
-                Session = company.Session
-            };
+            return mapper.Map<UpdateCompanySessionResult>(company.Session);
         }
     }
 }

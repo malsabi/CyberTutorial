@@ -5,6 +5,7 @@ namespace CyberTutorial.Domain.Entities
     public class Employee
     {
         public string EmployeeId { get; set; }
+        public string CompanyId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Gender { get; set; }
@@ -13,11 +14,11 @@ namespace CyberTutorial.Domain.Entities
         public string EmailAddress { get; set; }
         public string Password { get; set; }
         [Required]
-        public virtual Company Company { get; set; }
-        public virtual TopEmployee TopEmployee { get; set; }
-        public virtual EmployeeDashboard EmployeeDashboard { get; set; }
-        public virtual ICollection<Course> Courses { get; set; }
-        public virtual ICollection<Quiz> Quizzes { get; set; }
-        public virtual EmployeeSession Session { get; set; }
+        public Company Company { get; set; }
+        public TopEmployee TopEmployee { get; set; }
+        public EmployeeDashboard EmployeeDashboard { get; set; }
+        public ICollection<Course> Courses { get; set; }
+        public ICollection<Attempt> Attempts { get; set; }
+        public EmployeeSession Session { get; set; }
     }
 }

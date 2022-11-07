@@ -15,5 +15,7 @@
         public string Website { get; set; }
         public string CompanyDescription { get; set; }
         public string Password { get; set; }
+        public ICollection<EmployeeModel> Employees { get; set; }
+        public CompanySessionModel Session { get; set; }
     }
 }

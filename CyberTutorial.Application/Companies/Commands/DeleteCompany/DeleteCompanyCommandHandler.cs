@@ -1,18 +1,22 @@
 ﻿using ErrorOr;
 using MediatR;
+using MapsterMapper;
 using CyberTutorial.Domain.Entities;
 using CyberTutorial.Domain.Common.Errors;
 using CyberTutorial.Application.Companies.Common;
 using CyberTutorial.Application.Common.Interfaces.Persistence.Repositories;
 
+
 namespace CyberTutorial.Application.Companies.Commands.DeleteCompany
 {
     public class DeleteCompanyCommandHandler : IRequestHandler<DeleteCompanyCommand, ErrorOr<DeleteCompanyResult>>
     {
+        private readonly IMapper mapper;
         private readonly ICompanyRepository companyRepository;
 
-        public DeleteCompanyCommandHandler(ICompanyRepository companyRepository)
+        public DeleteCompanyCommandHandler(IMapper mapper, ICompanyRepository companyRepository)
         {
+            this.mapper = mapper;
             this.companyRepository = companyRepository;
         }
 
@@ -27,10 +31,7 @@ namespace CyberTutorial.Application.Companies.Commands.DeleteCompany
 
             await companyRepository.DeleteCompanyAsync(request.CompanyId);
 
-            return new DeleteCompanyResult()
-            {
-                CompanyId = request.CompanyId
-            };
+            return mapper.Map<DeleteCompanyResult>(company);
         }
     }
 }

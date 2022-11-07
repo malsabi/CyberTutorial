@@ -2,7 +2,6 @@
 {
     public class AddCompanyRequest
     {
-        public string CompanyId { get; set; }
         public string CompanyName { get; set; }
         public string OwnerFirstName { get; set; }
         public string OwnerLastName { get; set; }

@@ -24,28 +24,41 @@ namespace CyberTutorial.Infrastructure.Persistence.Repositories
         public async Task<ICollection<Quiz>> GetQuizzesAsync()
         {
             return await applicationDbContext.Quizzes
-                .Include(quiz => quiz.Employees)
+                .Include(quiz => quiz.Attempts)
                 .Include(quiz => quiz.Course)
                 .Include(quiz => quiz.Questions)
+                .ThenInclude(ans => ans.Answers)
                 .ToListAsync();
         }
 
         public async Task<Quiz> GetQuizByIdAsync(string quizId)
         {
             return await applicationDbContext.Quizzes
-                .Include(quiz => quiz.Employees)
+                .Include(quiz => quiz.Attempts)
                 .Include(quiz => quiz.Course)
                 .Include(quiz => quiz.Questions)
+                .ThenInclude(ans => ans.Answers)
                 .FirstOrDefaultAsync(quiz => quiz.QuizId == quizId);
         }
 
         public async Task<Quiz> GetQuizByCourseIdAsync(string courseId)
         {
             return await applicationDbContext.Quizzes
-                .Include(quiz => quiz.Employees)
+                .Include(quiz => quiz.Attempts)
                 .Include(quiz => quiz.Course)
                 .Include(quiz => quiz.Questions)
+                .ThenInclude(ans => ans.Answers)
                 .FirstOrDefaultAsync(quiz => quiz.Course.CourseId == courseId);
+        }
+
+        public async Task<Quiz> GetQuizByTitleAsync(string title)
+        {
+            return await applicationDbContext.Quizzes
+                .Include(quiz => quiz.Attempts)
+                .Include(quiz => quiz.Course)
+                .Include(quiz => quiz.Questions)
+                .ThenInclude(ans => ans.Answers)
+                .FirstOrDefaultAsync(quiz => quiz.Title == title);
         }
 
         public async Task UpdateQuizAsync(Quiz quiz)

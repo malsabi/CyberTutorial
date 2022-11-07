@@ -3,22 +3,25 @@ using MediatR;
 using MapsterMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using CyberTutorial.Domain.Entities;
-using CyberTutorial.Contracts.Models;
+using CyberTutorial.Contracts.Requests.Employee;
+using CyberTutorial.Contracts.Responses.Employee;
 using CyberTutorial.Application.Employees.Common;
-using CyberTutorial.Contracts.Common.Request.Logout;
-using CyberTutorial.Contracts.Common.Response.Logout;
-using CyberTutorial.Contracts.Employee.Response.Session;
-using CyberTutorial.Application.Employees.Commands.Logout;
-using CyberTutorial.Contracts.Employee.Response.Dashboard;
-using CyberTutorial.Application.Employees.Queries.Session;
-using CyberTutorial.Application.Employees.Queries.Dashboard;
+using CyberTutorial.Application.Employees.Commands.AddEmployee;
+using CyberTutorial.Application.Employees.Commands.UpdateEmployee;
+using CyberTutorial.Application.Employees.Commands.UpdateEmployeeSession;
+using CyberTutorial.Application.Employees.Commands.UpdateEmployeeDashboard;
 using CyberTutorial.Application.Employees.Queries.GetEmployees;
+using CyberTutorial.Application.Employees.Queries.GetEmployeById;
+using CyberTutorial.Application.Employees.Queries.GetEmployeeSession;
+using CyberTutorial.Application.Employees.Queries.GetEmployeeCompany;
+using CyberTutorial.Application.Employees.Queries.GetEmployeeDashboard;
+using CyberTutorial.Application.Employees.Commands.DeleteEmployee;
 
 namespace CyberTutorial.API.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize(Roles = "Employee")]
+    //[Authorize(Roles = "Employee")]
+    [AllowAnonymous]
     public class EmployeeController : ApiController
     {
         private readonly ISender sender;
@@ -30,77 +33,136 @@ namespace CyberTutorial.API.Controllers
             this.mapper = mapper;
         }
 
-        [HttpGet("GetAllEmployees")]
+        [HttpPost("Add")]
+        public async Task<IActionResult> AddEmployee(AddEmployeeRequest request)
+        {
+            AddEmployeeCommand command = mapper.Map<AddEmployeeCommand>(request);
+            ErrorOr<AddEmployeeResult> result = await sender.Send(command);
+            return result.Match
+            (
+                success => Ok(mapper.Map<AddEmployeeResponse>(success)),
+                error => Problem(error)
+            );
+        }
+
+        [HttpGet("GetAll")]
         public async Task<IActionResult> GetAllEmployees()
         {
-            EmployeesQuery query = new EmployeesQuery();
-            ErrorOr<EmployeesResult> result = await sender.Send(query);
-            return result.Match(
+            GetEmployeesResult result = await sender.Send(new GetEmployeesQuery());
+            return Ok(mapper.Map<GetEmployeesResponse>(result));
+        }
+
+        [HttpGet("Get")]
+        public async Task<IActionResult> GetEmployeeById(string employeeId)
+        {
+            GetEmployeeByIdQuery query = new GetEmployeeByIdQuery()
+            {
+                EmployeeId = employeeId
+            };
+            ErrorOr<GetEmployeeByIdResult> result = await sender.Send(query);
+            return result.Match
+            (
+                success => Ok(mapper.Map<GetEmployeeByIdResponse>(success)),
+                error => Problem(error)
+            );
+        }
+
+        [HttpGet("GetCompany")]
+        public async Task<IActionResult> GetEmployeeCompany(string employeeId)
+        {
+            GetEmployeeCompanyQuery query = new GetEmployeeCompanyQuery()
+            {
+                EmployeeId = employeeId
+            };
+            ErrorOr<GetEmployeeCompanyResult> result = await sender.Send(query);
+            return result.Match
+            (
+                success => Ok(mapper.Map<GetEmployeeCompanyResponse>(success)),
+                error => Problem(error)
+            );
+        }
+
+        [HttpGet("GetSession")]
+        public async Task<IActionResult> GetEmployeeSession(string employeeId)
+        {
+            GetEmployeeSessionQuery query = new GetEmployeeSessionQuery()
+            {
+                EmployeeId = employeeId
+            };
+            ErrorOr<GetEmployeeSessionResult> result = await sender.Send(query);
+            return result.Match
+            (
+                success => Ok(mapper.Map<GetEmployeeSessionResponse>(success)),
+                error => Problem(error)
+            );
+        }
+
+     
+        [HttpGet("GetDashboard")]
+        public async Task<IActionResult> GetEmployeeDashboardById(string employeeId)
+        {
+            GetEmployeeDashboardQuery query = new GetEmployeeDashboardQuery()
+            {
+                EmployeeId = employeeId
+            };
+            ErrorOr<GetEmployeeDashboardResult> result = await sender.Send(query);
+            return result.Match
+            (
                 success => Ok(mapper.Map<GetEmployeeDashboardResponse>(success)),
                 error => Problem(error)
             );
         }
 
-        [HttpGet("GetEmployee")]
-        public async Task<IActionResult> GetEmployee(string employeeId)
+        [HttpPut("Update")]
+        public async Task<IActionResult> UpdateEmployee(string employeeId, UpdateEmployeeRequest request)
         {
-            return Ok("GET GetEmployee: " + employeeId);
+            UpdateEmployeeCommand command = mapper.Map<UpdateEmployeeCommand>(request);
+            command.TargetId = employeeId;
+            ErrorOr<UpdateEmployeeResult> result = await sender.Send(command);
+            return result.Match
+            (
+                success => Ok(mapper.Map<UpdateEmployeeResponse>(success)),
+                error => Problem(error)
+            );
         }
 
-        [HttpPost("GetEmployeeBySessionId")]
-        public async Task<IActionResult> GetEmployeeBySessionId(string sessionId)
+        [HttpPut("UpdateDashboard")]
+        public async Task<IActionResult> UpdateEmployeeDashboard(string employeeId, UpdateEmployeeDashboardRequest request)
         {
-            return Ok("GET GetEmployeeBySessionId: " + sessionId);
+            UpdateEmployeeDashboardCommand command = mapper.Map<UpdateEmployeeDashboardCommand>(request);
+            command.TargetId = employeeId;
+            ErrorOr<UpdateEmployeeDashboardResult> result = await sender.Send(command);
+            return result.Match
+            (
+                success => Ok(mapper.Map<UpdateEmployeeDashboardResponse>(success)),
+                error => Problem(error)
+            );
         }
 
-        [HttpPut("UpdateEmployee")]
-        public async Task<IActionResult> UpdateEmployee(string employeeId, EmployeeModel employeeModel)
+        [HttpPut("UpdateSession")]
+        public async Task<IActionResult> UpdateEmployeeSession(string employeeId, UpdateEmployeeSessionRequest request)
         {
-            return Ok("PUT PutEmployee: " + employeeId);
+            UpdateEmployeeSessionCommand command = mapper.Map<UpdateEmployeeSessionCommand>(request);
+            command.TargetId = employeeId;
+            ErrorOr<UpdateEmployeeSessionResult> result = await sender.Send(command);
+            return result.Match
+            (
+                success => Ok(mapper.Map<UpdateEmployeeSessionResponse>(success)),
+                error => Problem(error)
+            );
         }
 
-        [HttpDelete("DeleteEmployee")]
+        [HttpDelete("Delete")]
         public async Task<IActionResult> DeleteEmployee(string employeeId)
         {
-            return Ok("DELETE DeleteEmployee: " + employeeId);
-        }
-
-        [HttpGet("GetDashboard")]
-        public async Task<IActionResult> GetDashboard(string employeeId)
-        {
-            EmployeeDashboardQuery command = new EmployeeDashboardQuery() { EmployeeId = employeeId };
-            ErrorOr<EmployeeDashboardResult> result = await sender.Send(command);
-
-            //Check if the map works on the collections (lists) inside the GetEmployeeDashboardResponse
-            return result.Match(
-                success => Ok(mapper.Map<GetEmployeeDashboardResponse>(success)),
-                error => Problem(error)
-            );
-        }
-
-        [HttpGet("IsSessionValid")]
-        public async Task<IActionResult> IsSessionValid(string sessionId, string token)
-        {
-            EmployeeSessionValidationQuery command = new EmployeeSessionValidationQuery()
+            DeleteEmployeeCommand command = new DeleteEmployeeCommand()
             {
-                SessionId = sessionId,
-                Token = token
+                EmployeeId = employeeId
             };
-            ErrorOr<EmployeeSessionValidationResult> result = await sender.Send(command);
-
-            return result.Match(
-                success => Ok(mapper.Map<IsEmployeeSessionValidResponse>(success)),
-                error => Problem(error)
-            );
-        }
-
-        [HttpPost("Logout")]
-        public async Task<IActionResult> Logout(LogoutRequest request)
-        {
-            LogoutEmployeeCommand command = mapper.Map<LogoutEmployeeCommand>(request);
-            ErrorOr<LogoutEmployeeResult> result = await sender.Send(command);
-            return result.Match(
-                success => Ok(mapper.Map<LogoutResponse>(success)),
+            ErrorOr<DeleteEmployeeResult> result = await sender.Send(command);
+            return result.Match
+            (
+                success => Ok(mapper.Map<DeleteEmployeeResponse>(success)),
                 error => Problem(error)
             );
         }

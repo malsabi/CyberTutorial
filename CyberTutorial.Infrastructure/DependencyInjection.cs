@@ -1,4 +1,10 @@
-﻿using CyberTutorial.Infrastructure.Services;
+﻿using Microsoft.Extensions.Options;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using CyberTutorial.Infrastructure.Services;
 using CyberTutorial.Infrastructure.Persistence;
 using CyberTutorial.Infrastructure.Authentication;
 using CyberTutorial.Application.Common.Interfaces.Services;
@@ -6,12 +12,6 @@ using CyberTutorial.Infrastructure.Persistence.Repositories;
 using CyberTutorial.Application.Common.Interfaces.Persistence;
 using CyberTutorial.Application.Common.Interfaces.Authentication;
 using CyberTutorial.Application.Common.Interfaces.Persistence.Repositories;
-using Microsoft.Extensions.Options;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace CyberTutorial.Infrastructure
 {
@@ -64,11 +64,13 @@ namespace CyberTutorial.Infrastructure
             services.AddScoped<ICompanyRepository, CompanyRepository>();
             services.AddScoped<ICompanySessionRepository, CompanySessionRepository>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<IAttemptRepository, AttemptRepository>();
             services.AddScoped<IEmployeeSessionRepository, EmployeeSessionRepository>();
             services.AddScoped<ICourseRepository, CourseRepository>();
             services.AddScoped<IQuizRepository, QuizRepository>();
             services.AddScoped<IQuestionRepository, QuestionRepository>();
             services.AddScoped<IAnswerRepository, AnswerRepository>();
+            services.AddScoped<IDocumentRepository, DocumentRepository>();
             return services;
         }
     }

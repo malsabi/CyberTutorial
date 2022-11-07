@@ -46,8 +46,7 @@ namespace CyberTutorial.API.Controllers
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetCompanies()
         {
-            GetCompaniesQuery query = new GetCompaniesQuery();
-            GetCompaniesResult result = await sender.Send(query);
+            GetCompaniesResult result = await sender.Send(new GetCompaniesQuery());
             return Ok(mapper.Map<GetCompaniesResponse>(result));
         }
 
@@ -109,7 +108,7 @@ namespace CyberTutorial.API.Controllers
             );
         }
 
-        [HttpPost("UpdateSession")]
+        [HttpPut("UpdateSession")]
         public async Task<IActionResult> UpdateCompanySession(string companyId, UpdateCompanySessionRequest request)
         {
             UpdateCompanySessionCommand command = mapper.Map<UpdateCompanySessionCommand>(request);

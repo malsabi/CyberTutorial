@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CyberTutorial.Domain.Entities
 {
@@ -14,6 +15,7 @@ namespace CyberTutorial.Domain.Entities
         public string TotalPassedLastModified { get; set; }
         public int TotalFailed { get; set; }
         public string TotalFailedLastModified { get; set; }
-        public virtual Employee Employee { get; set; }
+        [Required]
+        public Employee Employee { get; set; }
     }
 }

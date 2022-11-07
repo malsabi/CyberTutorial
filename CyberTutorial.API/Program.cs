@@ -19,14 +19,19 @@ namespace CyberTutorial.API
             
             var app = builder.Build();
             {
+                app.UseStaticFiles();
                 app.UseSwagger();
-                app.UseSwaggerUI();
-                
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Cyber-Tutorials API");
+                    c.InjectStylesheet("/swagger-ui/SwaggerDark.css");
+                });
+
                 using (IServiceScope scope = app.Services.CreateScope())
                 {
                     ApplicationDbContext context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                     //context.Database.EnsureDeleted();
-                    //context.Database.Migrate();
+                    context.Database.Migrate();
                     //context.Database.EnsureCreated();
                 }
 

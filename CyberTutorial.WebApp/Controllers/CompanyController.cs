@@ -14,7 +14,7 @@ namespace CyberTutorial.WebApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Logout()
         {
-            return Json(await CompanyService.LogoutCompanyAsync());
+            return null;
         }
     }
 }

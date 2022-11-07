@@ -31,10 +31,7 @@ namespace CyberTutorial.Application.Companies.Queries.GetCompanySession
                 return Errors.Company.SessionNotFound;
             }
 
-            return new GetCompanySessionResult()
-            {
-                Session = company.Session
-            };
+            return mapper.Map<GetCompanySessionResult>(company.Session);
         }
     }
 }

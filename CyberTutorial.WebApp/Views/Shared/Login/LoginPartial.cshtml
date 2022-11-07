@@ -10,11 +10,8 @@
             <div class="modal-body">
                 <form asp-controller="Home" asp-action="Authentication" method="post" id="LoginForm" novalidate>
                     <div class="mb-3">
-                        <div class="toast error-toast-style w-100" role="alert" id="AuthenticationToast">
-                            <div class="toast-body">
-                                Incorrect username or password.
-                                <button type="button" class="btn-close float-end" data-bs-dismiss="toast" aria-label="Close"></button>
-                            </div>
+                        <div id="LoginAlert" class="alert alert-danger d-flex align-items-center alert-dismissible fade show d-none" role="alert">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     </div>
                     <div class="mb-3">

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CyberTutorial.Domain.Entities
 {
@@ -10,6 +11,7 @@ namespace CyberTutorial.Domain.Entities
         public string LastName { get; set; }
         public int TotalQuizzes { get; set; }
         public int AverageScore { get; set; }
+        [Required]
         public Employee Employee { get; set; }
     }
 }

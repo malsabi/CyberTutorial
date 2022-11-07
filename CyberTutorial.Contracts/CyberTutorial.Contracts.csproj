@@ -10,12 +10,4 @@
     <PackageReference Include="ErrorOr" Version="1.0.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Company\Request\Session\" />
-    <Folder Include="Employee\Request\Dashboard\" />
-    <Folder Include="Employee\Request\Session\" />
-    <Folder Include="Requests\Employee\" />
-    <Folder Include="Responses\Employee\" />
-  </ItemGroup>
-
 </Project>

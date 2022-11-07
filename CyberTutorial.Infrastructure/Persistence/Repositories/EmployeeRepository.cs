@@ -26,8 +26,16 @@ namespace CyberTutorial.Infrastructure.Persistence.Repositories
             return await applicationDbContext.Employees
                 .Include(employee => employee.Session)
                 .Include(employee => employee.Company)
-                .Include(employee => employee.Quizzes)
+                .Include(employee => employee.Attempts)
+                    .ThenInclude(quiz => quiz.Quiz)
+                    .ThenInclude(questions => questions.Questions)
+                    .ThenInclude(answers => answers.Answers)
                 .Include(employee => employee.Courses)
+                    .ThenInclude(quizzes => quizzes.Quizzes)
+                    .ThenInclude(questions => questions.Questions)
+                    .ThenInclude(answers => answers.Answers)
+                .Include(employee => employee.EmployeeDashboard)
+                .Include(employee => employee.TopEmployee)
                 .ToListAsync();
         }
         
@@ -36,8 +44,16 @@ namespace CyberTutorial.Infrastructure.Persistence.Repositories
             return await applicationDbContext.Employees
                 .Include(employee => employee.Session)
                 .Include(employee => employee.Company)
-                .Include(employee => employee.Quizzes)
+                .Include(employee => employee.Attempts)
+                    .ThenInclude(quiz => quiz.Quiz)
+                    .ThenInclude(questions => questions.Questions)
+                    .ThenInclude(answers => answers.Answers)
                 .Include(employee => employee.Courses)
+                    .ThenInclude(quizzes => quizzes.Quizzes)
+                    .ThenInclude(questions => questions.Questions)
+                    .ThenInclude(answers => answers.Answers)
+                .Include(employee => employee.EmployeeDashboard)
+                .Include(employee => employee.TopEmployee)
                 .FirstOrDefaultAsync(employee => employee.EmployeeId == employeeId);
         }
         
@@ -46,8 +62,16 @@ namespace CyberTutorial.Infrastructure.Persistence.Repositories
             return await applicationDbContext.Employees
                 .Include(employee => employee.Session)
                 .Include(employee => employee.Company)
-                .Include(employee => employee.Quizzes)
+                .Include(employee => employee.Attempts)
+                    .ThenInclude(quiz => quiz.Quiz)
+                    .ThenInclude(questions => questions.Questions)
+                    .ThenInclude(answers => answers.Answers)
                 .Include(employee => employee.Courses)
+                    .ThenInclude(quizzes => quizzes.Quizzes)
+                    .ThenInclude(questions => questions.Questions)
+                    .ThenInclude(answers => answers.Answers)
+                .Include(employee => employee.EmployeeDashboard)
+                .Include(employee => employee.TopEmployee)
                 .FirstOrDefaultAsync(employee => employee.EmailAddress == emailAddress);
         }
      

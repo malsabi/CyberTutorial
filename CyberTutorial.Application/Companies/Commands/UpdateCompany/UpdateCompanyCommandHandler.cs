@@ -5,6 +5,7 @@ using CyberTutorial.Domain.Entities;
 using CyberTutorial.Domain.Common.Errors;
 using CyberTutorial.Application.Companies.Common;
 using CyberTutorial.Application.Common.Interfaces.Persistence.Repositories;
+using CyberTutorial.Application.Common.Interfaces.Services;
 
 namespace CyberTutorial.Application.Companies.Commands.UpdateCompany
 {
@@ -12,11 +13,13 @@ namespace CyberTutorial.Application.Companies.Commands.UpdateCompany
     {
         private readonly IMapper mapper;
         private readonly ICompanyRepository companyRepository;
-        
-        public UpdateCompanyCommandHandler(IMapper mapper, ICompanyRepository companyRepository)
+        private readonly IHashProvider hashProvider;
+
+        public UpdateCompanyCommandHandler(IMapper mapper, ICompanyRepository companyRepository, IHashProvider hashProvider)
         {
             this.mapper = mapper;
             this.companyRepository = companyRepository;
+            this.hashProvider = hashProvider;
         }
 
         public async Task<ErrorOr<UpdateCompanyResult>> Handle(UpdateCompanyCommand request, CancellationToken cancellationToken)
@@ -42,7 +45,11 @@ namespace CyberTutorial.Application.Companies.Commands.UpdateCompany
             company.StreetAddress = request.StreetAddress;
             company.Website = request.Website;
             company.CompanyDescription = request.CompanyDescription;
-            company.Password = request.Password;
+
+            if (request.Password != company.Password)
+            {
+                company.Password = hashProvider.ApplyHash(request.Password);
+            }
 
             await companyRepository.UpdateCompanyAsync(company);
 

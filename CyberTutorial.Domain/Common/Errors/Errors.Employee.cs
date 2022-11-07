@@ -40,6 +40,31 @@ namespace CyberTutorial.Domain.Common.Errors
                 code: "Employee.NoEmployeesFound",
                 description: "No employees found."
             );
+
+            public static Error CourseNotFound => Error.NotFound(
+                code: "Employee.CourseNotFound",
+                description: "Employee course with given id does not exist."
+            );
+
+            public static Error NoCoursesFound => Error.NotFound(
+                code: "Employee.NoCoursesFound",
+                description: "No courses were found for the given employee id."
+            );
+
+            public static Error QuizNotFound => Error.NotFound(
+                code: "Employee.QuizNotFound",
+                description: "Employee quiz with given id does not exist."
+            );
+
+            public static Error NoQuizzesFound => Error.NotFound(
+                code: "Employee.NoQuizzesFound",
+                description: "No quizzes were found for the given employee id."
+            );
+
+            public static Error NoDashboardFound => Error.NotFound(
+                code: "Employee.NoDashboardFound",
+                description: "Employee dashboard does not exists"
+            );
         }
     }
 }

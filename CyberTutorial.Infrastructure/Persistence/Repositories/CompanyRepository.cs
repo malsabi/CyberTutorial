@@ -24,24 +24,63 @@ namespace CyberTutorial.Infrastructure.Persistence.Repositories
         public async Task<ICollection<Company>> GetCompaniesAsync()
         {
             return await applicationDbContext.Companies
-                .Include(company => company.Session)
-                .Include(company => company.Employees)
+                .Include(cmp => cmp.Session)
+                .Include(cmp => cmp.Employees)
+                    .ThenInclude(emp => emp.TopEmployee)
+                .Include(cmp => cmp.Employees)
+                    .ThenInclude(emp => emp.EmployeeDashboard)
+                .Include(cmp => cmp.Employees)
+                    .ThenInclude(emp => emp.Courses)
+                    .ThenInclude(empQuizzes => empQuizzes.Quizzes)
+                    .ThenInclude(empQuizzes => empQuizzes.Questions)
+                    .ThenInclude(questionsAns => questionsAns.Answers)
+                .Include(cmp => cmp.Employees)
+                    .ThenInclude(empAttempts => empAttempts.Attempts)
+                    .ThenInclude(empAttemptsQuiz => empAttemptsQuiz.Quiz)
+                .Include(cmp => cmp.Employees)
+                    .ThenInclude(emp => emp.Session)
                 .ToListAsync();
         }
         
         public async Task<Company> GetCompanyByIdAsync(string companyId)
         {
             return await applicationDbContext.Companies
-                .Include(company => company.Session)
-                .Include(company => company.Employees)
+                .Include(cmp => cmp.Session)
+                .Include(cmp => cmp.Employees)
+                    .ThenInclude(emp => emp.TopEmployee)
+                .Include(cmp => cmp.Employees)
+                    .ThenInclude(emp => emp.EmployeeDashboard)
+                .Include(cmp => cmp.Employees)
+                    .ThenInclude(emp => emp.Courses)
+                    .ThenInclude(empQuizzes => empQuizzes.Quizzes)
+                    .ThenInclude(empQuizzes => empQuizzes.Questions)
+                    .ThenInclude(questionsAns => questionsAns.Answers)
+                .Include(cmp => cmp.Employees)
+                    .ThenInclude(empAttempts => empAttempts.Attempts)
+                    .ThenInclude(empAttemptsQuiz => empAttemptsQuiz.Quiz)
+                .Include(cmp => cmp.Employees)
+                    .ThenInclude(emp => emp.Session)
                 .FirstOrDefaultAsync(company => company.CompanyId == companyId);
         }
 
         public async Task<Company> GetCompanyByEmailAsync(string emailAddress)
         {
             return await applicationDbContext.Companies
-                .Include(company => company.Session)
-                .Include(company => company.Employees)
+                .Include(cmp => cmp.Session)
+                .Include(cmp => cmp.Employees)
+                    .ThenInclude(emp => emp.TopEmployee)
+                .Include(cmp => cmp.Employees)
+                    .ThenInclude(emp => emp.EmployeeDashboard)
+                .Include(cmp => cmp.Employees)
+                    .ThenInclude(emp => emp.Courses)
+                    .ThenInclude(empQuizzes => empQuizzes.Quizzes)
+                    .ThenInclude(empQuizzes => empQuizzes.Questions)
+                    .ThenInclude(questionsAns => questionsAns.Answers)
+                .Include(cmp => cmp.Employees)
+                    .ThenInclude(empAttempts => empAttempts.Attempts)
+                    .ThenInclude(empAttemptsQuiz => empAttemptsQuiz.Quiz)
+                .Include(cmp => cmp.Employees)
+                    .ThenInclude(emp => emp.Session)
                 .FirstOrDefaultAsync(company => company.EmailAddress == emailAddress);
         }
 

@@ -1,15 +1,17 @@
 ﻿using ErrorOr;
 using MediatR;
 using MapsterMapper;
-using CyberTutorial.Contracts.Enums;
-using CyberTutorial.Application.Authentication.Common;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using CyberTutorial.Application.Authentication.Queries.Login;
-using CyberTutorial.Application.Authentication.Commands;
-using CyberTutorial.Contracts.Authentication.Response.Login;
-using CyberTutorial.Contracts.Authentication.Request.Login;
-using CyberTutorial.Contracts.Authentication.Request.Registration;
+using CyberTutorial.Application.Authentication.Common;
+using CyberTutorial.Contracts.Requests.Authentication;
+using CyberTutorial.Contracts.Responses.Authentication;
+using CyberTutorial.Application.Authentication.Commands.LoginCompany;
+using CyberTutorial.Application.Authentication.Commands.LoginEmployee;
+using CyberTutorial.Application.Authentication.Commands.LogoutCompany;
+using CyberTutorial.Application.Authentication.Commands.LogoutEmployee;
+using CyberTutorial.Application.Authentication.Commands.RegisterCompany;
+using CyberTutorial.Application.Authentication.Commands.RegisterEmployee;
 
 namespace CyberTutorial.API.Controllers
 {
@@ -25,44 +27,41 @@ namespace CyberTutorial.API.Controllers
             this.sender = sender;
             this.mapper = mapper;
         }
-        
-        [HttpPost("Login")]
-        public async Task<IActionResult> Login(LoginRequest request)
+
+        [HttpPost("Login/Company")]
+        public async Task<IActionResult> Login(LoginCompanyRequest request)
         {
-            if (request.AccountType.Equals(AccountType.Company))
-            {
-                LoginCompanyQuery loginCompanyQuery = mapper.Map<LoginCompanyQuery>(request);
-                ErrorOr<LoginResult> result = await sender.Send(loginCompanyQuery);
+            LoginCompanyCommand loginCompanyQuery = mapper.Map<LoginCompanyCommand>(request);
+            ErrorOr<LoginCompanyResult> result = await sender.Send(loginCompanyQuery);
+            return result.Match
+            (
+               success => Ok(mapper.Map<LoginCompanyResponse>(success)),
+               errors => Problem(errors)
+            );
+        }
 
-                return result.Match
-                (
-                   (authenticationResult) => Ok(mapper.Map<LoginResponse>(authenticationResult)),
-                   (errors) => Problem(errors)
-                );
-            }
-            else
-            {
-                LoginEmployeeQuery loginEmployeeQuery = mapper.Map<LoginEmployeeQuery>(request);
-                ErrorOr<LoginResult> result = await sender.Send(loginEmployeeQuery);
+        [HttpPost("Login/Employee")]
+        public async Task<IActionResult> Login(LoginEmployeeRequest request)
+        {
+            LoginEmployeeCommand loginEmployeeQuery = mapper.Map<LoginEmployeeCommand>(request);
+            ErrorOr<LoginEmployeeResult> result = await sender.Send(loginEmployeeQuery);
 
-                return result.Match
-                (
-                   (authenticationResult) => Ok(mapper.Map<LoginResponse>(authenticationResult)),
-                   (errors) => Problem(errors)
-                );
-            }
+            return result.Match
+            (
+               success => Ok(mapper.Map<LoginEmployeeResponse>(success)),
+               errors => Problem(errors)
+            );
         }
 
         [HttpPost("Register/Company")]
         public async Task<IActionResult> Register(RegisterCompanyRequest request)
         {
             RegisterCompanyCommand command = mapper.Map<RegisterCompanyCommand>(request);
-            ErrorOr<RegisterResult> result = await sender.Send(command);
-
+            ErrorOr<RegisterCompanyResult> result = await sender.Send(command);
             return result.Match
             (
-                (registerResult) => Ok(registerResult),
-                (errors) => Problem(errors)
+                success => Ok(mapper.Map<RegisterCompanyResponse>(success)),
+                errors => Problem(errors)
             );
         }
 
@@ -70,12 +69,35 @@ namespace CyberTutorial.API.Controllers
         public async Task<IActionResult> Register(RegisterEmployeeRequest request)
         {
             RegisterEmployeeCommand command = mapper.Map<RegisterEmployeeCommand>(request);
-            ErrorOr<RegisterResult> result = await sender.Send(command);
-
+            ErrorOr<RegisterEmployeeResult> result = await sender.Send(command);
             return result.Match
             (
-                (registerResult) => Ok(registerResult),
-                (errors) => Problem(errors)
+                success => Ok(mapper.Map<RegisterEmployeeResponse>(success)),
+                errors => Problem(errors)
+            );
+        }
+
+        [HttpPost("Logout/Company")]
+        public async Task<IActionResult> Logout(LogoutCompanyRequest request)
+        {
+            LogoutCompanyCommand command = mapper.Map<LogoutCompanyCommand>(request);
+            ErrorOr<LogoutCompanyResult> result = await sender.Send(command);
+            return result.Match
+            (
+                success => Ok(mapper.Map<LogoutCompanyResponse>(success)),
+                errors => Problem(errors)
+            );
+        }
+
+        [HttpPost("Logout/Employee")]
+        public async Task<IActionResult> Logout(LogoutEmployeeRequest request)
+        {
+            LogoutEmployeeCommand command = mapper.Map<LogoutEmployeeCommand>(request);
+            ErrorOr<LogoutEmployeeResult> result = await sender.Send(command);
+            return result.Match
+            (
+                success => Ok(mapper.Map<LogoutEmployeeResponse>(success)),
+                errors => Problem(errors)
             );
         }
     }

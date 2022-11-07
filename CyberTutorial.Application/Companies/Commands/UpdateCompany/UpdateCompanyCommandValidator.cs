@@ -9,6 +9,9 @@ namespace CyberTutorial.Application.Companies.Commands.UpdateCompany
             RuleFor(command => command.CompanyId)
                 .NotEmpty();
 
+            RuleFor(command => command.TargetId)
+                .NotEmpty();
+
             RuleFor(command => command.CompanyName)
               .NotEmpty()
               .MinimumLength(3)

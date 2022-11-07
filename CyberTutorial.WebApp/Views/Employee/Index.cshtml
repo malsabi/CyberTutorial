@@ -1,7 +1,11 @@
-﻿@model EmployeeDashboardModel
+﻿@model EmployeeModel
 @{
     ViewData["Title"] = "Employee";
-    ViewData["EmployeeName"] = "Johnny";
+}
+
+@section Scripts
+{
+    <script src="~/js/employee/load-stats-emp.js" asp-append-version="true"></script>
 }
 
 <!--title-->
@@ -22,7 +26,7 @@
             </div>
             <div class="card-content">
                 <p class="category"><strong>Total Courses</strong></p>
-                <h3 class="card-title icon icon-warning">@Model.TotalCourses</h3>
+                <h3 class="card-title icon icon-warning">@Model.EmployeeDashboard.TotalCourses</h3>
             </div>
             <div class="card-footer">
                 <div class="stats icon-info">
@@ -30,7 +34,7 @@
                         <i class="bi bi-bell-fill"></i>
                     </div>
                     <span class="text-muted small pt-2 ps-1">Last Modified</span>
-                    <span class="text-white small pt-1 fw-bold">@Model.TotalCoursesLastModified</span>
+                    <span class="text-white small pt-1 fw-bold">@Model.EmployeeDashboard.TotalCoursesLastModified</span>
                 </div>
             </div>
         </div>
@@ -44,7 +48,7 @@
             </div>
             <div class="card-content">
                 <p class="category"><strong>Total Quizzes</strong></p>
-                <h3 class="card-title icon icon-info">@Model.TotalQuizzes</h3>
+                <h3 class="card-title icon icon-info">@Model.EmployeeDashboard.TotalQuizzes</h3>
             </div>
             <div class="card-footer">
                 <div class="stats icon-info">
@@ -52,7 +56,7 @@
                         <i class="bi bi-bell-fill"></i>
                     </div>
                     <span class="text-muted small pt-2 ps-1">Last Modified</span>
-                    <span class="text-white small pt-1 fw-bold">@Model.TotalQuizzesLastModified</span>
+                    <span class="text-white small pt-1 fw-bold">@Model.EmployeeDashboard.TotalQuizzesLastModified</span>
                 </div>
             </div>
         </div>
@@ -66,7 +70,7 @@
             </div>
             <div class="card-content">
                 <p class="category"><strong>Passed Quizzes</strong></p>
-                <h3 class="card-title icon icon-success">@Model.PassedQuizzes</h3>
+                <h3 class="card-title icon icon-success">0</h3>
             </div>
             <div class="card-footer">
                 <div class="stats icon-info">
@@ -74,7 +78,7 @@
                         <i class="bi bi-bell-fill"></i>
                     </div>
                     <span class="text-muted small pt-2 ps-1">Last Modified</span>
-                    <span class="text-white small pt-1 fw-bold">@Model.PassedQuizzesLastModified</span>
+                    <span class="text-white small pt-1 fw-bold">0</span>
                 </div>
             </div>
         </div>
@@ -88,7 +92,7 @@
             </div>
             <div class="card-content">
                 <p class="category"><strong>Failed Quizzes</strong></p>
-                <h3 class="card-title icon icon-rose">@Model.FailedQuizzes</h3>
+                <h3 class="card-title icon icon-rose">0</h3>
             </div>
             <div class="card-footer">
                 <div class="stats icon-info">
@@ -96,7 +100,7 @@
                         <i class="bi bi-bell-fill"></i>
                     </div>
                     <span class="text-muted small pt-2 ps-1">Last Modified</span>
-                    <span class="text-white small pt-1 fw-bold">@Model.FailedQuizzesLastModified</span>
+                    <span class="text-white small pt-1 fw-bold">0</span>
                 </div>
             </div>
         </div>
@@ -119,7 +123,7 @@
     <div class="col-md-6 mb-3">
         <div class="card bg-dark text-white">
             <div class="card-header">
-                <span class="me-2"><i class="bi bi-pie-chart"></i></span>
+                <span class="me-2"><i class="bi bi-bar-chart-fill"></i></span>
                 <p class="modal-title d-inline p-0">Employee Final Result</p>
             </div>
             <div class="card-body">
@@ -151,7 +155,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (TopEmployeeModel topEmployee in Model.TopEmployees)
+                            @foreach (TopEmployeeModel topEmployee in Model.EmployeeDashboard.TopEmployees)
                             {
                                 <tr>
                                     <td>@topEmployee.FirstName</td>
@@ -170,10 +174,15 @@
 <!--tables-->
 
 <!--injected data for charts-->
+@Html.Hidden("EmployeeCourses", @Html.Raw(Json.Serialize(@Model.Courses.Select(c => c.CourseName).ToList())))
+@Html.Hidden("EmployeeAttempts", @Html.Raw(Json.Serialize(@Model.Attempts.GroupBy(a  => a.QuizId).ToList())))
+<!--injected data for charts-->
+
+@*
 @Html.Hidden("EmployeePerformanceLabels", @Html.Raw(Json.Serialize(@Model.EmployeePerformance.Labels)))
 @Html.Hidden("EmployeePerformanceDatasets", @Html.Raw(Json.Serialize(@Model.EmployeePerformance.Datasets)))
 @Html.Hidden("EmployeePerformanceMaximumQuizzes", @Model.EmployeePerformance.MaximumQuizzes)
 @Html.Hidden("EmployeePerformanceMaximumScore", @Model.EmployeePerformance.MaximumScore)
 @Html.Hidden("EmployeeFinalResultLabels", @Html.Raw(Json.Serialize(@Model.EmployeeFinalResultModel.Labels)))
 @Html.Hidden("EmployeeFinalResultDatasets", @Html.Raw(Json.Serialize(@Model.EmployeeFinalResultModel.Datasets)))
-<!--injected data for charts-->
+*@

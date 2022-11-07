@@ -1,42 +1,15 @@
-﻿//Login
-const LoginFormId = '#LoginForm';
-const LoginButtonId = '#LoginButton';
-const LoginContent = 'Sign In';
-const LoadingActionContent = 'Loading..';
-const LoginModalId = '#LoginModal';
-const RedirectToEmployeeId = '#RedirectToEmployee';
-const RedirectToCompanyId = '#RedirectToCompany';
-const AuthenticationUrl = location.origin + '/Home/Authentication?';
-const AuthenticationToastId = '#AuthenticationToast';
+﻿const LoadingActionContent = 'Loading..';
 
 //Employee
 const EmployeeAccountType = 'Employee';
 //Company
 const CompanyAccountType = 'Company';
 
-//Register
+//Modals
 const RegisterModalId = '#RegisterModal';
-const RegisterCompanyFormId = '#RegisterCompanyForm';
-const RegisterEmployeeFormId = '#RegisterEmployeeForm';
-const RegisterCompanyButtonId = '#SignUpCompanyButton';
-const RegisterEmployeeButtonId = '#SignUpEmployeeButton';
-const RegisterContent = 'Sign Up';
-const RegisterUrl = location.origin + '/Home/Register?';
+const LoginModalId = '#LoginModal';
 const CompanySuccessModalId = '#CompanySuccessModal';
-const CompanyErrorToastId = '#CompanyErrorToast';
-const CompanyExistsToastId = '#CompanyExistsToast';
 const EmployeeSuccessModalId = '#EmployeeSuccessModal';
-const EmployeeErrorToastId = '#EmployeeErrorToast';
-const CompanyNotFoundToastId = '#CompanyNotFoundToast';
-const EmployeeFoundToastId = '#EmployeeFoundToast';
-
-//Logout
-const CompanyLogoutButtonId = '#LogoutCompanyButton';
-const EmployeeLogoutButtonId = '#LogoutEmployeeButton';
-const LogoutCompanyUrl = location.origin + '/Company/Logout';
-const LogoutEmployeeUrl = location.origin + '/Employee/Logout';
-const LogoutErrorToastId = '#LogoutErrorToast';
-const RedirectToHomeId = '#RedirectToHome';
 
 var settings = {
     validClass: "is-valid",

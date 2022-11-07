@@ -44,10 +44,7 @@ namespace CyberTutorial.Application.Companies.Commands.AddCompany
 
             await companyRepository.AddCompanyAsync(company);
 
-            return new AddCompanyResult()
-            {
-                CompanyId = company.CompanyId
-            };
+            return mapper.Map<AddCompanyResult>(company);
         }
     }
 }
