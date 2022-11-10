@@ -48,37 +48,7 @@ namespace CyberTutorial.Application.Authentication.Commands.RegisterCompany
                     return Errors.Company.OperationFailed;
                 }
                 return mapper.Map<RegisterCompanyResult>(result.Value);
-            }
-
-            //Company company = await companyRepository.GetCompanyByEmailAsync(command.EmailAddress);
-
-            //if (company is not null)
-            //{
-            //    return Errors.Company.DuplicateEmail;
-            //}
-
-            //Company companyToRegister = mapper.Map<Company>(command);
-
-            //companyToRegister.CompanyId = codeGenerator.GenerateCode(4);
-            //companyToRegister.Password = hashProvider.ApplyHash(companyToRegister.Password);
-
-            //companyToRegister.Session = new CompanySession()
-            //{
-            //    TimeCreated = DateTime.Now.ToString(),
-            //    IsActive = false
-            //};
-
-            //string subject = Consts.Company.VerificationSubject;
-            //string message = string.Format(Consts.Company.VerificationCodeMessage, companyToRegister.CompanyId);
-
-            //if (!await verificationProvider.SendCodeAsync(companyToRegister.EmailAddress, subject, message))
-            //{
-            //    return Errors.Company.OperationFailed;
-            //}
-
-            //await companyRepository.AddCompanyAsync(companyToRegister);
-
-            //return mapper.Map<RegisterCompanyResult>(companyToRegister);            
+            }     
         }
     }
 }

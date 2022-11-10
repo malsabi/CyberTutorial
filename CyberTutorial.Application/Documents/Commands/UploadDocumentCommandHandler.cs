@@ -23,6 +23,8 @@ namespace CyberTutorial.Application.Documents.Commands
         {
             int totalUploadedFiles = 0;
             long totalUploadedFileSize = 0;
+            int totalUpdatedFiles = 0;
+            long totalUpdatedFileSize = 0;
             
             string rootPath = Path.Combine(environment.ContentRootPath, "Resources", "Documents");
 
@@ -33,32 +35,41 @@ namespace CyberTutorial.Application.Documents.Commands
 
             foreach (IFormFile file in request.Documents)
             {
-                if (await documentRepository.GetDocumentByNameAsync(file.FileName) is not null)
-                {
-                    continue;
-                }
-
                 string filePath = Path.Combine(rootPath, file.FileName);
                 using (FileStream fileStream = new FileStream(filePath, FileMode.Create))
                 {
-                    Document document = new Document()
+                    if (await documentRepository.GetDocumentByNameAsync(file.FileName) is Document document)
                     {
-                        DocumentId = Guid.NewGuid().ToString(),
-                        DocumentName = file.FileName,
-                        DocumentType = file.ContentType,
-                        DocumentSize = file.Length,
-                        DocumentExtension = Path.GetExtension(file.FileName),
-                    };
-                    await file.CopyToAsync(fileStream);
-                    await documentRepository.AddDocumentAsync(document);
-                    totalUploadedFiles++;
-                    totalUploadedFileSize += file.Length;
+                        document.DocumentType = file.ContentType;
+                        document.DocumentSize = file.Length;
+                        document.DocumentExtension = Path.GetExtension(file.FileName);
+                        await documentRepository.UpdateDocumentAsync(document);
+                        totalUpdatedFiles++;
+                        totalUpdatedFileSize += file.Length;
+                    }
+                    else
+                    {
+                        Document documentToAdd = new Document()
+                        {
+                            DocumentId = Guid.NewGuid().ToString(),
+                            DocumentName = file.FileName,
+                            DocumentType = file.ContentType,
+                            DocumentSize = file.Length,
+                            DocumentExtension = Path.GetExtension(file.FileName),
+                        };
+                        await documentRepository.AddDocumentAsync(documentToAdd);
+                        totalUploadedFiles++;
+                        totalUploadedFileSize += file.Length;
+                    }
+                    await file.CopyToAsync(fileStream, cancellationToken);
                 }
             }
             return new UploadDocumentResult()
             {
                 TotalUploadedFiles = totalUploadedFiles,
-                TotalUploadedFileSize = totalUploadedFileSize
+                TotalUploadedFileSize = totalUploadedFileSize,
+                TotalUpdatedFiles = totalUpdatedFiles,
+                TotalUpdatedFileSize = totalUpdatedFileSize
             };
         }
     }

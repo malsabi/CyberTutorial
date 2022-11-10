@@ -70,7 +70,7 @@
             </div>
             <div class="card-content">
                 <p class="category"><strong>Passed Quizzes</strong></p>
-                <h3 class="card-title icon icon-success">0</h3>
+                <h3 class="card-title icon icon-success">@Model.EmployeeDashboard.TotalPassed</h3>
             </div>
             <div class="card-footer">
                 <div class="stats icon-info">
@@ -78,7 +78,7 @@
                         <i class="bi bi-bell-fill"></i>
                     </div>
                     <span class="text-muted small pt-2 ps-1">Last Modified</span>
-                    <span class="text-white small pt-1 fw-bold">0</span>
+                    <span class="text-white small pt-1 fw-bold">@Model.EmployeeDashboard.TotalPassedLastModified</span>
                 </div>
             </div>
         </div>
@@ -92,7 +92,7 @@
             </div>
             <div class="card-content">
                 <p class="category"><strong>Failed Quizzes</strong></p>
-                <h3 class="card-title icon icon-rose">0</h3>
+                <h3 class="card-title icon icon-rose">@Model.EmployeeDashboard.TotalFailed</h3>
             </div>
             <div class="card-footer">
                 <div class="stats icon-info">
@@ -100,7 +100,7 @@
                         <i class="bi bi-bell-fill"></i>
                     </div>
                     <span class="text-muted small pt-2 ps-1">Last Modified</span>
-                    <span class="text-white small pt-1 fw-bold">0</span>
+                    <span class="text-white small pt-1 fw-bold">@Model.EmployeeDashboard.TotalFailedLastModified</span>
                 </div>
             </div>
         </div>

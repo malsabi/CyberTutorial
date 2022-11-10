@@ -137,12 +137,24 @@ namespace CyberTutorial.WebApp.ViewModels
                     }
                     else
                     {
-                        result = new ControllerResultModel()
+                        employee.EmployeeDashboard.TotalCourses += 1;
+                        employee.EmployeeDashboard.TotalCoursesLastModified = DateTime.Now.ToString();
+
+                        ControllerResultModel employeeUpdateResult = await employeeViewModel.UpdateEmplyeeDashboardAsync(employee.EmployeeDashboard);
+
+                        if (!employeeUpdateResult.IsSuccess)
                         {
-                            IsSuccess = true,
-                            Message = "Employee course added successfully.",
-                            Data = employeeCourseResponse.Value.CourseId
-                        };
+                            result = employeeUpdateResult;
+                        }
+                        else
+                        {
+                            result = new ControllerResultModel()
+                            {
+                                IsSuccess = true,
+                                Message = "Employee course added successfully.",
+                                Data = employeeCourseResponse.Value.CourseId
+                            };
+                        }
                     }
                 }
             }

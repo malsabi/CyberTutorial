@@ -58,8 +58,6 @@ namespace CyberTutorial.WebApp.Controllers
 
         public async Task<IActionResult> ApplyCourse(string courseId)
         {
-            //ErrorOr<string> response = await documentService.DownloadDocumentAsync("95c7fc5f-df8a-44f8-a941-faf338d2b15f");
-
             ControllerResultModel result = await courseViewModel.ApplyCourseAsync(courseId);
             if (result.IsSuccess)
             {

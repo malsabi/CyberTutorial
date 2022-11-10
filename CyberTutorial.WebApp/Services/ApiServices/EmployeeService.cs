@@ -52,12 +52,12 @@ namespace CyberTutorial.WebApp.Services.ApiServices
             return await clientApiService.PutAsync<UpdateEmployeeRequest, UpdateEmployeeResponse>(request, ApiConsts.Employee.Update, Token, employeeId);
         }
 
-        public async Task<ErrorOr<UpdateEmployeeSessionResponse>> UpdateEmployeeSession(string employeeId, UpdateEmployeeSessionRequest request)
+        public async Task<ErrorOr<UpdateEmployeeSessionResponse>> UpdateEmployeeSessionAsync(string employeeId, UpdateEmployeeSessionRequest request)
         {
             return await clientApiService.PutAsync<UpdateEmployeeSessionRequest, UpdateEmployeeSessionResponse>(request, ApiConsts.Employee.UpdateSession, Token, employeeId);
         }
 
-        public async Task<ErrorOr<UpdateEmployeeDashboardResponse>> UpdateEmployeeDashboard(string employeeId, UpdateEmployeeDashboardRequest request)
+        public async Task<ErrorOr<UpdateEmployeeDashboardResponse>> UpdateEmployeeDashboardAsync(string employeeId, UpdateEmployeeDashboardRequest request)
         {
             return await clientApiService.PutAsync<UpdateEmployeeDashboardRequest, UpdateEmployeeDashboardResponse>(request, ApiConsts.Employee.UpdateDashboard, Token, employeeId);
         }

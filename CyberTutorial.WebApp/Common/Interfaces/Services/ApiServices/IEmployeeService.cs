@@ -15,8 +15,8 @@ namespace CyberTutorial.WebApp.Common.Interfaces.Services.ApiServices
         public Task<ErrorOr<GetEmployeeSessionResponse>> GetEmployeeSessionAsync(string employeeId);
         public Task<ErrorOr<GetEmployeeDashboardResponse>> GetEmployeeDashboardAsync(string employeeId);
         public Task<ErrorOr<UpdateEmployeeResponse>> UpdateEmployeeAsync(string employeeId, UpdateEmployeeRequest request);
-        public Task<ErrorOr<UpdateEmployeeSessionResponse>> UpdateEmployeeSession(string employeeId, UpdateEmployeeSessionRequest request);
-        public Task<ErrorOr<UpdateEmployeeDashboardResponse>> UpdateEmployeeDashboard(string employeeId, UpdateEmployeeDashboardRequest request);
+        public Task<ErrorOr<UpdateEmployeeSessionResponse>> UpdateEmployeeSessionAsync(string employeeId, UpdateEmployeeSessionRequest request);
+        public Task<ErrorOr<UpdateEmployeeDashboardResponse>> UpdateEmployeeDashboardAsync(string employeeId, UpdateEmployeeDashboardRequest request);
         public Task<ErrorOr<DeleteEmployeeResponse>> DeleteEmployeeAsync(string employeeId);
     }
 }

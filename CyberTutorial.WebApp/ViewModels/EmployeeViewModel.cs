@@ -160,5 +160,45 @@ namespace CyberTutorial.WebApp.ViewModels
             }
             return result;
         }
+
+        public async Task<ControllerResultModel> UpdateEmplyeeDashboardAsync(EmployeeDashboardModel employeeDashboard)
+        {
+            ControllerResultModel result;
+            EmployeeSessionModel employeeSession = cookieService.GetDecrypted<EmployeeSessionModel>(AppConsts.EmployeeCookieId);
+
+            if (employeeSession == null)
+            {
+                result = new ControllerResultModel()
+                {
+                    IsSuccess = false,
+                    Message = "Employee session is null"
+                };
+            }
+            else
+            {
+                employeeService.Token = employeeSession.Token;
+                UpdateEmployeeDashboardRequest request = mapper.Map<UpdateEmployeeDashboardRequest>(employeeDashboard);
+                ErrorOr<UpdateEmployeeDashboardResponse> response = await employeeService.UpdateEmployeeDashboardAsync(employeeSession.EmployeeSessionId, request);
+                if (response.IsError)
+                {
+                    result = new ControllerResultModel()
+                    {
+                        IsSuccess = false,
+                        Message = response.FirstError.Description,
+                        Data = response
+                    };
+                }
+                else
+                {
+                    result = new ControllerResultModel()
+                    {
+                        IsSuccess = true,
+                        Message = "Employee dashboard data updated successfully.",
+                        Data = response.Value.EmployeeDashboard
+                    };
+                }
+            }
+            return result;
+        }
     }
 }
