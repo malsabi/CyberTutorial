@@ -36,6 +36,21 @@ namespace CyberTutorial.Infrastructure.Persistence.Migrations
                     b.ToTable("AnswerQuestion");
                 });
 
+            modelBuilder.Entity("AttemptQuestion", b =>
+                {
+                    b.Property<string>("AttemptedQuestionsQuestionId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("AttemptsAttemptId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("AttemptedQuestionsQuestionId", "AttemptsAttemptId");
+
+                    b.HasIndex("AttemptsAttemptId");
+
+                    b.ToTable("AttemptQuestion");
+                });
+
             modelBuilder.Entity("CourseEmployee", b =>
                 {
                     b.Property<string>("CoursesCourseId")
@@ -108,6 +123,9 @@ namespace CyberTutorial.Infrastructure.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("QuizName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Score")
                         .HasColumnType("int");
 
@@ -117,7 +135,7 @@ namespace CyberTutorial.Infrastructure.Persistence.Migrations
                     b.Property<int>("TotalCorrectAnswers")
                         .HasColumnType("int");
 
-                    b.Property<int>("TotalIncorectAnswers")
+                    b.Property<int>("TotalIncorrectAnswers")
                         .HasColumnType("int");
 
                     b.HasKey("AttemptId");
@@ -217,64 +235,6 @@ namespace CyberTutorial.Infrastructure.Persistence.Migrations
                     b.HasKey("CourseId");
 
                     b.ToTable("Courses");
-
-                    b.HasData(
-                        new
-                        {
-                            CourseId = "ddec3205-e85f-4b75-a277-ce3db9f4dd6d",
-                            CourseDescription = "A collection of procedures and technology designed to address external and internal threats to business security.",
-                            CourseImage = "https://localhost:7196/api/Document/Download?documentId=83017331-5426-47f9-ac19-31aaef08bea7",
-                            CourseName = "Cloud Security",
-                            CourseUrl = "https://localhost:7196/api/Document/Download?documentId=c723b5e9-9971-467f-ac32-88beda990cbf"
-                        },
-                        new
-                        {
-                            CourseId = "2cd7a7d7-054b-4fad-8ae6-2310ca92d609",
-                            CourseDescription = "A document that you should ideally give to each employee upon hiring. Prospective employees should read the policy, sign it, and date it before they start work.",
-                            CourseImage = "https://localhost:7196/api/Document/Download?documentId=83017331-5426-47f9-ac19-31aaef08bea7",
-                            CourseName = "Email And Internet Usage Policy",
-                            CourseUrl = "https://localhost:7196/api/Document/Download?documentId=342c4724-0aeb-4d69-ba8f-12424e49274a"
-                        },
-                        new
-                        {
-                            CourseId = "42ef5e92-3da4-48f6-8d13-6da0326a3e58",
-                            CourseDescription = "You'll learn about mobile security vulnerabilities and threats in this in-depth exploration of mobile security in the company.",
-                            CourseImage = "https://localhost:7196/api/Document/Download?documentId=83017331-5426-47f9-ac19-31aaef08bea7",
-                            CourseName = "Mobile Device Security",
-                            CourseUrl = "https://localhost:7196/api/Document/Download?documentId=44fd3336-21d9-4bf7-8b6a-c85d1a4082ef"
-                        },
-                        new
-                        {
-                            CourseId = "b8623275-c5cd-4f27-bdbb-75b9d9fb5b84",
-                            CourseDescription = "Fake communications that appear to come froma trusted source, but these communications can put all kinds of your data at risk.",
-                            CourseImage = "https://localhost:7196/api/Document/Download?documentId=83017331-5426-47f9-ac19-31aaef08bea7",
-                            CourseName = "Phishing Attacks",
-                            CourseUrl = "https://localhost:7196/api/Document/Download?documentId=15098b99-f2c0-42a9-9cd0-499a4ba0875d"
-                        },
-                        new
-                        {
-                            CourseId = "4ff39251-8cc2-4819-8b30-7fe544f8bd08",
-                            CourseDescription = "describes measures designed to ensure the physical protection of IT assets such as facilities, equipment and other property from damage and unauthorized physical access.",
-                            CourseImage = "https://localhost:7196/api/Document/Download?documentId=83017331-5426-47f9-ac19-31aaef08bea7",
-                            CourseName = "Physical Security",
-                            CourseUrl = "https://localhost:7196/api/Document/Download?documentId=f4b013a6-b2dd-415c-91f7-54c4b49f5de7"
-                        },
-                        new
-                        {
-                            CourseId = "de88a0ef-cd13-4179-a181-18c1d3bdff99",
-                            CourseDescription = "Found in popular public places like airports, coffee shops, malls, restaurants, and hotels and it allows you to access the internet for free.",
-                            CourseImage = "https://localhost:7196/api/Document/Download?documentId=83017331-5426-47f9-ac19-31aaef08bea7",
-                            CourseName = "Public Wi-Fi",
-                            CourseUrl = "https://localhost:7196/api/Document/Download?documentId=b97f6cf2-cf17-4abe-9b1c-c4a862701bf8"
-                        },
-                        new
-                        {
-                            CourseId = "8d97ee89-cb8b-47ea-b59e-ac276866fe4e",
-                            CourseDescription = "A manipulation technique that exploits human error to gain private information, access, or valuables.",
-                            CourseImage = "https://localhost:7196/api/Document/Download?documentId=83017331-5426-47f9-ac19-31aaef08bea7",
-                            CourseName = "Social Engineering",
-                            CourseUrl = "https://localhost:7196/api/Document/Download?documentId=4451fdbd-d680-4633-b552-6a746aa8cc9c"
-                        });
                 });
 
             modelBuilder.Entity("CyberTutorial.Domain.Entities.Document", b =>
@@ -487,6 +447,21 @@ namespace CyberTutorial.Infrastructure.Persistence.Migrations
                     b.HasOne("CyberTutorial.Domain.Entities.Question", null)
                         .WithMany()
                         .HasForeignKey("QuestionsQuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("AttemptQuestion", b =>
+                {
+                    b.HasOne("CyberTutorial.Domain.Entities.Question", null)
+                        .WithMany()
+                        .HasForeignKey("AttemptedQuestionsQuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CyberTutorial.Domain.Entities.Attempt", null)
+                        .WithMany()
+                        .HasForeignKey("AttemptsAttemptId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

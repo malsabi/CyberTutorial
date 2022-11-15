@@ -6,7 +6,7 @@ using CyberTutorial.Domain.Entities;
 using CyberTutorial.Application.Documents.Common;
 using CyberTutorial.Application.Common.Interfaces.Persistence.Repositories;
 
-namespace CyberTutorial.Application.Documents.Commands
+namespace CyberTutorial.Application.Documents.Commands.UploadDocument
 {
     public class UploadDocumentCommandHandler : IRequestHandler<UploadDocumentCommand, ErrorOr<UploadDocumentResult>>
     {
@@ -25,7 +25,7 @@ namespace CyberTutorial.Application.Documents.Commands
             long totalUploadedFileSize = 0;
             int totalUpdatedFiles = 0;
             long totalUpdatedFileSize = 0;
-            
+
             string rootPath = Path.Combine(environment.ContentRootPath, "Resources", "Documents");
 
             if (!Directory.Exists(rootPath))

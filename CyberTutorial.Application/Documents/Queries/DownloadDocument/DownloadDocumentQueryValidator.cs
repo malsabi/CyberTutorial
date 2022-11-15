@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace CyberTutorial.Application.Documents.Queries
+namespace CyberTutorial.Application.Documents.Queries.DownloadDocument
 {
     public class DownloadDocumentQueryValidator : AbstractValidator<DownloadDocumentQuery>
     {

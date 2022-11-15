@@ -7,7 +7,7 @@ using CyberTutorial.Domain.Common.Errors;
 using CyberTutorial.Application.Documents.Common;
 using CyberTutorial.Application.Common.Interfaces.Persistence.Repositories;
 
-namespace CyberTutorial.Application.Documents.Queries
+namespace CyberTutorial.Application.Documents.Queries.DownloadDocument
 {
     public class DownloadDocumentQueryHandler : IRequestHandler<DownloadDocumentQuery, ErrorOr<DownloadDocumentResult>>
     {

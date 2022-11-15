@@ -1,12 +1,12 @@
 ﻿using ErrorOr;
 using MapsterMapper;
 using CyberTutorial.Contracts.Models;
-using CyberTutorial.WebApp.Models.Common;
 using CyberTutorial.WebApp.Common.Consts;
 using CyberTutorial.Contracts.Requests.Authentication;
 using CyberTutorial.Contracts.Responses.Authentication;
 using CyberTutorial.WebApp.Common.Interfaces.Services.ApiServices;
 using CyberTutorial.WebApp.Common.Interfaces.Services.AppServices;
+using CyberTutorial.WebApp.Models;
 
 namespace CyberTutorial.WebApp.ViewModels
 {

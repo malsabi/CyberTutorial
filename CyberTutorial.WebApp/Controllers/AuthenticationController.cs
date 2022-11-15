@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using CyberTutorial.WebApp.Models;
 using CyberTutorial.Contracts.Enums;
 using CyberTutorial.Contracts.Models;
 using CyberTutorial.WebApp.ViewModels;
-using CyberTutorial.WebApp.Models.Common;
 using CyberTutorial.WebApp.Controllers.BaseControllers;
 
 namespace CyberTutorial.WebApp.Controllers

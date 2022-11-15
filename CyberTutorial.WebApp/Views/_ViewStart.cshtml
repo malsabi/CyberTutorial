@@ -2,7 +2,14 @@
     string currentLayout = "_Layout";
     if (ViewContext.RouteData.Values["controller"].ToString() == "Employee")
     {
-        currentLayout = "EmployeeLayout";
+        if (ViewContext.RouteData.Values["action"].ToString() == "StartQuiz")
+        {
+            currentLayout = "EmployeeQuizLayout";
+        }
+        else
+        {
+            currentLayout = "EmployeeLayout";
+        }
     }
     else if (ViewContext.RouteData.Values["Controller"].ToString() == "Company")
     {

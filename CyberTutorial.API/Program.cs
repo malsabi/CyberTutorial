@@ -33,6 +33,7 @@ namespace CyberTutorial.API
                     //context.Database.EnsureDeleted();
                     context.Database.Migrate();
                     //context.Database.EnsureCreated();
+                    ApplicationDbContextInitializer.Seed(context);
                 }
 
                 app.UseExceptionHandler("/error");

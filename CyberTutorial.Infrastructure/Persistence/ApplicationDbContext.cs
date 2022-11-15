@@ -1,5 +1,4 @@
 ﻿using CyberTutorial.Domain.Entities;
-using CyberTutorial.Infrastructure.Persistence.Seeding;
 using CyberTutorial.Application.Common.Interfaces.Persistence;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,11 +27,6 @@ namespace CyberTutorial.Infrastructure.Persistence
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             return await base.SaveChangesAsync(cancellationToken);
-        }
-
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            builder.Entity<Course>().HasData(CourseSeeding.Courses());
         }
     }
 }

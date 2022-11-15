@@ -39,7 +39,6 @@ function HandleRegisterEmployee()
                     dataType: "JSON",
                     success: function (response)
                     {
-                        console.log(response);
                         if (response.IsSuccess)
                         {
                             $(EmployeeSuccessModalId).modal('show');

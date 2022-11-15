@@ -26,6 +26,8 @@ namespace CyberTutorial.Infrastructure.Persistence.Repositories
             return await applicationDbContext.Courses
                 .Include(course => course.Employees)
                 .Include(course => course.Quizzes)
+                .ThenInclude(questions => questions.Questions)
+                .ThenInclude(answers => answers.Answers)
                 .ToListAsync();
         }
 
@@ -34,6 +36,8 @@ namespace CyberTutorial.Infrastructure.Persistence.Repositories
             return await applicationDbContext.Courses
                 .Include(course => course.Employees)
                 .Include(course => course.Quizzes)
+                .ThenInclude(questions => questions.Questions)
+                .ThenInclude(answers => answers.Answers)
                 .FirstOrDefaultAsync(course => course.CourseId == courseId);
         }
 
@@ -42,6 +46,8 @@ namespace CyberTutorial.Infrastructure.Persistence.Repositories
             return await applicationDbContext.Courses
                 .Include(course => course.Employees)
                 .Include(course => course.Quizzes)
+                .ThenInclude(questions => questions.Questions)
+                .ThenInclude(answers => answers.Answers)
                 .FirstOrDefaultAsync(course => course.CourseName == courseName);
         }
 

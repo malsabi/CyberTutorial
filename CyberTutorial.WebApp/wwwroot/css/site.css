@@ -96,3 +96,14 @@ hr {
 input {
     color-scheme: dark;
 }
+
+.contact-us-icon {
+    width: 55px;
+    height: 55px;
+    border-radius: 100%;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.contact-us-icon span {
+    color: white;
+}

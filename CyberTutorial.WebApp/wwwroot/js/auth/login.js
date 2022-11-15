@@ -11,7 +11,6 @@ const LoginAlertId = '#LoginAlert';
 const RedirectToCompanyId = '#RedirectToCompany';
 const RedirectToEmployeeId = '#RedirectToEmployee';
 
-
 function LoginAlert(message)
 {
     const alertBox = $(LoginAlertId);
@@ -42,7 +41,6 @@ function HandleLogin()
                     dataType: "JSON",
                     success: function (response)
                     {
-                        console.log(response);
                         if (response.IsSuccess && response.Metadata != null)
                         {
                             if (response.Metadata.length != 1)

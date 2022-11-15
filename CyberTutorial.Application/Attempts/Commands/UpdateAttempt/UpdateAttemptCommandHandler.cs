@@ -28,13 +28,15 @@ namespace CyberTutorial.Application.Attempts.Commands.UpdateAttempt
 
             attempt.EmployeeId = request.EmployeeId;
             attempt.QuizId = request.QuizId;
+            attempt.QuizName = request.QuizName;
             attempt.StartedAt = request.StartedAt;
             attempt.CompletedAt = request.CompletedAt;
             attempt.IsStarted = request.IsStarted;
             attempt.IsCompleted = request.IsCompleted;
             attempt.Score = request.Score;
             attempt.TotalCorrectAnswers = request.TotalCorrectAnswers;
-            attempt.TotalIncorectAnswers = request.TotalIncorectAnswers;
+            attempt.TotalIncorrectAnswers = request.TotalIncorrectAnswers;
+            attempt.AttemptedQuestions = request.AttemptedQuestions;
 
             await attemptRepository.UpdateAttemptAsync(attempt);
 

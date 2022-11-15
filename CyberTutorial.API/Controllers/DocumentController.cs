@@ -5,8 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using CyberTutorial.Contracts.Responses.Document;
 using CyberTutorial.Application.Documents.Common;
-using CyberTutorial.Application.Documents.Queries;
-using CyberTutorial.Application.Documents.Commands;
+using CyberTutorial.Application.Documents.Commands.UploadDocument;
+using CyberTutorial.Application.Documents.Queries.DownloadDocument;
+using CyberTutorial.Application.Documents.Queries.GetDocument;
 
 namespace CyberTutorial.API.Controllers
 {
@@ -22,6 +23,21 @@ namespace CyberTutorial.API.Controllers
         {
             this.sender = sender;
             this.mapper = mapper;
+        }
+
+        [HttpGet("Get")]
+        public async Task<IActionResult> GetDocument(string documentId)
+        {
+            GetDocumentByIdQuery query = new GetDocumentByIdQuery()
+            {
+                DocumentId = documentId
+            };
+            ErrorOr<GetDocumentByIdResult> result = await sender.Send(query);
+            return result.Match
+            (
+                success => File(success.DocumentData, success.DocumentType),
+                error => Problem(error)
+            );
         }
 
         [HttpPost("Upload")]

@@ -18,5 +18,11 @@
       "library": "chartjs-plugin-datalabels@2.1.0",
       "destination": "wwwroot/lib/chartjs-plugin-datalabels/"
     }
-  ]
+  ,
+{
+  "provider": "jsdelivr",
+  "library": "visibilityjs@2.0.2",
+  "destination": "wwwroot/lib/visibilityjs/"
+}
+]
 }

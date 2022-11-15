@@ -20,7 +20,6 @@ function HandleCompanyLogout()
                 dataType: "JSON",
                 success: function (response)
                 {
-                    console.log(response);
                     if (response.IsSuccess)
                     {
                         location.href = $(LogoutCompanyRedirectToHomeId).val();

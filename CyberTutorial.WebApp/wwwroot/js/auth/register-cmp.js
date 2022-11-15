@@ -39,7 +39,6 @@ function HandleRegisterCompany()
                     dataType: "JSON",
                     success: function (response)
                     {
-                        console.log(response);
                         if (response.IsSuccess)
                         {
                             $(CompanySuccessModalId).modal('show');
@@ -49,7 +48,6 @@ function HandleRegisterCompany()
                     },
                     complete: function (response)
                     {
-                        console.log(response);
                         ToggleSpinner(RegisterCompanyButtonId, RegisterCompanyButtonContent, false);
                     }
                 });

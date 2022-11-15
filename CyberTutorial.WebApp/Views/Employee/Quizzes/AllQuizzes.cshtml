@@ -1,5 +1,82 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<QuizModel>
 @{
+    ViewData["Title"] = "All Quizzes";
 }
+
+@section Scripts
+{
+    <script src="~/js/employee/quizzes-emp.js" asp-append-version="true"></script>
+}
+
+<div class="row ps-3 pt-3 pe-3">
+    <div class="col-md-12">
+        <div class="card bg-dark text-white">
+            <div class="card-header">
+                <span><i class="fa-solid fa-fw fa-table me-2"></i></span>
+                <p class="modal-title d-inline p-0">All Available Quizzes</p>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="AvailableQuizzesTable" class="table table-bordered table-light" style="width: 100%">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Maximum Score</th>
+                                <th>Total Questions</th>
+                                <th>Duration (minutes)</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var quiz in Model)
+                            {
+                                <tr>
+                                    <td>@quiz.Title</td>
+                                    <td>@quiz.MaximumScore</td>
+                                    <td>@quiz.TotalQuestions</td>
+                                    <td>@quiz.Duration</td>
+                                    <td>
+                                        <button type="button" class="ViewMarksButton btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="View Marks" data-quiz-id="@quiz.QuizId">
+                                            <i class="far fa-eye"></i>
+                                        </button>
+                                        <button type="button" class="StartQuizButton btn btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Start Quiz" data-quiz-id="@quiz.QuizId">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ViewMarksModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content text-white bg-dark">
+            <div class="modal-header">
+                <p class="modal-title" id="ViewMarksModalLabel">0 Attempts Found!</p>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="ViewMarksModalResult">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="StartQuizModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-white bg-dark">
+            <div class="modal-header">
+                <p class="modal-title" id="StartQuizModalLabel"></p>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div id="StartQuizModalBody" class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>

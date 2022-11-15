@@ -1,48 +1,82 @@
-﻿$(document).ready(function () {
+﻿$(document).ready(function ()
+{
     HandleDataTableStyle();
     HandleNavCollapseState();
 });
 
+const TopEmployeesTableId = '#TopEmployeesTable';
 const EmployeePerformanceChartId = 'EmployeePerformanceChart';
 const EmployeeFinalResultChartId = 'EmployeeFinalResultChart';
 const EmployeeCoursesId = '#EmployeeCourses';
 const EmployeeAttemptsId = '#EmployeeAttempts';
 
-function HandleNavCollapseState() {
-    $(".collapse").on("shown.bs.collapse", function () {
-        localStorage.setItem("coll_" + this.id, true);
-        console.log('SHOW ' + this.id);
-    });
-
-    $(".collapse").on("hidden.bs.collapse", function () {
-        localStorage.removeItem("coll_" + this.id);
-        console.log('HIDE' + this.id);
-    });
-
-    $(".collapse").each(function () {
-        console.log('EACH ' + this.id);
-        if (localStorage.getItem("coll_" + this.id) === "true") {
-            $(this).collapse("show");
+const plugin = {
+    id: 'emptyChart',
+    afterDraw(chart, args, options) {
+        const { datasets } = chart.data;
+        let hasData = false;
+        for (let dataset of datasets) {
+            if (dataset.data.length > 0) {
+                hasData = true;
+                break;
+            }
         }
-        else {
+        if (!hasData) {
+            const { chartArea: { left, top, right, bottom }, ctx } = chart;
+            const centerX = (left + right) / 2;
+            const centerY = (top + bottom) / 2;
+            chart.clear();
+            ctx.save();
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.font = '30px Arial';
+            ctx.fillStyle = '#FFFFFF'
+            ctx.fillText('No data available ', centerX, centerY);
+            ctx.restore();
+        }
+    }
+};
+
+Chart.register(ChartDataLabels);
+Chart.defaults.color = "#FFFFFF";
+Chart.defaults.borderColor = '#FFFFFF';
+Chart.register(plugin);
+
+function HandleNavCollapseState()
+{
+    $(".collapse").on("shown.bs.collapse", function ()
+    {
+        localStorage.setItem("coll_" + this.id, true);
+    });
+
+    $(".collapse").on("hidden.bs.collapse", function ()
+    {
+        localStorage.removeItem("coll_" + this.id);
+    });
+
+    $(".collapse").each(function ()
+    {
+        if (localStorage.getItem("coll_" + this.id) === "true")
+        {
+        }
+        else
+        {
             $(this).collapse("hide");
         }
     });
 }
 
-function HandleDataTableStyle() {
-    $(".data-table").each(function (_, table) {
-        $(table).dataTable({
-            "searching": false,
-            "columns.searchable": false,
-            "paging": true,
-            "ordering": false,
-            "info": false,
-            "dom": 'frtip'
-        });
+function HandleDataTableStyle()
+{
+    $(TopEmployeesTableId).dataTable({
+        "searching": false,
+        "columns.searchable": false,
+        "paging": true,
+        "ordering": false,
+        "info": false,
+        "dom": 'frtip'
     });
 }
-
 const EmployeeCourses = JSON.parse($(EmployeeCoursesId).val());
 const EmployeeAttempts = JSON.parse($(EmployeeAttemptsId).val());
 

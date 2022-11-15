@@ -26,6 +26,7 @@ namespace CyberTutorial.Infrastructure.Persistence.Repositories
             return await applicationDbContext.Questions
                 .Include(question => question.Answers)
                 .Include(question => question.Quizzes)
+                .Include(attempts => attempts.Attempts)
                 .ToListAsync();
         }
 
@@ -34,6 +35,7 @@ namespace CyberTutorial.Infrastructure.Persistence.Repositories
             return await applicationDbContext.Questions
                 .Include(question => question.Answers)
                 .Include(question => question.Quizzes)
+                .Include(attempts => attempts.Attempts)
                 .Where(question => question.Quizzes.Any(quiz => quiz.QuizId == quizId))
                 .ToListAsync();
         }
@@ -43,6 +45,7 @@ namespace CyberTutorial.Infrastructure.Persistence.Repositories
             return await applicationDbContext.Questions
                 .Include(question => question.Answers)
                 .Include(question => question.Quizzes)
+                .Include(attempts => attempts.Attempts)
                 .FirstOrDefaultAsync(question => question.QuestionId == questionId);
         }
 

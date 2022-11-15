@@ -1,6 +1,6 @@
 ﻿using ErrorOr;
 
-namespace CyberTutorial.WebApp.Models.Common
+namespace CyberTutorial.WebApp.Models
 {
     public class ControllerResultModel
     {
@@ -8,7 +8,7 @@ namespace CyberTutorial.WebApp.Models.Common
         public string Message { get; set; }
         public object Data { get; set; }
         public List<string> Metadata { get; set; }
-        
+
         public ControllerResultModel()
         {
             IsSuccess = false;

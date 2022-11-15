@@ -3,7 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using CyberTutorial.Application.Documents.Common;
 
-namespace CyberTutorial.Application.Documents.Commands
+namespace CyberTutorial.Application.Documents.Commands.UploadDocument
 {
     public class UploadDocumentCommand : IRequest<ErrorOr<UploadDocumentResult>>
     {

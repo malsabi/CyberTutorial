@@ -1,4 +1,4 @@
-﻿namespace CyberTutorial.WebApp.Models.Common
+﻿namespace CyberTutorial.WebApp.Models
 {
     public class ChartDatasetModel<T>
     {

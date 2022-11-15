@@ -39,6 +39,8 @@ namespace CyberTutorial.WebApp
             services.AddScoped(typeof(AuthenticationViewModel));
             services.AddScoped(typeof(EmployeeViewModel));
             services.AddScoped(typeof(CourseViewModel));
+            services.AddScoped(typeof(QuizViewModel));
+            services.AddScoped(typeof(AttemptViewModel));
             return services;
         }
     }

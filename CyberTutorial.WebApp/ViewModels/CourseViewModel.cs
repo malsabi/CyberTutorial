@@ -1,9 +1,9 @@
 ﻿using ErrorOr;
 using CyberTutorial.Contracts.Models;
-using CyberTutorial.WebApp.Models.Common;
 using CyberTutorial.Contracts.Responses.Course;
 using CyberTutorial.Contracts.Responses.EmployeeCourse;
 using CyberTutorial.WebApp.Common.Interfaces.Services.ApiServices;
+using CyberTutorial.WebApp.Models;
 
 namespace CyberTutorial.WebApp.ViewModels
 {

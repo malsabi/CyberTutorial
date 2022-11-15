@@ -20,7 +20,6 @@ function HandleEmployeeLogout()
                 dataType: "JSON",
                 success: function (response)
                 {
-                    console.log(response);
                     if (response.IsSuccess)
                     {
                         location.href = $(LogoutEmployeeRedirectToHomeId).val();

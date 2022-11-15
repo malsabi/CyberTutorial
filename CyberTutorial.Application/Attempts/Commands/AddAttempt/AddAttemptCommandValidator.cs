@@ -2,27 +2,25 @@
 
 namespace CyberTutorial.Application.Attempts.Commands.AddAttempt
 {
-    public class AddAttemptCommandValidator : AbstractValidator<AddAttemptCommand>
+    public class AddAttemptCommandxalidator : AbstractValidator<AddAttemptCommand>
     {
-        public AddAttemptCommandValidator()
+        public AddAttemptCommandxalidator()
         {
-            RuleFor(v => v.EmployeeId)
+            RuleFor(x => x.EmployeeId)
                 .NotEmpty();
-            RuleFor(v => v.QuizId)
+            RuleFor(x => x.QuizId)
                 .NotEmpty();
-            RuleFor(v => v.StartedAt)
+            RuleFor(x => x.QuizName)
                 .NotEmpty();
-            RuleFor(v => v.CompletedAt)
+            RuleFor(x => x.StartedAt)
                 .NotEmpty();
-            RuleFor(v => v.IsStarted)
+            RuleFor(x => x.CompletedAt)
                 .NotEmpty();
-            RuleFor(v => v.IsCompleted)
-                .NotEmpty();
-            RuleFor(v => v.Score)
+            RuleFor(x => x.Score)
                 .GreaterThanOrEqualTo(0);
-            RuleFor(v => v.TotalCorrectAnswers)
+            RuleFor(x => x.TotalCorrectAnswers)
                 .GreaterThanOrEqualTo(0);
-            RuleFor(v => v.TotalIncorectAnswers)
+            RuleFor(x => x.TotalIncorrectAnswers)
                 .GreaterThanOrEqualTo(0);
         }
     }

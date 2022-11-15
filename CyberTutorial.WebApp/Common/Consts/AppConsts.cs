@@ -22,6 +22,10 @@ namespace CyberTutorial.WebApp.Common.Consts
         #endregion
 
         #region "Views"
+        #region "Employee"
+        public const string QuizView = "~/Views/Employee/Quiz.cshtml";
+        #endregion
+
         #region "Employee:Courses"
         public const string AllCoursesView = "~/Views/Employee/Courses/AllCourses.cshtml";
         public const string TakenCoursesView = "~/Views/Employee/Courses/TakenCourses.cshtml";

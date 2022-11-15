@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace CyberTutorial.Application.Documents.Commands
+namespace CyberTutorial.Application.Documents.Commands.UploadDocument
 {
     public class UploadDocumentCommandValidator : AbstractValidator<UploadDocumentCommand>
     {

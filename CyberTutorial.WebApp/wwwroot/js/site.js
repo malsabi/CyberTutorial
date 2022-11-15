@@ -18,38 +18,6 @@ var settings = {
 $.validator.setDefaults(settings);
 $.validator.unobtrusive.options = settings;
 
-const plugin = {
-    id: 'emptyChart',
-    afterDraw(chart, args, options) {
-        const { datasets } = chart.data;
-        let hasData = false;
-        for (let dataset of datasets) {
-            if (dataset.data.length > 0) {
-                hasData = true;
-                break;
-            }
-        }
-        if (!hasData) {
-            const { chartArea: { left, top, right, bottom }, ctx } = chart;
-            const centerX = (left + right) / 2;
-            const centerY = (top + bottom) / 2;
-            chart.clear();
-            ctx.save();
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.font = '30px Arial';
-            ctx.fillStyle = '#FFFFFF'
-            ctx.fillText('No data available ', centerX, centerY);
-            ctx.restore();
-        }
-    }
-};
-
-Chart.register(ChartDataLabels);
-Chart.defaults.color = "#FFFFFF";
-Chart.defaults.borderColor = '#FFFFFF';
-Chart.register(plugin);
-
 function HandleModalEventHandlers()
 {
     $(LoginModalId).on('show.bs.modal', e =>

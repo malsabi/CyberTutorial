@@ -25,6 +25,8 @@ namespace CyberTutorial.Infrastructure.Persistence.Repositories
             return await applicationDbContext.Attempts
                 .Include(attempt => attempt.Employee)
                 .Include(attempt => attempt.Quiz)
+                .Include(attempt => attempt.AttemptedQuestions)
+                .ThenInclude(answers => answers.Answers)
                 .ToListAsync();
         }
 
@@ -33,6 +35,8 @@ namespace CyberTutorial.Infrastructure.Persistence.Repositories
             return await applicationDbContext.Attempts
                 .Include(attempt => attempt.Employee)
                 .Include(attempt => attempt.Quiz)
+                .Include(attempt => attempt.AttemptedQuestions)
+                .ThenInclude(answers => answers.Answers)
                 .FirstOrDefaultAsync(attempt => attempt.AttemptId == attemptId);
         }
 

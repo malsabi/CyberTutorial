@@ -18,8 +18,24 @@
                     <h5 class="card-title">@course.CourseName</h5>
                     <p class="card-text">@course.CourseDescription</p>
                 </div>
-                <a class="btn btn-lg btn-primary mt-auto mb-3 ms-3 me-3" href="@course.CourseUrl" download="@course.CourseName">Download Course</a>
+                <button type="button" class="ViewCourseButton btn btn-lg btn-primary mt-auto mb-3 ms-3 me-3" data-course-name="@course.CourseName" data-course-url="@course.CourseUrl">
+                    View Course
+                </button>
             </div>
         </div>
     }
+</div>
+
+<div class="modal fade" id="ViewCourseModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content text-white bg-dark">
+            <div class="modal-header">
+                <p class="modal-title" id="ViewCourseModalLabel">Subject</p>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <embed id="ViewCourseEmbed" src="" width="100%" height="600px"/>
+            </div>
+        </div>
+    </div>
 </div>

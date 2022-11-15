@@ -2,3 +2,111 @@
     ViewData["Title"] = "Contact";
 }
 
+<div class="container">
+    <div class="row">
+        <!--Write Form-->
+        <div class="col-lg-6 col-md-6 col-sm-6 bg-dark">
+            <div class="p-md-5 p-4 py-5 text-white">
+                <h3>Write Us</h3>
+                <form asp-controller="Contact" asp-action="Index" class="mt-4" method="post" id="ContactForm" novalidate>
+                    <div class="form-group mb-4">
+                        <input type="email" class="form-control bg-dark rounded-3 border-info text-white" id="NameInput" placeholder="Name">
+                        <span class="text-danger"></span>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+                    <div class="form-group mb-4">
+                        <input type="email" class="form-control bg-dark rounded-3 border-info text-white" id="EmailInput" placeholder="Email Address">
+                        <span class="text-danger"></span>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+                    <div class="form-group mb-4">
+                        <input type="email" class="form-control bg-dark rounded-3 border-info text-white" id="SubjectInput" placeholder="Subject">
+                        <span class="text-danger"></span>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+                    <div class="form-group mb-5">
+                        <textarea class="form-control bg-dark rounded-3 border-info text-white" cols="30" rows="12" id="MessageInput" placeholder="Message"></textarea>
+                        <span class="text-danger"></span>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+                    <div class="mb-5 d-grid justify-content-start">
+                        <button type="button" class="btn btn-lg btn-info text-dark rounded-3" id="SendMessageButton">
+                            Send Message
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--Contact Information-->
+        <div class="col-lg-6 col-md-6 col-sm-6" style="background-color: #1C1E25;">
+            <div class="p-md-5 p-4 py-5">
+                <h3 class="text-white">Contact Information</h3>
+                <p class="text-muted mb-4">We're open for any suggestion or just to have a chat</p>
+                <!--Location-->
+                <div class="d-flex flex-row bd-highlight mb-5">
+                    <div class="contact-us-icon d-flex align-items-center justify-content-center">
+                        <span class="fa fa-2x fa-map-marker"></span>
+                    </div>
+                    <div class="ps-3 d-flex align-items-center justify-content-center">
+                        <p class="text-muted mb-0">
+                            <span class="fw-bold text-white" style="vertical-align: central;">
+                                Address:
+                            </span>
+                            Sharjah, Al Khan
+                        </p>
+                    </div>
+                </div>
+                <!--Phone-->
+                <div class="d-flex flex-row bd-highlight mb-5">
+                    <div class="contact-us-icon d-flex align-items-center justify-content-center">
+                        <span class="fa fa-2x fa-phone"></span>
+                    </div>
+                    <div class="ps-3 d-flex align-items-center justify-content-center">
+                        <p class="text-muted mb-0">
+                            <span class="fw-bold text-white">
+                                Phone:
+                            </span>
+                            +971544585334
+                        </p>
+                    </div>
+                </div>
+                <!--Email-->
+                <div class="d-flex flex-row bd-highlight mb-5">
+                    <div class="contact-us-icon d-flex align-items-center justify-content-center">
+                        <span class="fa fa-2x fa-paper-plane"></span>
+                    </div>
+                    <div class="ps-3 d-flex align-items-center justify-content-center">
+                        <p class="text-muted mb-0">
+                            <span class="fw-bold text-white">
+                                Email:
+                            </span>
+                            cybertutorials.ae@gmail.com
+                        </p>
+                    </div>
+                </div>
+                <!--Website-->
+                <div class="d-flex flex-row bd-highlight">
+                    <div class="contact-us-icon d-flex align-items-center justify-content-center">
+                        <span class="fa fa-2x fa-globe"></span>
+                    </div>
+                    <div class="ps-3 d-flex align-items-center justify-content-center">
+                        <p class="text-muted mb-0">
+                            <span class="fw-bold text-white">
+                                Website:
+                            </span>
+                            https://cyber-tutorials.com
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
